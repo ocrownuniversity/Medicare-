@@ -48,6 +48,9 @@ textarea.fi{resize:vertical;min-height:75px}
 .btnP{width:100%;padding:13px;background:var(--P);color:#fff;border:none;border-radius:var(--rs);
   font-size:.98rem;font-weight:600;cursor:pointer;transition:background .2s}
 .btnP:hover{background:var(--PD)}
+.btnA{width:100%;padding:13px;background:var(--A);color:#fff;border:none;border-radius:var(--rs);
+  font-size:.98rem;font-weight:600;cursor:pointer;transition:background .2s;margin-top:10px}
+.btnA:hover{background:#008a64}
 
 /* APP */
 #appScreen{display:none;flex-direction:column;min-height:100vh}
@@ -59,7 +62,7 @@ textarea.fi{resize:vertical;min-height:75px}
 .hbg{background:none;border:none;color:#fff;font-size:1.25rem;cursor:pointer;padding:8px}
 .atitle{font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;flex:1}
 .uchip{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.15);
-  border-radius:24px;padding:4px 12px 4px 4px;font-size:.78rem}
+  border-radius:24px;padding:4px 12px 4px 4px;font-size:.78rem;cursor:pointer}
 .uchip .av{width:27px;height:27px;background:#fff;border-radius:50%;
   display:flex;align-items:center;justify-content:center}
 .uchip .av i{color:var(--P);font-size:.75rem}
@@ -85,8 +88,6 @@ textarea.fi{resize:vertical;min-height:75px}
 
 /* MAIN */
 #mainContent{flex:1;padding:15px;overflow-y:auto}
-
-/* MODULES */
 .mod{display:none;animation:fi .28s ease}
 @keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 .mhdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
@@ -96,13 +97,14 @@ textarea.fi{resize:vertical;min-height:75px}
 /* STAT CARDS */
 .sgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:16px}
 .sc{background:var(--sur);border-radius:var(--r);padding:15px;box-shadow:var(--sh)}
-.scard{background:var(--sur);border-radius:var(--r);padding:15px;
-  box-shadow:var(--sh);display:flex;flex-direction:column;gap:5px}
+.sc-mb{background:var(--sur);border-radius:var(--r);padding:15px;box-shadow:var(--sh);margin-bottom:14px}
+.scard{background:var(--sur);border-radius:var(--r);padding:15px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:5px}
 .iw{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem}
 .sv2{font-size:1.45rem;font-weight:700;font-family:'Sora',sans-serif}
 .sl{font-size:.75rem;color:var(--mu);font-weight:500}
 .ib{background:var(--PL);color:var(--P)}.ig{background:var(--AL);color:var(--A)}
 .io{background:#fff3e0;color:#f57c00}.ir{background:#fce8e8;color:var(--D)}
+.ip{background:#f3e5f5;color:#7b1fa2}
 
 /* INFO CARD */
 .icard{background:var(--sur);border:1px solid var(--brd);border-radius:var(--rs);
@@ -122,32 +124,48 @@ textarea.fi{resize:vertical;min-height:75px}
 /* BADGES */
 .badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:.7rem;font-weight:600;text-transform:uppercase}
 .bg-ok{background:#e6f7ef;color:#1a7a4a}.bg-no{background:#fce8e8;color:var(--D)}
-.bg-warn{background:#fff8e1;color:#7a5e00}
-.role-admin{background:#ede7f6;color:#5e35b1}
-.role-doctor{background:var(--PL);color:var(--P)}
-.role-nurse{background:#e8f5e9;color:#388e3c}
-.role-receptionist{background:#fff3e0;color:#ef6c00}
-.role-lab-technician{background:#e0f7fa;color:#00838f}
-.role-pharmacist{background:#fce4ec;color:#c2185b}
-.st-paid{background:#e6f7ef;color:#1a7a4a}
-.st-unpaid{background:#fce8e8;color:var(--D)}
+.bg-warn{background:#fff8e1;color:#7a5e00}.bg-info{background:var(--PL);color:var(--P)}
+.role-admin{background:#ede7f6;color:#5e35b1}.role-doctor{background:var(--PL);color:var(--P)}
+.role-nurse{background:#e8f5e9;color:#388e3c}.role-receptionist{background:#fff3e0;color:#ef6c00}
+.role-lab-technician{background:#e0f7fa;color:#00838f}.role-pharmacist{background:#fce4ec;color:#c2185b}
+.st-paid{background:#e6f7ef;color:#1a7a4a}.st-unpaid{background:#fce8e8;color:var(--D)}
 .st-partially-paid{background:#fff8e1;color:#7a5e00}
-.pid{background:var(--PL);color:var(--P);font-size:.73rem;font-weight:700;
-  padding:2px 7px;border-radius:5px;font-family:monospace}
+.ap-scheduled{background:var(--PL);color:var(--P)}.ap-completed{background:#e6f7ef;color:#1a7a4a}
+.ap-cancelled{background:#fce8e8;color:var(--D)}
+.pid{background:var(--PL);color:var(--P);font-size:.73rem;font-weight:700;padding:2px 7px;border-radius:5px;font-family:monospace}
 
 /* BUTTONS */
 .bsm{padding:8px 14px;font-size:.82rem;font-weight:600;border:none;border-radius:var(--rs);
   cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.17s}
 .bsm.primary{background:var(--P);color:#fff}.bsm.primary:hover{background:var(--PD)}
-.bsm.success{background:var(--A);color:#fff}
+.bsm.success{background:var(--A);color:#fff}.bsm.success:hover{background:#008a64}
+.bsm.danger{background:var(--D);color:#fff}
 .bsm.outline{background:transparent;border:2px solid var(--P);color:var(--P)}
-.btn-ic{background:none;border:none;cursor:pointer;color:var(--P);font-size:.95rem;
-  padding:5px;border-radius:5px;transition:background .17s}
+.bsm.outline-d{background:transparent;border:2px solid var(--D);color:var(--D)}
+.btn-ic{background:none;border:none;cursor:pointer;color:var(--P);font-size:.95rem;padding:5px;border-radius:5px;transition:background .17s}
 .btn-ic:hover{background:var(--PL)}
 .btn-ic.danger{color:var(--D)}.btn-ic.danger:hover{background:#fce8e8}
 
 /* FORMS */
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.dv{border:none;border-top:1px solid var(--brd);margin:14px 0}
+
+/* VITALS GRID */
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.vcard{background:var(--bg);border-radius:var(--rs);padding:12px;text-align:center}
+.vval{font-size:1.3rem;font-weight:700;font-family:'Sora',sans-serif;color:var(--P)}
+.vlbl{font-size:.72rem;color:var(--mu);margin-top:2px}
+.vnorm{color:var(--A)}.vwarn{color:var(--W)}.valert{color:var(--D)}
+
+/* PROFILE */
+.profile-avatar{width:80px;height:80px;border-radius:50%;background:var(--P);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:2rem;color:#fff}
+.profile-name{text-align:center;font-size:1.2rem;font-weight:700}
+.profile-role{text-align:center;color:var(--mu);font-size:.85rem;margin-bottom:16px}
+.profile-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pi{background:var(--bg);border-radius:var(--rs);padding:10px}
+.pi span{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.4px;color:var(--mu);margin-bottom:2px}
+.pi strong{font-size:.88rem}
 
 /* MODAL */
 .movl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:300;
@@ -178,12 +196,10 @@ textarea.fi{resize:vertical;min-height:75px}
 /* BILLING */
 .birow{display:flex;align-items:center;gap:7px;padding:7px 0;border-bottom:1px dashed var(--brd);font-size:.86rem}
 .btotal{text-align:right;padding-top:8px;font-size:.93rem}
-.dv{border:none;border-top:1px solid var(--brd);margin:14px 0}
 
 /* MESSAGING */
 .thread-item{display:flex;align-items:center;gap:12px;padding:13px 14px;
-  background:var(--sur);border:1px solid var(--brd);border-radius:var(--rs);
-  margin-bottom:8px;cursor:pointer;transition:background .18s}
+  background:var(--sur);border:1px solid var(--brd);border-radius:var(--rs);margin-bottom:8px;cursor:pointer;transition:background .18s}
 .thread-item:hover{background:var(--PL);border-color:var(--P)}
 .tav{width:42px;height:42px;border-radius:50%;background:var(--P);color:#fff;
   display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;flex-shrink:0}
@@ -191,20 +207,14 @@ textarea.fi{resize:vertical;min-height:75px}
 .tname{font-weight:600;font-size:.9rem}
 .tlast{font-size:.78rem;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
 .chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 145px)}
-.chat-hdr{display:flex;align-items:center;background:var(--P);color:#fff;
-  padding:11px 13px;border-radius:var(--rs) var(--rs) 0 0;flex-shrink:0}
+.chat-hdr{display:flex;align-items:center;background:var(--P);color:#fff;padding:11px 13px;border-radius:var(--rs) var(--rs) 0 0;flex-shrink:0}
 .chat-hdr .btn-ic{color:#fff}.chat-hdr .btn-ic:hover{background:rgba(255,255,255,.2)}
-.chat-box{flex:1;overflow-y:auto;padding:14px;background:var(--bg);
-  display:flex;flex-direction:column;gap:10px;min-height:0}
-.chat-foot{display:flex;gap:8px;padding:10px;background:var(--sur);
-  border-top:1px solid var(--brd);flex-shrink:0;border-radius:0 0 var(--rs) var(--rs)}
-.mwrap{display:flex}
-.mwrap.mine{justify-content:flex-end}
-.mwrap.theirs{justify-content:flex-start}
+.chat-box{flex:1;overflow-y:auto;padding:14px;background:var(--bg);display:flex;flex-direction:column;gap:10px;min-height:0}
+.chat-foot{display:flex;gap:8px;padding:10px;background:var(--sur);border-top:1px solid var(--brd);flex-shrink:0;border-radius:0 0 var(--rs) var(--rs)}
+.mwrap{display:flex}.mwrap.mine{justify-content:flex-end}.mwrap.theirs{justify-content:flex-start}
 .mbub{max-width:78%;padding:10px 13px;border-radius:16px;font-size:.88rem;line-height:1.45}
 .mme{background:var(--P);color:#fff;border-bottom-right-radius:4px}
-.mthem{background:#fff;border:1px solid var(--brd);color:var(--tx);
-  border-bottom-left-radius:4px;box-shadow:var(--sh)}
+.mthem{background:#fff;border:1px solid var(--brd);color:var(--tx);border-bottom-left-radius:4px;box-shadow:var(--sh)}
 .mname{font-size:.72rem;font-weight:700;color:var(--P);margin-bottom:3px}
 .mme .mname{color:rgba(255,255,255,.8)}
 .mtime{font-size:.68rem;opacity:.6;margin-top:4px;text-align:right}
@@ -216,7 +226,6 @@ textarea.fi{resize:vertical;min-height:75px}
 .muted{color:var(--mu);font-size:.82rem}
 .en{color:var(--mu);font-size:.83rem;text-align:center;padding:16px}
 .flex{display:flex;gap:8px;align-items:center}
-.sc-mb{background:var(--sur);border-radius:var(--r);padding:15px;box-shadow:var(--sh);margin-bottom:14px}
 
 /* TOAST */
 #toasts{position:fixed;bottom:20px;right:14px;z-index:9999;display:flex;flex-direction:column;gap:7px}
@@ -234,6 +243,8 @@ textarea.fi{resize:vertical;min-height:75px}
   .modal{border-radius:20px;margin:auto;max-height:85vh}
   .movl{align-items:center}
   .sgrid{grid-template-columns:repeat(4,1fr)}
+  .vgrid{grid-template-columns:repeat(4,1fr)}
+  .profile-info-grid{grid-template-columns:repeat(3,1fr)}
 }
 </style>
 </head>
@@ -260,70 +271,77 @@ textarea.fi{resize:vertical;min-height:75px}
 
 <!-- APP -->
 <div id="appScreen">
-  <!-- TOPBAR -->
   <div class="topbar">
     <button class="hbg" onclick="toggleSB()"><i class="fa fa-bars"></i></button>
     <span class="atitle"><i class="fa fa-circle-h" style="margin-right:5px"></i>MediCore HMS</span>
-    <div class="uchip">
+    <div class="uchip" onclick="showMod('profile')">
       <div class="av"><i class="fa fa-user-nurse"></i></div>
       <span id="staffRole" style="color:#fff;font-weight:600;font-size:.78rem"></span>
     </div>
     <button class="logoutB" onclick="doLogout()" title="Logout"><i class="fa fa-right-from-bracket"></i></button>
   </div>
 
-  <!-- SIDEBAR -->
   <nav id="sidebar">
     <div class="nl">Main</div>
-    <div class="ni active" data-mod="dashboard" onclick="showMod('dashboard')">
-      <i class="fa fa-gauge-high"></i> Dashboard</div>
-    <div class="nl">Modules</div>
-    <div class="ni" data-mod="patients" onclick="showMod('patients')">
-      <i class="fa fa-users"></i> Patients</div>
-    <div class="ni" data-mod="doctor" onclick="showMod('doctor')">
-      <i class="fa fa-stethoscope"></i> Doctor Console</div>
-    <div class="ni" data-mod="lab" onclick="showMod('lab')">
-      <i class="fa fa-flask"></i> Laboratory</div>
-    <div class="ni" data-mod="pharmacy" onclick="showMod('pharmacy')">
-      <i class="fa fa-pills"></i> Pharmacy</div>
-    <div class="ni" data-mod="billing" onclick="showMod('billing')">
-      <i class="fa fa-file-invoice-dollar"></i> Billing</div>
+    <div class="ni active" data-mod="dashboard" onclick="showMod('dashboard')"><i class="fa fa-gauge-high"></i> Dashboard</div>
+    <div class="nl">Clinical</div>
+    <div class="ni" data-mod="appointments" onclick="showMod('appointments')"><i class="fa fa-calendar-check"></i> Appointments</div>
+    <div class="ni" data-mod="patients" onclick="showMod('patients')"><i class="fa fa-users"></i> Patients</div>
+    <div class="ni" data-mod="vitals" onclick="showMod('vitals')"><i class="fa fa-heart-pulse"></i> Vital Signs</div>
+    <div class="ni" data-mod="doctor" onclick="showMod('doctor')"><i class="fa fa-stethoscope"></i> Doctor Console</div>
+    <div class="ni" data-mod="lab" onclick="showMod('lab')"><i class="fa fa-flask"></i> Laboratory</div>
+    <div class="ni" data-mod="pharmacy" onclick="showMod('pharmacy')"><i class="fa fa-pills"></i> Pharmacy</div>
+    <div class="nl">Finance</div>
+    <div class="ni" data-mod="billing" onclick="showMod('billing')"><i class="fa fa-file-invoice-dollar"></i> Billing</div>
+    <div class="ni" data-mod="invoices" onclick="showMod('invoices')"><i class="fa fa-receipt"></i> Invoice History</div>
+    <div class="nl">Staff</div>
     <div class="ni" data-mod="messages" onclick="showMod('messages')" style="position:relative">
       <i class="fa fa-comments"></i> Messages
       <span id="msgBadge" class="nbadge">0</span>
     </div>
-    <div class="ni" data-mod="admin" onclick="showMod('admin')">
-      <i class="fa fa-user-shield"></i> Admin</div>
+    <div class="ni" data-mod="profile" onclick="showMod('profile')"><i class="fa fa-circle-user"></i> My Profile</div>
+    <div class="ni" data-mod="admin" onclick="showMod('admin')"><i class="fa fa-user-shield"></i> Admin</div>
   </nav>
   <div class="sov" onclick="closeSB()"></div>
 
-  <!-- CONTENT -->
   <div id="mainContent">
 
     <!-- DASHBOARD -->
     <div id="mod-dashboard" class="mod" style="display:block">
       <div class="mhdr">
-        <div><h2>Welcome, <span id="staffName">—</span></h2>
-        <p class="muted">Today's overview</p></div>
+        <div><h2>Welcome, <span id="staffName">—</span></h2><p class="muted">Today's overview</p></div>
       </div>
       <div class="sgrid">
-        <div class="scard"><div class="iw ib"><i class="fa fa-users"></i></div>
-          <div class="sv2" id="dPat">—</div><div class="sl">Total Patients</div></div>
-        <div class="scard"><div class="iw ig"><i class="fa fa-naira-sign"></i></div>
-          <div class="sv2" id="dRev">—</div><div class="sl">Revenue Today</div></div>
-        <div class="scard"><div class="iw io"><i class="fa fa-pills"></i></div>
-          <div class="sv2" id="dRx">—</div><div class="sl">Pending Rx</div></div>
-        <div class="scard"><div class="iw ir"><i class="fa fa-flask"></i></div>
-          <div class="sv2" id="dLab">—</div><div class="sl">Pending Labs</div></div>
+        <div class="scard"><div class="iw ib"><i class="fa fa-users"></i></div><div class="sv2" id="dPat">—</div><div class="sl">Total Patients</div></div>
+        <div class="scard"><div class="iw ig"><i class="fa fa-naira-sign"></i></div><div class="sv2" id="dRev">—</div><div class="sl">Revenue Today</div></div>
+        <div class="scard"><div class="iw io"><i class="fa fa-calendar-check"></i></div><div class="sv2" id="dApt">—</div><div class="sl">Appointments Today</div></div>
+        <div class="scard"><div class="iw ir"><i class="fa fa-flask"></i></div><div class="sv2" id="dLab">—</div><div class="sl">Pending Labs</div></div>
       </div>
       <div class="sc">
         <h3 style="font-size:.92rem;margin-bottom:10px"><i class="fa fa-bolt" style="color:var(--P)"></i> Quick Actions</h3>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
           <button class="bsm primary" onclick="showMod('patients');openModal('regModal')"><i class="fa fa-user-plus"></i> New Patient</button>
+          <button class="bsm outline" onclick="showMod('appointments');openModal('apptModal')"><i class="fa fa-calendar-plus"></i> New Appointment</button>
           <button class="bsm outline" onclick="showMod('billing');openModal('billModal')"><i class="fa fa-file-invoice"></i> New Bill</button>
           <button class="bsm outline" onclick="showMod('messages')"><i class="fa fa-comments"></i> Messages</button>
-          <button class="bsm outline" onclick="showMod('admin')"><i class="fa fa-user-shield"></i> Admin Panel</button>
         </div>
       </div>
+    </div>
+
+    <!-- APPOINTMENTS -->
+    <div id="mod-appointments" class="mod">
+      <div class="mhdr">
+        <h2><i class="fa fa-calendar-check" style="color:var(--P)"></i> Appointments</h2>
+        <button class="bsm primary" onclick="openModal('apptModal')"><i class="fa fa-plus"></i> New</button>
+      </div>
+      <div class="sc-mb" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <input type="date" id="apptDateFilter" class="fi" style="flex:1;min-width:140px" onchange="loadAppts()"/>
+        <select id="apptStatusFilter" class="fsel" style="flex:1;min-width:120px" onchange="loadAppts()">
+          <option value="">All Status</option>
+          <option>Scheduled</option><option>Completed</option><option>Cancelled</option>
+        </select>
+      </div>
+      <div id="apptList"><div class="cr"><i class="fa fa-spinner fa-spin"></i></div></div>
     </div>
 
     <!-- PATIENTS -->
@@ -339,6 +357,41 @@ textarea.fi{resize:vertical;min-height:75px}
           <thead><tr><th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Phone</th><th></th></tr></thead>
           <tbody id="patBody"><tr><td colspan="6" class="cr"><i class="fa fa-spinner fa-spin"></i></td></tr></tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- VITAL SIGNS -->
+    <div id="mod-vitals" class="mod">
+      <div class="mhdr">
+        <h2><i class="fa fa-heart-pulse" style="color:var(--D)"></i> Vital Signs</h2>
+      </div>
+      <div class="sc-mb">
+        <div class="sbar"><i class="fa fa-search"></i>
+          <input id="vitSearch" class="fi" placeholder="Search patient by name or ID…" oninput="vitSearchPat()"/></div>
+        <div id="vitPatList"></div>
+      </div>
+      <div id="vitForm" style="display:none">
+        <div class="sc-mb">
+          <h4 class="ssub">📊 Record Vitals for: <span id="vitPatName" style="color:var(--P)"></span></h4>
+          <div class="frow">
+            <div class="fg"><label class="fl">Blood Pressure</label><input id="vBP" class="fi" placeholder="e.g. 120/80 mmHg"/></div>
+            <div class="fg"><label class="fl">Temperature</label><input id="vTemp" class="fi" placeholder="e.g. 36.6 °C"/></div>
+          </div>
+          <div class="frow">
+            <div class="fg"><label class="fl">Pulse Rate</label><input id="vPulse" class="fi" placeholder="e.g. 72 bpm"/></div>
+            <div class="fg"><label class="fl">Weight</label><input id="vWeight" class="fi" placeholder="e.g. 70 kg"/></div>
+          </div>
+          <div class="frow">
+            <div class="fg"><label class="fl">Height</label><input id="vHeight" class="fi" placeholder="e.g. 170 cm"/></div>
+            <div class="fg"><label class="fl">Oxygen Saturation</label><input id="vO2" class="fi" placeholder="e.g. 98%"/></div>
+          </div>
+          <div class="fg"><label class="fl">Notes</label><textarea id="vNotes" class="fi" placeholder="Additional observations…"></textarea></div>
+          <button class="btnP" onclick="saveVitals()"><i class="fa fa-save"></i> Save Vitals</button>
+        </div>
+        <div class="sc-mb">
+          <h4 class="ssub">📈 Recent Vitals History</h4>
+          <div id="vitHistory"><div class="cr"><i class="fa fa-spinner fa-spin"></i></div></div>
+        </div>
       </div>
     </div>
 
@@ -383,7 +436,6 @@ textarea.fi{resize:vertical;min-height:75px}
         <h2><i class="fa fa-flask" style="color:var(--P)"></i> Laboratory</h2>
         <button class="bsm outline" onclick="loadLabQ()"><i class="fa fa-rotate"></i> Refresh</button>
       </div>
-      <p class="muted" style="margin-bottom:12px">Pending test requests from doctors</p>
       <div id="labQ"><div class="cr"><i class="fa fa-spinner fa-spin"></i></div></div>
     </div>
 
@@ -394,8 +446,7 @@ textarea.fi{resize:vertical;min-height:75px}
         <button class="bsm outline" onclick="loadRx()"><i class="fa fa-rotate"></i> Refresh</button>
       </div>
       <div class="sc-mb">
-        <h4 class="ssub">Pending Prescriptions</h4>
-        <div id="pharmRx"></div>
+        <h4 class="ssub">Pending Prescriptions</h4><div id="pharmRx"></div>
       </div>
       <div class="sc-mb">
         <h4 class="ssub">📦 Drug Stock</h4>
@@ -422,16 +473,29 @@ textarea.fi{resize:vertical;min-height:75px}
       </div>
     </div>
 
+    <!-- INVOICE HISTORY -->
+    <div id="mod-invoices" class="mod">
+      <div class="mhdr">
+        <h2><i class="fa fa-receipt" style="color:var(--P)"></i> Invoice History</h2>
+      </div>
+      <div class="sc-mb">
+        <div class="sbar"><i class="fa fa-search"></i>
+          <input id="invSearch" class="fi" placeholder="Search by Patient ID…" oninput="searchInvoices()"/></div>
+      </div>
+      <div id="invResults"><div class="en">Enter a Patient ID above to view their invoice history</div></div>
+      <div id="invSummary" style="display:none" class="sc-mb">
+        <h4 class="ssub">Patient Summary</h4>
+        <div id="invSummaryContent"></div>
+      </div>
+    </div>
+
     <!-- MESSAGES -->
     <div id="mod-messages" class="mod">
       <div class="mhdr">
         <h2><i class="fa fa-comments" style="color:var(--P)"></i> Staff Messages</h2>
-        <button class="bsm primary" onclick="openModal('newMsgModal');loadMsgStaff()">
-          <i class="fa fa-plus"></i> New Message</button>
+        <button class="bsm primary" onclick="openModal('newMsgModal');loadMsgStaff()"><i class="fa fa-plus"></i> New Message</button>
       </div>
-      <!-- Thread list -->
       <div id="threadList"></div>
-      <!-- Chat view -->
       <div id="chatView" style="display:none">
         <div class="chat-wrap">
           <div class="chat-hdr">
@@ -448,6 +512,39 @@ textarea.fi{resize:vertical;min-height:75px}
       </div>
     </div>
 
+    <!-- MY PROFILE -->
+    <div id="mod-profile" class="mod">
+      <div class="mhdr"><h2><i class="fa fa-circle-user" style="color:var(--P)"></i> My Profile</h2></div>
+      <div class="sc-mb" style="text-align:center;padding:24px">
+        <div class="profile-avatar"><i class="fa fa-user-nurse"></i></div>
+        <div class="profile-name" id="profName">—</div>
+        <div class="profile-role"><span id="profRoleBadge" class="badge" style="font-size:.82rem"></span></div>
+      </div>
+      <div class="sc-mb">
+        <h4 class="ssub">Account Details</h4>
+        <div class="profile-info-grid">
+          <div class="pi"><span>Email</span><strong id="profEmail">—</strong></div>
+          <div class="pi"><span>Role</span><strong id="profRole">—</strong></div>
+          <div class="pi"><span>Department</span><strong id="profDept">—</strong></div>
+          <div class="pi"><span>Status</span><strong id="profStatus">—</strong></div>
+          <div class="pi"><span>Member Since</span><strong id="profDate">—</strong></div>
+        </div>
+      </div>
+      <div class="sc-mb">
+        <h4 class="ssub">✏️ Update Display Name</h4>
+        <div class="fg"><label class="fl">Full Name</label><input id="profNameInput" class="fi" placeholder="Your full name"/></div>
+        <div class="fg"><label class="fl">Department</label><input id="profDeptInput" class="fi" placeholder="Your department"/></div>
+        <button class="bsm primary" onclick="updateProfile()"><i class="fa fa-save"></i> Save Changes</button>
+      </div>
+      <div class="sc-mb">
+        <h4 class="ssub">🔒 Change Password</h4>
+        <div class="fg"><label class="fl">New Password</label><input id="newPass1" type="password" class="fi" placeholder="New password (min 6 chars)"/></div>
+        <div class="fg"><label class="fl">Confirm Password</label><input id="newPass2" type="password" class="fi" placeholder="Confirm new password"/></div>
+        <button class="bsm outline-d" onclick="changePass()"><i class="fa fa-lock"></i> Change Password</button>
+        <p class="muted mt8">You will be logged out after changing your password.</p>
+      </div>
+    </div>
+
     <!-- ADMIN -->
     <div id="mod-admin" class="mod">
       <div class="mhdr">
@@ -455,14 +552,10 @@ textarea.fi{resize:vertical;min-height:75px}
         <button class="bsm primary" onclick="openModal('staffModal')"><i class="fa fa-user-plus"></i> Add Staff</button>
       </div>
       <div class="sgrid" style="grid-template-columns:1fr 1fr">
-        <div class="scard"><div class="iw ib"><i class="fa fa-users"></i></div>
-          <div class="sv2" id="aTP">—</div><div class="sl">Total Patients</div></div>
-        <div class="scard"><div class="iw ig"><i class="fa fa-naira-sign"></i></div>
-          <div class="sv2" id="aRev">—</div><div class="sl">Revenue Today</div></div>
-        <div class="scard"><div class="iw io"><i class="fa fa-calendar-day"></i></div>
-          <div class="sv2" id="aTodP">—</div><div class="sl">New Today</div></div>
-        <div class="scard"><div class="iw ir"><i class="fa fa-id-badge"></i></div>
-          <div class="sv2" id="aStaff">—</div><div class="sl">Staff Count</div></div>
+        <div class="scard"><div class="iw ib"><i class="fa fa-users"></i></div><div class="sv2" id="aTP">—</div><div class="sl">Total Patients</div></div>
+        <div class="scard"><div class="iw ig"><i class="fa fa-naira-sign"></i></div><div class="sv2" id="aRev">—</div><div class="sl">Revenue Today</div></div>
+        <div class="scard"><div class="iw io"><i class="fa fa-calendar-day"></i></div><div class="sv2" id="aTodP">—</div><div class="sl">New Today</div></div>
+        <div class="scard"><div class="iw ir"><i class="fa fa-id-badge"></i></div><div class="sv2" id="aStaff">—</div><div class="sl">Staff Count</div></div>
       </div>
       <div class="sc-mb">
         <h4 class="ssub">💰 Today's Revenue by Payment</h4>
@@ -531,6 +624,30 @@ textarea.fi{resize:vertical;min-height:75px}
   </div>
 </div>
 
+<!-- New Appointment -->
+<div id="apptModal" class="movl">
+  <div class="modal">
+    <div class="mhd"><h3><i class="fa fa-calendar-plus" style="color:var(--P)"></i> Book Appointment</h3>
+      <button class="mcls" onclick="closeModal('apptModal')">✕</button></div>
+    <div class="fg"><label class="fl">Patient ID *</label><input id="apPid" class="fi" placeholder="e.g. PAT-XXXXX"/></div>
+    <div class="fg"><label class="fl">Patient Name *</label><input id="apPname" class="fi" placeholder="Patient full name"/></div>
+    <div class="frow">
+      <div class="fg"><label class="fl">Date *</label><input id="apDate" type="date" class="fi"/></div>
+      <div class="fg"><label class="fl">Time *</label><input id="apTime" type="time" class="fi"/></div>
+    </div>
+    <div class="fg"><label class="fl">Doctor *</label>
+      <select id="apDoctor" class="fsel"><option value="">Select doctor…</option></select></div>
+    <div class="fg"><label class="fl">Appointment Type</label>
+      <select id="apType" class="fsel">
+        <option>General Consultation</option><option>Follow-up</option><option>Lab Review</option>
+        <option>Specialist Consultation</option><option>Procedure</option><option>Emergency</option>
+      </select></div>
+    <div class="fg"><label class="fl">Notes</label>
+      <textarea id="apNotes" class="fi" placeholder="Reason for visit…"></textarea></div>
+    <button class="btnP" onclick="bookAppt()"><i class="fa fa-calendar-check"></i> Book Appointment</button>
+  </div>
+</div>
+
 <!-- New Bill -->
 <div id="billModal" class="movl">
   <div class="modal">
@@ -550,7 +667,7 @@ textarea.fi{resize:vertical;min-height:75px}
       <div class="fg"><label class="fl">Status</label>
         <select id="bStat" class="fsel"><option>Paid</option><option>Unpaid</option><option>Partially Paid</option></select></div>
     </div>
-    <button class="btnP" onclick="genBill()"><i class="fa fa-print"></i> Generate & Print Receipt</button>
+    <button class="btnP" onclick="genBill()"><i class="fa fa-print"></i> Generate &amp; Print Receipt</button>
   </div>
 </div>
 
@@ -590,7 +707,8 @@ textarea.fi{resize:vertical;min-height:75px}
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword }
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged,
+         createUserWithEmailAndPassword, updatePassword, EmailAuthProvider, reauthenticateWithCredential }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, updateDoc,
          query, where, orderBy, limit, serverTimestamp, onSnapshot }
@@ -609,7 +727,7 @@ const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
 
-// ── HELPERS ──────────────────────────────────────────────────────────────────
+// ── HELPERS ───────────────────────────────────────────────────────────────────
 const ge  = id => document.getElementById(id);
 const gv  = id => (ge(id)||{value:""}).value.trim();
 const sv  = (id,v) => { const e=ge(id); if(e) e.textContent=v; };
@@ -620,21 +738,27 @@ const fmt = ts => {
   const d = ts.toDate ? ts.toDate() : new Date(ts);
   return d.toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
 };
+const fmtDate = ts => {
+  if(!ts) return "—";
+  const d = ts.toDate ? ts.toDate() : new Date(ts);
+  return d.toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"});
+};
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
-let CU = null, SP = null;
+let CU=null, SP=null;
 let docPid="", docFid="";
-let billItems = [];
-let activeChatId = null, allStaff = [], msgUnsub = null;
+let vitPid="", vitPname="";
+let billItems=[];
+let activeChatId=null, allStaff=[], msgUnsub=null;
 
 // ── AUTH ──────────────────────────────────────────────────────────────────────
 onAuthStateChanged(auth, async user => {
   if(user){
     const s = await getDoc(doc(db,"staff",user.uid));
     if(s.exists()){
-      SP = s.data(); CU = user;
-      ge("appScreen").style.display = "flex";
-      ge("loginScreen").style.display = "none";
+      SP=s.data(); CU=user;
+      ge("appScreen").style.display="flex";
+      ge("loginScreen").style.display="none";
       initApp();
     } else {
       toast("Staff profile not found. Contact Admin.","error");
@@ -642,13 +766,13 @@ onAuthStateChanged(auth, async user => {
     }
   } else {
     CU=null; SP=null;
-    ge("loginScreen").style.display = "flex";
-    ge("appScreen").style.display = "none";
+    ge("loginScreen").style.display="flex";
+    ge("appScreen").style.display="none";
   }
 });
 
 window.doLogin = async () => {
-  const e=gv("loginEmail"), p=gv("loginPass"), b=ge("loginBtn");
+  const e=gv("loginEmail"),p=gv("loginPass"),b=ge("loginBtn");
   if(!e||!p){ toast("Enter email and password","error"); return; }
   b.disabled=true; b.innerHTML='<i class="fa fa-spinner fa-spin"></i> Signing in…';
   try{ await signInWithEmailAndPassword(auth,e,p); }
@@ -657,19 +781,18 @@ window.doLogin = async () => {
 window.doLogout = async () => { await signOut(auth); toast("Logged out","success"); };
 
 function initApp(){
-  sv("staffName", SP.name);
-  sv("staffRole", SP.role);
-  // Role permissions
+  sv("staffName",SP.name);
+  sv("staffRole",SP.role);
   const perms = {
-    "Admin":          ["dashboard","patients","doctor","lab","pharmacy","billing","messages","admin"],
-    "Doctor":         ["dashboard","patients","doctor","messages"],
-    "Nurse":          ["dashboard","patients","messages"],
-    "Receptionist":   ["dashboard","patients","billing","messages"],
-    "Lab Technician": ["dashboard","lab","messages"],
-    "Pharmacist":     ["dashboard","pharmacy","messages"]
+    "Admin":          ["dashboard","appointments","patients","vitals","doctor","lab","pharmacy","billing","invoices","messages","profile","admin"],
+    "Doctor":         ["dashboard","appointments","patients","vitals","doctor","messages","profile"],
+    "Nurse":          ["dashboard","patients","vitals","messages","profile"],
+    "Receptionist":   ["dashboard","appointments","patients","billing","invoices","messages","profile"],
+    "Lab Technician": ["dashboard","lab","messages","profile"],
+    "Pharmacist":     ["dashboard","pharmacy","messages","profile"]
   };
-  const allowed = perms[SP.role] || ["dashboard","messages"];
-  document.querySelectorAll(".ni").forEach(n => {
+  const allowed = perms[SP.role]||["dashboard","messages","profile"];
+  document.querySelectorAll(".ni").forEach(n=>{
     n.style.display = allowed.includes(n.dataset.mod) ? "flex" : "none";
   });
   showMod("dashboard");
@@ -679,73 +802,103 @@ function initApp(){
 
 // ── NAVIGATION ────────────────────────────────────────────────────────────────
 window.showMod = mod => {
-  document.querySelectorAll(".mod").forEach(m => m.style.display="none");
-  const el = ge("mod-"+mod);
-  if(el) el.style.display = "block";
-  document.querySelectorAll(".ni").forEach(n => n.classList.toggle("active", n.dataset.mod===mod));
+  document.querySelectorAll(".mod").forEach(m=>m.style.display="none");
+  const el=ge("mod-"+mod); if(el) el.style.display="block";
+  document.querySelectorAll(".ni").forEach(n=>n.classList.toggle("active",n.dataset.mod===mod));
   ge("sidebar").classList.remove("open");
-  if(mod==="patients")  searchPats();
-  if(mod==="lab")       loadLabQ();
-  if(mod==="pharmacy"){ loadRx(); loadStock(); }
-  if(mod==="billing")   loadBillHist();
-  if(mod==="messages")  loadThreads();
-  if(mod==="admin"){    loadAdminStats(); loadStaff(); }
-  if(mod==="dashboard") loadDashCards();
+  if(mod==="appointments") loadAppts();
+  if(mod==="patients")     searchPats();
+  if(mod==="vitals")       { ge("vitForm").style.display="none"; ge("vitPatList").innerHTML=""; }
+  if(mod==="lab")          loadLabQ();
+  if(mod==="pharmacy")     { loadRx(); loadStock(); }
+  if(mod==="billing")      loadBillHist();
+  if(mod==="invoices")     { ge("invResults").innerHTML='<div class="en">Enter a Patient ID above to search</div>'; ge("invSearch").value=""; ge("invSummary").style.display="none"; }
+  if(mod==="messages")     loadThreads();
+  if(mod==="profile")      loadProfile();
+  if(mod==="admin")        { loadAdminStats(); loadStaff(); }
+  if(mod==="dashboard")    loadDashCards();
 };
-window.toggleSB = () => ge("sidebar").classList.toggle("open");
-window.closeSB  = () => ge("sidebar").classList.remove("open");
-window.openModal  = id => ge(id).style.display = "flex";
-window.closeModal = id => ge(id).style.display = "none";
+window.toggleSB  = () => ge("sidebar").classList.toggle("open");
+window.closeSB   = () => ge("sidebar").classList.remove("open");
+window.openModal = id  => ge(id).style.display="flex";
+window.closeModal= id  => ge(id).style.display="none";
 
-// ── DASHBOARD ──────────────────────────────────────────────────────────────────
+// ── DASHBOARD ─────────────────────────────────────────────────────────────────
 async function loadDashCards(){
-  const [ps,bs,rxs,ls] = await Promise.all([
+  const [ps,bs,as,ls] = await Promise.all([
     getDocs(collection(db,"patients")),
     getDocs(query(collection(db,"bills"),where("date","==",today()))),
-    getDocs(query(collection(db,"prescriptions"),where("dispensed","==",false))),
+    getDocs(query(collection(db,"appointments"),where("date","==",today()),where("status","==","Scheduled"))),
     getDocs(query(collection(db,"labRequests"),where("status","==","Pending")))
   ]);
-  sv("dPat", ps.size);
+  sv("dPat",ps.size);
   sv("dRev","₦"+bs.docs.filter(d=>d.data().status==="Paid").reduce((a,d)=>a+d.data().total,0).toLocaleString());
-  sv("dRx", rxs.size);
-  sv("dLab", ls.size);
+  sv("dApt",as.size);
+  sv("dLab",ls.size);
 }
 
-// ── STAFF ──────────────────────────────────────────────────────────────────────
-window.createStaff = async () => {
-  const name=gv("sName"),email=gv("sEmail"),pass=gv("sPass"),role=gv("sRole"),dept=gv("sDept");
-  if(!name||!email||!pass||!role){ toast("Fill all required fields","error"); return; }
-  try{
-    const c = await createUserWithEmailAndPassword(auth,email,pass);
-    await setDoc(doc(db,"staff",c.user.uid),{name,email,role,dept,active:true,createdAt:serverTimestamp()});
-    toast("✅ "+name+" added as "+role,"success");
-    closeModal("staffModal");
-    ge("sName").value=""; ge("sEmail").value=""; ge("sPass").value=""; ge("sRole").value=""; ge("sDept").value="";
-    loadStaff();
-  } catch(err){ toast(err.message,"error"); }
+// ── APPOINTMENTS ──────────────────────────────────────────────────────────────
+async function loadDoctorDropdown(){
+  const s=await getDocs(query(collection(db,"staff"),where("role","==","Doctor")));
+  const sel=ge("apDoctor"); if(!sel) return;
+  sel.innerHTML='<option value="">Select doctor…</option>'+
+    s.docs.map(d=>`<option value="${d.data().name}">${d.data().name}</option>`).join("");
+}
+
+window.loadAppts = async () => {
+  const el=ge("apptList"); if(!el) return;
+  el.innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
+  const dateF=gv("apptDateFilter");
+  const statF=gv("apptStatusFilter");
+  let q2=collection(db,"appointments");
+  const snap=await getDocs(query(q2,orderBy("date","desc"),orderBy("time","asc")));
+  let rows=snap.docs.map(d=>({id:d.id,...d.data()}));
+  if(dateF) rows=rows.filter(r=>r.date===dateF);
+  if(statF) rows=rows.filter(r=>r.status===statF);
+  if(!rows.length){ el.innerHTML='<div class="en">No appointments found</div>'; return; }
+  el.innerHTML=rows.map(a=>`
+    <div class="icard">
+      <div class="crow">
+        <span><b>${a.patientName}</b> <span class="pid">${a.patientId}</span></span>
+        <span class="badge ap-${a.status.toLowerCase()}">${a.status}</span>
+      </div>
+      <div style="font-size:.83rem;color:var(--mu);margin:4px 0">
+        <i class="fa fa-calendar"></i> ${a.date} &nbsp;
+        <i class="fa fa-clock"></i> ${a.time} &nbsp;
+        <i class="fa fa-stethoscope"></i> Dr.${a.doctor}
+      </div>
+      <div style="font-size:.82rem"><b>Type:</b> ${a.type} ${a.notes?'— '+a.notes:''}</div>
+      <div class="flex mt8" style="flex-wrap:wrap;gap:6px">
+        ${a.status==="Scheduled"?`
+          <button class="bsm success" onclick="updateApptStatus('${a.id}','Completed')"><i class="fa fa-check"></i> Complete</button>
+          <button class="bsm danger" onclick="updateApptStatus('${a.id}','Cancelled')"><i class="fa fa-times"></i> Cancel</button>
+        `:""}
+      </div>
+    </div>`).join("");
 };
 
-window.loadStaff = async () => {
-  const el = ge("staffBody"); if(!el) return;
-  el.innerHTML='<tr><td colspan="5" class="cr"><i class="fa fa-spinner fa-spin"></i></td></tr>';
-  const s = await getDocs(collection(db,"staff"));
-  if(s.empty){ el.innerHTML='<tr><td colspan="5" class="cr">No staff found</td></tr>'; return; }
-  el.innerHTML = s.docs.map(d => {
-    const r=d.data();
-    return `<tr>
-      <td>${r.name}</td>
-      <td style="font-size:.78rem">${r.email}</td>
-      <td><span class="badge role-${r.role.toLowerCase().replace(/\s/g,"-")}">${r.role}</span></td>
-      <td>${r.dept||"—"}</td>
-      <td><span class="badge ${r.active?"bg-ok":"bg-no"}">${r.active?"Active":"Inactive"}</span></td>
-    </tr>`;
-  }).join("");
+window.bookAppt = async () => {
+  const pid=gv("apPid"),pname=gv("apPname"),date=gv("apDate"),time=gv("apTime"),doctor=gv("apDoctor"),type=gv("apType"),notes=gv("apNotes");
+  if(!pid||!pname||!date||!time||!doctor){ toast("Fill all required fields","error"); return; }
+  await addDoc(collection(db,"appointments"),{
+    patientId:pid,patientName:pname,date,time,doctor,type,notes,
+    status:"Scheduled",bookedBy:SP.name,createdAt:serverTimestamp()
+  });
+  toast("Appointment booked!","success");
+  closeModal("apptModal");
+  ge("apPid").value=""; ge("apPname").value=""; ge("apDate").value=""; ge("apTime").value=""; ge("apNotes").value="";
+  loadAppts(); loadDashCards();
 };
 
-// ── PATIENTS ───────────────────────────────────────────────────────────────────
+window.updateApptStatus = async (id,status) => {
+  await updateDoc(doc(db,"appointments",id),{status,updatedBy:SP.name,updatedAt:serverTimestamp()});
+  toast("Appointment "+status.toLowerCase(),"success"); loadAppts();
+};
+
+// ── PATIENTS ──────────────────────────────────────────────────────────────────
 window.regPat = async () => {
-  const pid = uid("PAT");
-  const d = {
+  const pid=uid("PAT");
+  const d={
     patientId:pid, name:gv("pName"), age:gv("pAge"), gender:gv("pGender"),
     phone:gv("pPhone"), address:gv("pAddr"), emergency:gv("pEmg"),
     history:gv("pHist"), registeredBy:SP.name, createdAt:serverTimestamp()
@@ -757,14 +910,14 @@ window.regPat = async () => {
 };
 
 window.searchPats = async () => {
-  const q = gv("patSearch").toLowerCase();
-  const el = ge("patBody"); if(!el) return;
+  const q=gv("patSearch").toLowerCase();
+  const el=ge("patBody"); if(!el) return;
   el.innerHTML='<tr><td colspan="6" class="cr"><i class="fa fa-spinner fa-spin"></i></td></tr>';
-  const s = await getDocs(collection(db,"patients"));
-  let rows = s.docs.map(d=>({id:d.id,...d.data()}));
-  if(q) rows = rows.filter(r=>r.name.toLowerCase().includes(q)||r.patientId.toLowerCase().includes(q));
+  const s=await getDocs(collection(db,"patients"));
+  let rows=s.docs.map(d=>({id:d.id,...d.data()}));
+  if(q) rows=rows.filter(r=>r.name.toLowerCase().includes(q)||r.patientId.toLowerCase().includes(q));
   if(!rows.length){ el.innerHTML='<tr><td colspan="6" class="cr">No patients found</td></tr>'; return; }
-  el.innerHTML = rows.map(p=>`<tr>
+  el.innerHTML=rows.map(p=>`<tr>
     <td><span class="pid">${p.patientId}</span></td>
     <td>${p.name}</td><td>${p.age}</td><td>${p.gender}</td><td>${p.phone}</td>
     <td><button class="btn-ic" onclick="viewPat('${p.id}')"><i class="fa fa-eye"></i></button></td>
@@ -772,13 +925,24 @@ window.searchPats = async () => {
 };
 
 window.viewPat = async fid => {
-  const s = await getDoc(doc(db,"patients",fid)); const p=s.data();
-  const [rx,lb] = await Promise.all([
+  const s=await getDoc(doc(db,"patients",fid)); const p=s.data();
+  const [rx,lb,vt]=await Promise.all([
     getDocs(query(collection(db,"prescriptions"),where("patientId","==",p.patientId))),
-    getDocs(query(collection(db,"labResults"),where("patientId","==",p.patientId)))
+    getDocs(query(collection(db,"labResults"),where("patientId","==",p.patientId))),
+    getDocs(query(collection(db,"vitals"),where("patientId","==",p.patientId),orderBy("createdAt","desc"),limit(1)))
   ]);
-  const rxH = rx.docs.map(d=>{const r=d.data();return`<div class="icard"><b>${r.drug}</b> — ${r.dosage}<br><small class="muted">Dr.${r.prescribedBy} · ${fmt(r.createdAt)}</small></div>`;}).join("")||"<p class='en'>No prescriptions</p>";
-  const lbH = lb.docs.map(d=>{const r=d.data();return`<div class="icard"><b>${r.testName}</b><br>${r.results||"Pending"}<br><small class="muted">${fmt(r.createdAt)}</small></div>`;}).join("")||"<p class='en'>No lab results</p>";
+  const latestV = vt.docs.length ? vt.docs[0].data() : null;
+  const vitHtml = latestV ? `
+    <div class="vgrid" style="grid-template-columns:1fr 1fr 1fr">
+      <div class="vcard"><div class="vval">${latestV.bp||"—"}</div><div class="vlbl">Blood Pressure</div></div>
+      <div class="vcard"><div class="vval">${latestV.temp||"—"}</div><div class="vlbl">Temperature</div></div>
+      <div class="vcard"><div class="vval">${latestV.pulse||"—"}</div><div class="vlbl">Pulse</div></div>
+      <div class="vcard"><div class="vval">${latestV.weight||"—"}</div><div class="vlbl">Weight</div></div>
+      <div class="vcard"><div class="vval">${latestV.o2||"—"}</div><div class="vlbl">SpO₂</div></div>
+      <div class="vcard"><div class="vval">${latestV.height||"—"}</div><div class="vlbl">Height</div></div>
+    </div>` : "<p class='en'>No vitals recorded</p>";
+  const rxH=rx.docs.map(d=>{const r=d.data();return`<div class="icard"><b>${r.drug}</b> — ${r.dosage}<br><small class="muted">Dr.${r.prescribedBy} · ${fmt(r.createdAt)}</small></div>`;}).join("")||"<p class='en'>No prescriptions</p>";
+  const lbH=lb.docs.map(d=>{const r=d.data();return`<div class="icard"><b>${r.testName}</b><br>${r.results||"Pending"}<br><small class="muted">${fmt(r.createdAt)}</small></div>`;}).join("")||"<p class='en'>No lab results</p>";
   ge("patDetailContent").innerHTML=`
     <div class="dgrid">
       <div class="di"><span>Patient ID</span><strong>${p.patientId}</strong></div>
@@ -790,28 +954,84 @@ window.viewPat = async fid => {
       <div class="di"><span>Emergency</span><strong>${p.emergency||"—"}</strong></div>
       <div class="di full"><span>Medical History</span><strong>${p.history||"None"}</strong></div>
     </div>
+    <h4 class="ssub">❤️ Latest Vitals</h4>${vitHtml}
     <h4 class="ssub">💊 Prescriptions</h4>${rxH}
     <h4 class="ssub">🔬 Lab Results</h4>${lbH}`;
   openModal("patDetailModal");
 };
 
-// ── DOCTOR ─────────────────────────────────────────────────────────────────────
+// ── VITAL SIGNS ───────────────────────────────────────────────────────────────
+window.vitSearchPat = async () => {
+  const q=gv("vitSearch").toLowerCase(); const el=ge("vitPatList");
+  if(!q){ el.innerHTML=""; ge("vitForm").style.display="none"; return; }
+  const s=await getDocs(collection(db,"patients"));
+  const rows=s.docs.map(d=>({id:d.id,...d.data()})).filter(r=>r.name.toLowerCase().includes(q)||r.patientId.toLowerCase().includes(q));
+  el.innerHTML=rows.map(p=>`<div class="sri" onclick="selectVitPat('${p.patientId}','${p.name}')">
+    <i class="fa fa-user-injured"></i><strong>${p.name}</strong> — <small>${p.patientId}</small></div>`
+  ).join("")||"<div class='en'>No patients found</div>";
+};
+
+window.selectVitPat = async (pid,name) => {
+  vitPid=pid; vitPname=name;
+  ge("vitPatList").innerHTML="";
+  ge("vitSearch").value=name+" ("+pid+")";
+  ge("vitPatName").textContent=name;
+  ge("vitForm").style.display="block";
+  loadVitHistory();
+};
+
+window.saveVitals = async () => {
+  if(!vitPid){ toast("Select a patient first","error"); return; }
+  const bp=gv("vBP"),temp=gv("vTemp"),pulse=gv("vPulse"),weight=gv("vWeight"),height=gv("vHeight"),o2=gv("vO2"),notes=gv("vNotes");
+  if(!bp&&!temp&&!pulse){ toast("Enter at least BP, Temperature or Pulse","error"); return; }
+  await addDoc(collection(db,"vitals"),{
+    patientId:vitPid,patientName:vitPname,bp,temp,pulse,weight,height,o2,notes,
+    recordedBy:SP.name,createdAt:serverTimestamp()
+  });
+  toast("Vitals saved for "+vitPname,"success");
+  ge("vBP").value=""; ge("vTemp").value=""; ge("vPulse").value="";
+  ge("vWeight").value=""; ge("vHeight").value=""; ge("vO2").value=""; ge("vNotes").value="";
+  loadVitHistory();
+};
+
+async function loadVitHistory(){
+  const el=ge("vitHistory"); if(!el) return;
+  el.innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
+  const s=await getDocs(query(collection(db,"vitals"),where("patientId","==",vitPid),orderBy("createdAt","desc"),limit(10)));
+  if(s.empty){ el.innerHTML='<div class="en">No vitals recorded yet</div>'; return; }
+  el.innerHTML=s.docs.map(d=>{
+    const v=d.data();
+    return`<div class="icard">
+      <div class="crow"><span style="font-weight:600;font-size:.85rem">${fmt(v.createdAt)}</span><small class="muted">${v.recordedBy}</small></div>
+      <div class="vgrid" style="margin-top:8px;gap:8px">
+        ${v.bp?`<div class="vcard"><div class="vval" style="font-size:1rem">${v.bp}</div><div class="vlbl">BP</div></div>`:""}
+        ${v.temp?`<div class="vcard"><div class="vval" style="font-size:1rem">${v.temp}</div><div class="vlbl">Temp</div></div>`:""}
+        ${v.pulse?`<div class="vcard"><div class="vval" style="font-size:1rem">${v.pulse}</div><div class="vlbl">Pulse</div></div>`:""}
+        ${v.weight?`<div class="vcard"><div class="vval" style="font-size:1rem">${v.weight}</div><div class="vlbl">Weight</div></div>`:""}
+        ${v.height?`<div class="vcard"><div class="vval" style="font-size:1rem">${v.height}</div><div class="vlbl">Height</div></div>`:""}
+        ${v.o2?`<div class="vcard"><div class="vval" style="font-size:1rem">${v.o2}</div><div class="vlbl">SpO₂</div></div>`:""}
+      </div>
+      ${v.notes?`<p style="font-size:.82rem;color:var(--mu);margin-top:6px">${v.notes}</p>`:""}
+    </div>`;
+  }).join("");
+}
+
+// ── DOCTOR ────────────────────────────────────────────────────────────────────
 window.docSearchPat = async () => {
   const q=gv("docSearch").toLowerCase(); const el=ge("docList");
   if(!q){ el.innerHTML=""; return; }
-  const s = await getDocs(collection(db,"patients"));
-  const rows = s.docs.map(d=>({id:d.id,...d.data()})).filter(r=>r.name.toLowerCase().includes(q)||r.patientId.toLowerCase().includes(q));
-  el.innerHTML = rows.map(p=>`<div class="sri" onclick="loadDocPat('${p.id}','${p.patientId}','${p.name}')">
-    <i class="fa fa-user-injured"></i> <strong>${p.name}</strong> — <small>${p.patientId}</small></div>`
-  ).join("") || "<div class='en'>No patients found</div>";
+  const s=await getDocs(collection(db,"patients"));
+  const rows=s.docs.map(d=>({id:d.id,...d.data()})).filter(r=>r.name.toLowerCase().includes(q)||r.patientId.toLowerCase().includes(q));
+  el.innerHTML=rows.map(p=>`<div class="sri" onclick="loadDocPat('${p.id}','${p.patientId}','${p.name}')">
+    <i class="fa fa-user-injured"></i><strong>${p.name}</strong> — <small>${p.patientId}</small></div>`
+  ).join("")||"<div class='en'>No patients found</div>";
 };
 
 window.loadDocPat = async (fid,pid,name) => {
   docPid=pid; docFid=fid;
-  ge("docList").innerHTML="";
-  ge("docSearch").value=name+" ("+pid+")";
+  ge("docList").innerHTML=""; ge("docSearch").value=name+" ("+pid+")";
   ge("docActions").style.display="block";
-  const [rx,lb] = await Promise.all([
+  const [rx,lb]=await Promise.all([
     getDocs(query(collection(db,"prescriptions"),where("patientId","==",pid))),
     getDocs(query(collection(db,"labRequests"),where("patientId","==",pid)))
   ]);
@@ -839,7 +1059,7 @@ window.reqLab = async () => {
   loadDocPat(docFid,docPid,ge("docSearch").value.split(" (")[0]);
 };
 
-// ── LAB ────────────────────────────────────────────────────────────────────────
+// ── LAB ───────────────────────────────────────────────────────────────────────
 window.loadLabQ = async () => {
   const el=ge("labQ"); if(!el) return;
   el.innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
@@ -859,7 +1079,7 @@ window.uploadResult = async (id,pid,test) => {
   toast("Result uploaded","success"); loadLabQ();
 };
 
-// ── PHARMACY ───────────────────────────────────────────────────────────────────
+// ── PHARMACY ──────────────────────────────────────────────────────────────────
 window.loadRx = async () => {
   const el=ge("pharmRx"); if(!el) return;
   el.innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
@@ -892,7 +1112,7 @@ window.loadStock = async () => {
     s.docs.map(d=>`<tr><td>${d.data().name}</td><td>${d.data().qty}</td></tr>`).join("")+`</tbody></table>`;
 };
 
-// ── BILLING ────────────────────────────────────────────────────────────────────
+// ── BILLING ───────────────────────────────────────────────────────────────────
 window.addBillItem = () => {
   const desc=gv("bDesc"),amt=parseFloat(gv("bAmt"));
   if(!desc||isNaN(amt)){ toast("Enter description and amount","error"); return; }
@@ -951,7 +1171,51 @@ window.loadBillHist = async () => {
   </tr>`;}).join("");
 };
 
-// ── ADMIN ──────────────────────────────────────────────────────────────────────
+// ── INVOICE HISTORY ───────────────────────────────────────────────────────────
+window.searchInvoices = async () => {
+  const pid=gv("invSearch").toUpperCase();
+  const el=ge("invResults");
+  if(pid.length<3){ el.innerHTML='<div class="en">Enter at least 3 characters of Patient ID</div>'; ge("invSummary").style.display="none"; return; }
+  el.innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
+  const s=await getDocs(query(collection(db,"bills"),where("patientId",">=",pid),where("patientId","<=",pid+"\uf8ff"),orderBy("patientId"),orderBy("createdAt","desc")));
+  if(s.empty){ el.innerHTML='<div class="en">No invoices found for this Patient ID</div>'; ge("invSummary").style.display="none"; return; }
+  const bills=s.docs.map(d=>({id:d.id,...d.data()}));
+  const totalPaid=bills.filter(b=>b.status==="Paid").reduce((a,b)=>a+b.total,0);
+  const totalUnpaid=bills.filter(b=>b.status!=="Paid").reduce((a,b)=>a+b.total,0);
+  // Summary
+  ge("invSummary").style.display="block";
+  ge("invSummaryContent").innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px">
+      <div style="background:var(--bg);border-radius:9px;padding:11px;text-align:center">
+        <div style="font-weight:700;font-size:1.1rem;color:var(--tx)">${bills.length}</div>
+        <div style="font-size:.72rem;color:var(--mu)">Total Bills</div>
+      </div>
+      <div style="background:#e6f7ef;border-radius:9px;padding:11px;text-align:center">
+        <div style="font-weight:700;font-size:1rem;color:#1a7a4a">₦${totalPaid.toLocaleString()}</div>
+        <div style="font-size:.72rem;color:#1a7a4a">Paid</div>
+      </div>
+      <div style="background:#fce8e8;border-radius:9px;padding:11px;text-align:center">
+        <div style="font-weight:700;font-size:1rem;color:var(--D)">₦${totalUnpaid.toLocaleString()}</div>
+        <div style="font-size:.72rem;color:var(--D)">Outstanding</div>
+      </div>
+    </div>`;
+  el.innerHTML=bills.map(b=>`
+    <div class="icard">
+      <div class="crow">
+        <span class="pid">${b.receiptNo}</span>
+        <span class="badge st-${b.status.toLowerCase().replace(/\s/g,"-")}">${b.status}</span>
+      </div>
+      <div style="font-size:.83rem;margin:5px 0">
+        <b>Total:</b> ₦${b.total.toLocaleString()} &nbsp;|&nbsp; <b>Method:</b> ${b.method} &nbsp;|&nbsp; <b>Date:</b> ${b.date}
+      </div>
+      <div style="font-size:.8rem;color:var(--mu)">${b.items.map(i=>i.desc+"(₦"+i.amount.toLocaleString()+")").join(", ")}</div>
+      <button class="bsm outline mt8" onclick="reprintBill(${JSON.stringify(b).replace(/"/g,"&quot;")})"><i class="fa fa-print"></i> Reprint</button>
+    </div>`).join("");
+};
+
+window.reprintBill = b => printReceipt(b);
+
+// ── ADMIN ─────────────────────────────────────────────────────────────────────
 window.loadAdminStats = async () => {
   const td=today();
   const [ps,bs,ss]=await Promise.all([
@@ -969,7 +1233,76 @@ window.loadAdminStats = async () => {
   sv("aCash","₦"+cash.toLocaleString()); sv("aPOS","₦"+pos.toLocaleString()); sv("aTrf","₦"+trf.toLocaleString());
 };
 
-// ── MESSAGING ──────────────────────────────────────────────────────────────────
+window.createStaff = async () => {
+  const name=gv("sName"),email=gv("sEmail"),pass=gv("sPass"),role=gv("sRole"),dept=gv("sDept");
+  if(!name||!email||!pass||!role){ toast("Fill all required fields","error"); return; }
+  try{
+    const c=await createUserWithEmailAndPassword(auth,email,pass);
+    await setDoc(doc(db,"staff",c.user.uid),{name,email,role,dept,active:true,createdAt:serverTimestamp()});
+    toast("✅ "+name+" added as "+role,"success");
+    closeModal("staffModal");
+    ge("sName").value=""; ge("sEmail").value=""; ge("sPass").value=""; ge("sRole").value=""; ge("sDept").value="";
+    loadStaff();
+  }catch(err){ toast(err.message,"error"); }
+};
+
+window.loadStaff = async () => {
+  const el=ge("staffBody"); if(!el) return;
+  el.innerHTML='<tr><td colspan="5" class="cr"><i class="fa fa-spinner fa-spin"></i></td></tr>';
+  const s=await getDocs(collection(db,"staff"));
+  if(s.empty){ el.innerHTML='<tr><td colspan="5" class="cr">No staff found</td></tr>'; return; }
+  el.innerHTML=s.docs.map(d=>{const r=d.data();return`<tr>
+    <td>${r.name}</td><td style="font-size:.78rem">${r.email}</td>
+    <td><span class="badge role-${r.role.toLowerCase().replace(/\s/g,"-")}">${r.role}</span></td>
+    <td>${r.dept||"—"}</td>
+    <td><span class="badge ${r.active?"bg-ok":"bg-no"}">${r.active?"Active":"Inactive"}</span></td>
+  </tr>`;}).join("");
+};
+
+// ── PROFILE ───────────────────────────────────────────────────────────────────
+function loadProfile(){
+  if(!SP) return;
+  sv("profName",SP.name);
+  sv("profRole",SP.role);
+  sv("profEmail",SP.email||CU.email||"—");
+  sv("profRole2",SP.role);
+  sv("profDept",SP.dept||"—");
+  sv("profStatus",SP.active?"Active":"Inactive");
+  sv("profDate",SP.createdAt?fmtDate(SP.createdAt):"—");
+  const badge=ge("profRoleBadge");
+  if(badge){ badge.textContent=SP.role; badge.className=`badge role-${SP.role.toLowerCase().replace(/\s/g,"-")}`; }
+  ge("profNameInput").value=SP.name||"";
+  ge("profDeptInput").value=SP.dept||"";
+}
+// fix: sv("profRole2") — id doesn't exist, handled by profRole
+window.updateProfile = async () => {
+  const name=gv("profNameInput"), dept=gv("profDeptInput");
+  if(!name){ toast("Name cannot be empty","error"); return; }
+  await updateDoc(doc(db,"staff",CU.uid),{name,dept});
+  SP.name=name; SP.dept=dept;
+  toast("Profile updated!","success");
+  sv("staffName",name); sv("staffRole",SP.role);
+  loadProfile();
+};
+
+window.changePass = async () => {
+  const p1=gv("newPass1"), p2=gv("newPass2");
+  if(!p1||!p2){ toast("Enter and confirm new password","error"); return; }
+  if(p1!==p2){ toast("Passwords do not match","error"); return; }
+  if(p1.length<6){ toast("Password must be at least 6 characters","error"); return; }
+  try{
+    await updatePassword(CU,p1);
+    toast("Password changed! Logging out…","success");
+    ge("newPass1").value=""; ge("newPass2").value="";
+    setTimeout(()=>signOut(auth),2000);
+  }catch(err){
+    if(err.code==="auth/requires-recent-login"){
+      toast("Please log out and log back in, then change your password","error");
+    } else { toast(err.message,"error"); }
+  }
+};
+
+// ── MESSAGING ─────────────────────────────────────────────────────────────────
 window.loadMsgStaff = async () => {
   const s=await getDocs(collection(db,"staff"));
   allStaff=s.docs.map(d=>({uid:d.id,...d.data()})).filter(d=>d.uid!==CU.uid);
@@ -979,12 +1312,9 @@ window.loadMsgStaff = async () => {
 };
 
 window.startChat = async () => {
-  const uid2=gv("msgTo");
-  const s2=allStaff.find(s=>s.uid===uid2);
+  const uid2=gv("msgTo"), s2=allStaff.find(s=>s.uid===uid2);
   if(!uid2||!s2){ toast("Select a staff member","error"); return; }
-  closeModal("newMsgModal");
-  showMod("messages");
-  openChat(uid2,s2.name);
+  closeModal("newMsgModal"); showMod("messages"); openChat(uid2,s2.name);
 };
 
 window.loadThreads = async () => {
@@ -997,15 +1327,11 @@ window.loadThreads = async () => {
     el.innerHTML=`<div class="sc" style="text-align:center;padding:30px">
       <i class="fa fa-comments" style="font-size:2.5rem;color:var(--PL);margin-bottom:12px;display:block"></i>
       <p style="font-weight:600">No conversations yet</p>
-      <p class="muted mt4">Tap <b>+ New Message</b> above to start chatting with a staff member</p>
-    </div>`;
+      <p class="muted mt4">Tap <b>+ New Message</b> to start chatting</p></div>`;
     return;
   }
-  // Sort by lastAt
   const threads=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>{
-    const at=a.lastAt?.toDate?.()?.getTime()||0;
-    const bt=b.lastAt?.toDate?.()?.getTime()||0;
-    return bt-at;
+    return (b.lastAt?.toDate?.()?.getTime()||0)-(a.lastAt?.toDate?.()?.getTime()||0);
   });
   el.innerHTML=threads.map(c=>{
     const otherId=c.members.find(m=>m!==CU.uid);
@@ -1013,59 +1339,47 @@ window.loadThreads = async () => {
     const initials=otherName.split(" ").map(n=>n[0]).join("").slice(0,2).toUpperCase();
     return`<div class="thread-item" onclick="openChat('${otherId}','${otherName}')">
       <div class="tav">${initials}</div>
-      <div class="tinfo">
-        <div class="tname">${otherName}</div>
-        <div class="tlast">${c.lastMsg||"Tap to start chatting…"}</div>
-      </div>
+      <div class="tinfo"><div class="tname">${otherName}</div>
+      <div class="tlast">${c.lastMsg||"Tap to chat…"}</div></div>
       <i class="fa fa-chevron-right" style="color:var(--mu);font-size:.8rem"></i>
     </div>`;
   }).join("");
 };
 
-window.openChat = async (otherId, otherName) => {
-  const ids=[CU.uid, otherId].sort();
+window.openChat = async (otherId,otherName) => {
+  const ids=[CU.uid,otherId].sort();
   activeChatId=ids[0]+"_"+ids[1];
   const chatRef=doc(db,"chats",activeChatId);
   const snap=await getDoc(chatRef);
   if(!snap.exists()){
-    await setDoc(chatRef,{
-      members:ids,
-      memberNames:{[CU.uid]:SP.name,[otherId]:otherName},
-      lastMsg:"",lastAt:serverTimestamp(),createdAt:serverTimestamp()
-    });
+    await setDoc(chatRef,{members:ids,memberNames:{[CU.uid]:SP.name,[otherId]:otherName},lastMsg:"",lastAt:serverTimestamp(),createdAt:serverTimestamp()});
   }
   ge("chatWith").textContent="💬 "+otherName;
   ge("chatBox").innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
   ge("threadList").style.display="none";
   ge("chatView").style.display="block";
   if(msgUnsub) msgUnsub();
-  msgUnsub=onSnapshot(
-    query(collection(db,"chats",activeChatId,"messages"),orderBy("createdAt","asc")),
-    snap=>{
-      const el=ge("chatBox"); if(!el) return;
-      if(snap.empty){ el.innerHTML='<div class="en">No messages yet. Say hello! 👋</div>'; return; }
-      el.innerHTML=snap.docs.map(d=>{
-        const m=d.data(), mine=m.senderId===CU.uid;
-        return`<div class="mwrap ${mine?"mine":"theirs"}">
-          <div class="mbub ${mine?"mme":"mthem"}">
-            ${!mine?`<div class="mname">${m.senderName}</div>`:""}
-            <div>${m.text}</div>
-            <div class="mtime">${fmt(m.createdAt)}</div>
-          </div>
-        </div>`;
-      }).join("");
-      el.scrollTop=el.scrollHeight;
-    }
-  );
+  msgUnsub=onSnapshot(query(collection(db,"chats",activeChatId,"messages"),orderBy("createdAt","asc")),snap=>{
+    const el=ge("chatBox"); if(!el) return;
+    if(snap.empty){ el.innerHTML='<div class="en">No messages yet. Say hello! 👋</div>'; return; }
+    el.innerHTML=snap.docs.map(d=>{
+      const m=d.data(), mine=m.senderId===CU.uid;
+      return`<div class="mwrap ${mine?"mine":"theirs"}">
+        <div class="mbub ${mine?"mme":"mthem"}">
+          ${!mine?`<div class="mname">${m.senderName}</div>`:""}
+          <div>${m.text}</div>
+          <div class="mtime">${fmt(m.createdAt)}</div>
+        </div></div>`;
+    }).join("");
+    el.scrollTop=el.scrollHeight;
+  });
 };
 
 window.sendMsg = async () => {
   const text=gv("msgInput");
   if(!text||!activeChatId){ toast("Type a message","error"); return; }
   ge("msgInput").value="";
-  await addDoc(collection(db,"chats",activeChatId,"messages"),{
-    text,senderId:CU.uid,senderName:SP.name,createdAt:serverTimestamp()
-  });
+  await addDoc(collection(db,"chats",activeChatId,"messages"),{text,senderId:CU.uid,senderName:SP.name,createdAt:serverTimestamp()});
   await updateDoc(doc(db,"chats",activeChatId),{lastMsg:text,lastAt:serverTimestamp()});
 };
 
@@ -1078,14 +1392,24 @@ window.backToThreads = () => {
 };
 
 function startUnreadBadge(){
-  onSnapshot(query(collection(db,"chats"),where("members","array-contains",CU.uid)), snap=>{
-    // Simple unread indicator — just show dot if there are any chats
+  onSnapshot(query(collection(db,"chats"),where("members","array-contains",CU.uid)),snap=>{
     const badge=ge("msgBadge");
     if(badge&&snap.size>0){ badge.style.display="flex"; badge.textContent=snap.size; }
   });
 }
 
-// ── TOAST ──────────────────────────────────────────────────────────────────────
+// ── Load doctors for appointment dropdown ─────────────────────────────────────
+window.addEventListener("DOMContentLoaded", ()=>{
+  const apptModalEl=ge("apptModal");
+  if(apptModalEl) apptModalEl.addEventListener("click", e=>{
+    if(e.target===apptModalEl) loadDoctorDropdown();
+  });
+});
+// Also load on open
+const _openModal=window.openModal;
+window.openModal = id => { _openModal(id); if(id==="apptModal") loadDoctorDropdown(); };
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
 window.toast = (msg,type="success") => {
   const t=document.createElement("div");
   t.className=`toast t-${type}`;
