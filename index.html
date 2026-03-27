@@ -12,7 +12,7 @@
   import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
   import { getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, updateDoc,
-           query, where, orderBy, limit, serverTimestamp }
+           query, where, orderBy, limit, serverTimestamp, onSnapshot }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -40,7 +40,7 @@
   onAuthStateChanged(auth, async user=>{
     if(user){
       const s = await getDoc(doc(db,"staff",user.uid));
-      if(s.exists()){ staffProfile=s.data(); currentUser=user; showApp(); renderDashboard(); }
+      if(s.exists()){ staffProfile=s.data(); currentUser=user; showApp(); renderDashboard(); startUnreadListener(); }
       else { toast("Staff profile not found. Contact Admin.","error"); await signOut(auth); }
     } else { currentUser=null; staffProfile=null; showLogin(); }
   });
@@ -318,7 +318,7 @@
       Doctor       :["dashboard","patients","doctor"],
       Nurse        :["dashboard","patients"],
       Receptionist :["dashboard","patients","billing"],
-      "Lab Technician":["dashboard","lab"],
+      "Lab Technician":["dashboard","lab","messages"],
       Pharmacist   :["dashboard","pharmacy"]
     };
     const ok=perms[staffProfile.role]||["dashboard"];
@@ -350,6 +350,7 @@
     if(mod==="pharmacy"){ loadRx(); loadStock(); }
     if(mod==="billing")   loadBillHistory();
     if(mod==="admin"){    loadAdminStats(); loadStaffList(); }
+    if(mod==="messages"){ loadThreads(); loadMsgStaff(); }
     if(mod==="dashboard") loadDashCards();
   };
 
@@ -377,6 +378,159 @@
   const sv  = (id,v)=>{ const el=ge(id); if(el)el.textContent=v; };
 
   function showLogin(){ ge("login").style.display="flex"; ge("app").style.display="none"; }
+
+  // ── MESSAGING ────────────────────────────────────────────────────────────
+  let msgUnsubscribe = null;
+  let activeChatId = null;
+  let allStaffList = [];
+  let unreadCount = 0;
+
+  // Load all staff for "New Message" dropdown
+  window.loadMsgStaff = async()=>{
+    const snap = await getDocs(collection(db,"staff"));
+    allStaffList = snap.docs.map(d=>({uid:d.id,...d.data()})).filter(d=>d.uid !== currentUser.uid);
+    const sel = ge("msgToSelect");
+    if(!sel) return;
+    sel.innerHTML = '<option value="">Select recipient…</option>' +
+      allStaffList.map(s=>`<option value="${s.uid}">${s.name} (${s.role})</option>`).join("");
+  };
+
+  // Open or create a chat thread between two users
+  window.openChat = async(otherUid, otherName)=>{
+    // Chat ID is always sorted so it's the same regardless of who opens it
+    const ids = [currentUser.uid, otherUid].sort();
+    const chatId = ids[0]+"_"+ids[1];
+    activeChatId = chatId;
+
+    // Ensure chat doc exists
+    const chatRef = doc(db,"chats",chatId);
+    const chatSnap = await getDoc(chatRef);
+    if(!chatSnap.exists()){
+      await setDoc(chatRef,{
+        members: ids,
+        memberNames: { [currentUser.uid]: staffProfile.name, [otherUid]: otherName },
+        lastMsg: "", lastAt: serverTimestamp(), createdAt: serverTimestamp()
+      });
+    }
+
+    ge("chatHeader").textContent = "💬 "+otherName;
+    ge("chatBox").innerHTML = '<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
+    ge("chatView").style.display = "flex";
+    ge("threadList").style.display = "none";
+
+    // Mark messages as read
+    const unread = await getDocs(query(collection(db,"chats",chatId,"messages"),
+      where("readBy","array-contains",currentUser.uid,"!=",true)));
+
+    // Real-time listener
+    if(msgUnsubscribe) msgUnsubscribe();
+    msgUnsubscribe = onSnapshot(
+      query(collection(db,"chats",chatId,"messages"), orderBy("createdAt","asc")),
+      snap => {
+        const el = ge("chatBox");
+        if(!el) return;
+        if(snap.empty){ el.innerHTML='<div class="en">No messages yet. Say hello! 👋</div>'; return; }
+        el.innerHTML = snap.docs.map(d=>{
+          const m = d.data();
+          const mine = m.senderId === currentUser.uid;
+          const time = m.createdAt ? fmt(m.createdAt) : "...";
+          return `<div class="msg-wrap ${mine?'mine':'theirs'}">
+            <div class="msg-bubble ${mine?'msg-me':'msg-them'}">
+              ${!mine?`<div class="msg-name">${m.senderName}</div>`:''}
+              <div class="msg-text">${m.text}</div>
+              <div class="msg-time">${time}</div>
+            </div>
+          </div>`;
+        }).join("");
+        el.scrollTop = el.scrollHeight;
+        // mark read
+        snap.docs.forEach(async d=>{
+          const m=d.data();
+          if(m.senderId!==currentUser.uid && !(m.readBy||[]).includes(currentUser.uid)){
+            await updateDoc(doc(db,"chats",chatId,"messages",d.id),{readBy:[...(m.readBy||[]),currentUser.uid]});
+          }
+        });
+      }
+    );
+  };
+
+  window.sendMsg = async()=>{
+    const text = gv("msgInput");
+    if(!text || !activeChatId){ toast("Type a message first","error"); return; }
+    ge("msgInput").value = "";
+    await addDoc(collection(db,"chats",activeChatId,"messages"),{
+      text, senderId: currentUser.uid, senderName: staffProfile.name,
+      readBy: [currentUser.uid], createdAt: serverTimestamp()
+    });
+    // Update last message on chat doc
+    await updateDoc(doc(db,"chats",activeChatId),{lastMsg:text, lastAt:serverTimestamp()});
+  };
+
+  window.startNewChat = async()=>{
+    const uid2 = gv("msgToSelect");
+    const staff2 = allStaffList.find(s=>s.uid===uid2);
+    if(!uid2||!staff2){ toast("Select a staff member","error"); return; }
+    closeModal("newMsgModal");
+    showMod("messages");
+    openChat(uid2, staff2.name);
+  };
+
+  window.loadThreads = async()=>{
+    const el = ge("threadList"); if(!el) return;
+    el.innerHTML = '<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
+    ge("chatView").style.display = "none";
+    ge("threadList").style.display = "block";
+
+    const snap = await getDocs(query(collection(db,"chats"),
+      where("members","array-contains",currentUser.uid),
+      orderBy("lastAt","desc")));
+
+    if(snap.empty){
+      el.innerHTML=`<div class="en">No conversations yet.<br>Tap <b>+ New Message</b> to start.</div>`;
+      return;
+    }
+    el.innerHTML = snap.docs.map(d=>{
+      const c = d.data();
+      const otherId = c.members.find(m=>m!==currentUser.uid);
+      const otherName = c.memberNames?.[otherId] || "Unknown";
+      const initials = otherName.split(" ").map(n=>n[0]).join("").slice(0,2).toUpperCase();
+      return `<div class="thread-item" onclick="openChat('${otherId}','${otherName}')">
+        <div class="thread-av">${initials}</div>
+        <div class="thread-info">
+          <div class="thread-name">${otherName}</div>
+          <div class="thread-last">${c.lastMsg||"Start chatting…"}</div>
+        </div>
+        <i class="fa fa-chevron-right" style="color:var(--muted);font-size:.8rem"></i>
+      </div>`;
+    }).join("");
+  };
+
+  window.backToThreads = ()=>{
+    if(msgUnsubscribe){ msgUnsubscribe(); msgUnsubscribe=null; }
+    activeChatId = null;
+    ge("chatView").style.display="none";
+    ge("threadList").style.display="block";
+    loadThreads();
+  };
+
+  // Listen for unread messages badge
+  function startUnreadListener(){
+    if(!currentUser) return;
+    onSnapshot(
+      query(collection(db,"chats"), where("members","array-contains",currentUser.uid)),
+      async snap => {
+        let count = 0;
+        for(const d of snap.docs){
+          const msgs = await getDocs(query(collection(db,"chats",d.id,"messages"),
+            where("senderId","!=",currentUser.uid)));
+          msgs.docs.forEach(m=>{ if(!(m.data().readBy||[]).includes(currentUser.uid)) count++; });
+        }
+        unreadCount = count;
+        const badge = ge("msgBadge");
+        if(badge){ badge.textContent=count; badge.style.display=count>0?"flex":"none"; }
+      }
+    );
+  }
   function showApp()  { ge("login").style.display="none"; ge("app").style.display="flex"; }
 </script>
 
@@ -583,6 +737,27 @@ textarea.fi{resize:vertical;min-height:75px}
   .sgrid{grid-template-columns:repeat(4,1fr)}
 }
 </style>
+/* ── MESSAGING ── */
+.thread-item{display:flex;align-items:center;gap:12px;padding:13px 14px;background:var(--sur);
+  border:1px solid var(--brd);border-radius:var(--rs);margin-bottom:8px;cursor:pointer;transition:background .18s}
+.thread-item:hover{background:var(--PL);border-color:var(--P)}
+.thread-av{width:42px;height:42px;border-radius:50%;background:var(--P);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;flex-shrink:0}
+.thread-info{flex:1;min-width:0}
+.thread-name{font-weight:600;font-size:.9rem}
+.thread-last{font-size:.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.chat-topbar{display:flex;align-items:center;background:var(--P);color:#fff;padding:10px 12px;
+  border-radius:var(--rs) var(--rs) 0 0;flex-shrink:0}
+.chat-topbar .btn-ic{color:#fff} .chat-topbar .btn-ic:hover{background:rgba(255,255,255,.2)}
+.chat-box{flex:1;overflow-y:auto;padding:14px;background:var(--bg);display:flex;flex-direction:column;gap:10px;min-height:0}
+.chat-input-row{display:flex;gap:8px;padding:10px;background:var(--sur);border-top:1px solid var(--brd);flex-shrink:0;border-radius:0 0 var(--rs) var(--rs)}
+.msg-wrap{display:flex} .msg-wrap.mine{justify-content:flex-end} .msg-wrap.theirs{justify-content:flex-start}
+.msg-bubble{max-width:78%;padding:10px 13px;border-radius:16px;font-size:.88rem;line-height:1.4}
+.msg-me{background:var(--P);color:#fff;border-bottom-right-radius:4px}
+.msg-them{background:#fff;border:1px solid var(--brd);color:var(--tx);border-bottom-left-radius:4px;box-shadow:var(--sh)}
+.msg-name{font-size:.72rem;font-weight:700;color:var(--P);margin-bottom:3px}
+.msg-me .msg-name{color:rgba(255,255,255,.8)}
+.msg-time{font-size:.68rem;opacity:.65;margin-top:4px;text-align:right}
 </head>
 <body>
 
@@ -627,6 +802,7 @@ textarea.fi{resize:vertical;min-height:75px}
     <div class="nav-item" data-mod="pharmacy"  onclick="showMod('pharmacy')"><i class="fa fa-pills"></i> Pharmacy</div>
     <div class="nav-item" data-mod="billing"   onclick="showMod('billing')"><i class="fa fa-file-invoice-dollar"></i> Billing</div>
     <div class="nav-item" data-mod="admin"     onclick="showMod('admin')"><i class="fa fa-user-shield"></i> Admin</div>
+    <div class="nav-item" data-mod="messages"  onclick="showMod('messages')"><i class="fa fa-comments"></i> Messages <span id="msgBadge" style="display:none;background:var(--D);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.65rem;font-weight:700;align-items:center;justify-content:center;margin-left:auto">0</span></div>
   </nav>
   <div class="sov" onclick="closeSB()"></div>
 
@@ -796,6 +972,33 @@ textarea.fi{resize:vertical;min-height:75px}
     </div>
 
   </div><!-- /main -->
+
+    <!-- MESSAGES -->
+    <div id="m-messages" class="msec">
+      <div class="mhdr">
+        <h2><i class="fa fa-comments" style="color:var(--P)"></i> Staff Messages</h2>
+        <button class="bsm primary" onclick="openModal('newMsgModal');loadMsgStaff()"><i class="fa fa-plus"></i> New Message</button>
+      </div>
+
+      <!-- Thread List -->
+      <div id="threadList">
+        <div class="cr"><i class="fa fa-spinner fa-spin"></i></div>
+      </div>
+
+      <!-- Chat View -->
+      <div id="chatView" style="display:none;flex-direction:column;height:calc(100vh - 140px)">
+        <div class="chat-topbar">
+          <button class="btn-ic" onclick="backToThreads()"><i class="fa fa-arrow-left"></i></button>
+          <span id="chatHeader" style="font-weight:600;font-size:.95rem;flex:1;margin-left:8px">Chat</span>
+        </div>
+        <div id="chatBox" class="chat-box"></div>
+        <div class="chat-input-row">
+          <input id="msgInput" class="fi" placeholder="Type a message…" style="flex:1" onkeydown="if(event.key==='Enter')sendMsg()"/>
+          <button class="bsm primary" onclick="sendMsg()"><i class="fa fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
+
 </div><!-- /app -->
 
 <!-- ── MODALS ── -->
@@ -873,5 +1076,17 @@ textarea.fi{resize:vertical;min-height:75px}
 </div>
 
 <div id="toasts"></div>
+<!-- New Message Modal -->
+<div id="newMsgModal" class="movl">
+  <div class="modal">
+    <div class="mhd"><h3><i class="fa fa-comment-medical" style="color:var(--P)"></i> New Message</h3><button class="mcls" onclick="closeModal('newMsgModal')">✕</button></div>
+    <div class="fg">
+      <label class="fl">Send To</label>
+      <select id="msgToSelect" class="fsel"><option value="">Loading staff…</option></select>
+    </div>
+    <button class="btnP" onclick="startNewChat()"><i class="fa fa-paper-plane"></i> Open Chat</button>
+  </div>
+</div>
+
 </body>
 </html>
