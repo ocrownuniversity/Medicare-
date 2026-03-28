@@ -460,6 +460,8 @@ const UPDATE_PERMS={
   "Pharmacist":[]
 };
 const CAN_REGISTER=["Admin","Nurse","Receptionist"];
+// Always re-read role fresh from Firestore to prevent stale role issues
+async function refreshRole(){ try{ const s=await getDoc(doc(db,"staff",CU.uid)); if(s.exists()){ const r=s.data().role; SP.role=r; sv("staffRole",r); } }catch(e){} }
 
 // ── AUTH ──────────────────────────────────────────────────────────────────────
 onAuthStateChanged(auth,async user=>{
@@ -489,6 +491,7 @@ window.doLogout=async()=>{await signOut(auth);toast("Logged out","success");};
 
 function initApp(){
   sv("staffName",SP.name);sv("staffRole",SP.role);
+  refreshRole(); // always sync role from DB
   // Show register button only for permitted roles
   if(ge("btnRegPat"))ge("btnRegPat").style.display=CAN_REGISTER.includes(SP.role)?"inline-flex":"none";
   showMod("dashboard");loadDashCards();startUnreadBadge();
@@ -513,7 +516,8 @@ window.showMod=mod=>{
 
 // ── ADMIN ACCESS CHECK ────────────────────────────────────────────────────────
 // Admin card visible to ALL staff but only Admins get in
-window.goAdmin=()=>{
+window.goAdmin=async()=>{
+  await refreshRole();
   if(SP.role==="Admin"){
     showMod("admin");
   }else{
@@ -593,11 +597,14 @@ window.searchPats=async()=>{
   if(q)rows=rows.filter(r=>(r.name||"").toLowerCase().includes(q)||(r.patientId||"").toLowerCase().includes(q));
   rows.sort((a,b)=>(a.patientId||"").localeCompare(b.patientId||""));
   if(!rows.length){el.innerHTML='<tr><td colspan="6" class="cr">No patients found</td></tr>';return;}
+  // Store patient data in a map to avoid apostrophe issues in onclick
+  window._patMap={};
+  rows.forEach(p=>{ window._patMap[p.id]=p; });
   el.innerHTML=rows.map(p=>`<tr>
     <td><span class="pid">${p.patientId||"—"}</span></td>
     <td><b>${p.name||"—"}</b></td><td>${p.age||"—"}</td><td>${p.gender||"—"}</td><td>${p.phone||"—"}</td>
     <td>
-      <button class="bsm primary" style="padding:5px 10px;font-size:.75rem" onclick="openPatRecord('${p.id}','${p.patientId}','${p.name}')">
+      <button class="bsm primary" style="padding:5px 10px;font-size:.75rem" onclick="openPatById('${p.id}')">
         <i class="fa fa-folder-open"></i> Open File
       </button>
     </td>
@@ -605,6 +612,11 @@ window.searchPats=async()=>{
 };
 
 // ── OPEN FULL PATIENT RECORD ──────────────────────────────────────────────────
+window.openPatById=async(docId)=>{
+  const p=window._patMap&&window._patMap[docId];
+  if(p) await openPatRecord(docId,p.patientId||"",p.name||"");
+  else toast("Patient not found","error");
+};
 window.openPatRecord=async(docId,patId,patName)=>{
   activePID=patId;activePDocId=docId;activePName=patName;
   ge("patRecordContent").innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i> Loading record…</div>';
@@ -615,9 +627,10 @@ window.openPatRecord=async(docId,patId,patName)=>{
 async function renderFullRecord(){
   const[patSnap,records]=await Promise.all([
     getDoc(doc(db,"patients",activePDocId)),
-    getDocs(query(collection(db,"patientRecords"),where("patientId","==",activePID),orderBy("createdAt","desc")))
+    getDocs(query(collection(db,"patientRecords"),where("patientId","==",activePID)))
   ]);
   const p=patSnap.data()||{};
+  const sortedDocs=[...records.docs].sort((a,b)=>{ const at=a.data().createdAt?.toDate?.()?.getTime()||0; const bt=b.data().createdAt?.toDate?.()?.getTime()||0; return bt-at; });
   const canUpdate=(UPDATE_PERMS[SP.role]||[]).length>0;
   const updateBtn=canUpdate?`<button class="bsm primary" style="margin-top:12px" onclick="openUpdateModal()"><i class="fa fa-plus"></i> Add to Record</button>`:"";
 
@@ -645,10 +658,10 @@ async function renderFullRecord(){
   };
 
   let timeline="";
-  if(!records.docs.length){
+  if(!sortedDocs.length){
     timeline='<div class="en" style="padding:20px">No records yet.<br><b>Use "Add to Record"</b> to start building this patient\'s file.</div>';
   }else{
-    timeline=records.docs.map(d=>{
+    timeline=sortedDocs.map(d=>{
       const r=d.data();const cls=roleClass[r.type]||"admin";
       let body="";
       if(r.type==="vitals"&&r.vitals){
