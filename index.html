@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
 <style>
-:root{--P:#0057b8;--PD:#003d82;--PL:#e8f1fb;--A:#00a878;--AL:#e6f7f3;--D:#e53935;--W:#f59e0b;--bg:#f0f4f8;--sur:#fff;--brd:#dde4ed;--tx:#1a2740;--mu:#6b7a99;--sh:0 2px 12px rgba(0,87,184,.10);--r:14px;--rs:8px;--sw:240px;}
+:root{--P:#0057b8;--PD:#003d82;--PL:#e8f1fb;--A:#00a878;--D:#e53935;--W:#f59e0b;--bg:#f0f4f8;--sur:#fff;--brd:#dde4ed;--tx:#1a2740;--mu:#6b7a99;--sh:0 2px 12px rgba(0,87,184,.10);--r:14px;--rs:8px;--sw:240px;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden}
 h1,h2,h3,h4{font-family:'Sora',sans-serif}
@@ -20,7 +20,6 @@ input,select,textarea,button{font-family:'DM Sans',sans-serif}
 .lico i{color:#fff;font-size:28px}
 .llogo h1{font-size:1.6rem;color:var(--P)}
 .llogo p{color:var(--mu);font-size:.84rem;margin-top:4px}
-.lwarn{background:#fff8e1;border:1px solid #ffc107;border-radius:var(--rs);padding:10px 12px;font-size:.8rem;color:#7a5e00;margin-bottom:18px;display:flex;gap:8px}
 .fg{margin-bottom:14px}
 .fl{display:block;font-size:.78rem;font-weight:600;color:var(--mu);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
 .fi{width:100%;padding:12px 13px;border:2px solid var(--brd);border-radius:var(--rs);font-size:.93rem;color:var(--tx);background:#fff;transition:border .2s}
@@ -28,7 +27,7 @@ input,select,textarea,button{font-family:'DM Sans',sans-serif}
 .fi.sm{padding:7px 9px;font-size:.83rem}
 .fsel{width:100%;padding:12px 13px;border:2px solid var(--brd);border-radius:var(--rs);font-size:.93rem;color:var(--tx);background:#fff;appearance:none}
 .fsel:focus{outline:none;border-color:var(--P)}
-textarea.fi{resize:vertical;min-height:75px}
+textarea.fi{resize:vertical;min-height:80px}
 .btnP{width:100%;padding:13px;background:var(--P);color:#fff;border:none;border-radius:var(--rs);font-size:.98rem;font-weight:600;cursor:pointer;transition:background .2s}
 .btnP:hover{background:var(--PD)}
 /* APP */
@@ -63,22 +62,27 @@ textarea.fi{resize:vertical;min-height:75px}
 .iw{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem}
 .sv2{font-size:1.45rem;font-weight:700;font-family:'Sora',sans-serif}
 .sl{font-size:.75rem;color:var(--mu);font-weight:500}
-.ib{background:var(--PL);color:var(--P)}.ig{background:var(--AL);color:var(--A)}.io{background:#fff3e0;color:#f57c00}.ir{background:#fce8e8;color:var(--D)}
+.ib{background:var(--PL);color:var(--P)}.ig{background:#e6f7f3;color:var(--A)}.io{background:#fff3e0;color:#f57c00}.ir{background:#fce8e8;color:var(--D)}.ip{background:#ede7f6;color:#5e35b1}
 .icard{background:var(--sur);border:1px solid var(--brd);border-radius:var(--rs);padding:13px;margin-bottom:9px;box-shadow:var(--sh)}
 .crow{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
-/* RECORD TIMELINE */
+/* TIMELINE */
 .rec-block{border-left:4px solid var(--brd);margin:0 0 14px 8px;padding:4px 0 4px 14px;position:relative}
-.rec-block.nurse{border-color:#388e3c}.rec-block.doctor{border-color:var(--P)}.rec-block.lab{border-color:#00838f}.rec-block.pharmacy{border-color:#c2185b}.rec-block.vitals{border-color:var(--D)}.rec-block.admin{border-color:#5e35b1}.rec-block.registration{border-color:var(--mu)}
+.rec-block.reg{border-color:var(--mu)}.rec-block.nurse{border-color:#388e3c}.rec-block.doctor{border-color:var(--P)}.rec-block.lab{border-color:#00838f}.rec-block.pharmacy{border-color:#c2185b}.rec-block.vitals{border-color:var(--D)}
 .rec-dot{width:11px;height:11px;border-radius:50%;position:absolute;left:-8px;top:5px}
-.dot-nurse{background:#388e3c}.dot-doctor{background:var(--P)}.dot-lab{background:#00838f}.dot-pharmacy{background:#c2185b}.dot-vitals{background:var(--D)}.dot-admin{background:#5e35b1}.dot-registration{background:var(--mu)}
+.dot-reg{background:var(--mu)}.dot-nurse{background:#388e3c}.dot-doctor{background:var(--P)}.dot-lab{background:#00838f}.dot-pharmacy{background:#c2185b}.dot-vitals{background:var(--D)}
 .rec-tag{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;display:inline-block;margin-bottom:5px}
-.tag-nurse{background:#e8f5e9;color:#388e3c}.tag-doctor{background:var(--PL);color:var(--P)}.tag-lab{background:#e0f7fa;color:#00838f}.tag-pharmacy{background:#fce4ec;color:#c2185b}.tag-vitals{background:#fce8e8;color:var(--D)}.tag-admin{background:#ede7f6;color:#5e35b1}.tag-registration{background:#f5f5f5;color:var(--mu)}.tag-labRequest{background:#e0f7fa;color:#00838f}.tag-labResult{background:#e8f5e9;color:#388e3c}.tag-nurseNote{background:#e8f5e9;color:#388e3c}.tag-diagnosis{background:var(--PL);color:var(--P)}.tag-prescription{background:#fce4ec;color:#c2185b}
+.tag-reg{background:#f5f5f5;color:var(--mu)}.tag-nurse{background:#e8f5e9;color:#388e3c}.tag-doctor{background:var(--PL);color:var(--P)}.tag-lab{background:#e0f7fa;color:#00838f}.tag-pharmacy{background:#fce4ec;color:#c2185b}.tag-vitals{background:#fce8e8;color:var(--D)}
 .rec-meta{font-size:.72rem;color:var(--mu);margin-bottom:4px}
-.rec-content{font-size:.86rem;line-height:1.6;white-space:pre-wrap}
-.vgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px}
+.rec-body{font-size:.86rem;line-height:1.6;white-space:pre-wrap}
+.vgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:6px}
 .vcard{background:var(--bg);border-radius:var(--rs);padding:9px;text-align:center}
 .vval{font-size:.95rem;font-weight:700;color:var(--P)}
 .vlbl{font-size:.68rem;color:var(--mu);margin-top:2px}
+/* ADMIN BANNER */
+.admin-banner{background:linear-gradient(135deg,#003d82,#5e35b1);border-radius:var(--r);padding:18px;box-shadow:var(--sh);color:#fff;display:flex;align-items:center;gap:14px;cursor:pointer;transition:transform .18s;margin-bottom:14px}
+.admin-banner:hover{transform:scale(1.01)}
+.admin-av{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+/* TABLE */
 .twrap{overflow-x:auto;border-radius:var(--r);background:var(--sur);box-shadow:var(--sh)}
 .dtab{width:100%;border-collapse:collapse;font-size:.83rem}
 .dtab th{background:var(--P);color:#fff;padding:10px 11px;text-align:left;font-weight:600;font-size:.76rem;text-transform:uppercase;letter-spacing:.4px}
@@ -90,10 +94,9 @@ textarea.fi{resize:vertical;min-height:75px}
 .bg-ok{background:#e6f7ef;color:#1a7a4a}.bg-no{background:#fce8e8;color:var(--D)}.bg-warn{background:#fff8e1;color:#7a5e00}
 .role-admin{background:#ede7f6;color:#5e35b1}.role-doctor{background:var(--PL);color:var(--P)}.role-nurse{background:#e8f5e9;color:#388e3c}.role-receptionist{background:#fff3e0;color:#ef6c00}.role-lab-technician{background:#e0f7fa;color:#00838f}.role-pharmacist{background:#fce4ec;color:#c2185b}
 .st-paid{background:#e6f7ef;color:#1a7a4a}.st-unpaid{background:#fce8e8;color:var(--D)}.st-partially-paid{background:#fff8e1;color:#7a5e00}
-.ap-scheduled{background:var(--PL);color:var(--P)}.ap-completed{background:#e6f7ef;color:#1a7a4a}.ap-cancelled{background:#fce8e8;color:var(--D)}
 .pid{background:var(--PL);color:var(--P);font-size:.73rem;font-weight:700;padding:2px 7px;border-radius:5px;font-family:monospace;letter-spacing:.5px}
 .bsm{padding:8px 14px;font-size:.82rem;font-weight:600;border:none;border-radius:var(--rs);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.17s}
-.bsm.primary{background:var(--P);color:#fff}.bsm.success{background:var(--A);color:#fff}.bsm.danger{background:var(--D);color:#fff}.bsm.outline{background:transparent;border:2px solid var(--P);color:var(--P)}.bsm.outline-d{background:transparent;border:2px solid var(--D);color:var(--D)}
+.bsm.primary{background:var(--P);color:#fff}.bsm.success{background:var(--A);color:#fff}.bsm.danger{background:var(--D);color:#fff}.bsm.warn{background:var(--W);color:#fff}.bsm.outline{background:transparent;border:2px solid var(--P);color:var(--P)}.bsm.outline-d{background:transparent;border:2px solid var(--D);color:var(--D)}
 .btn-ic{background:none;border:none;cursor:pointer;color:var(--P);font-size:.95rem;padding:5px;border-radius:5px;transition:background .17s}
 .btn-ic:hover{background:var(--PL)}.btn-ic.danger{color:var(--D)}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:11px}
@@ -104,29 +107,17 @@ textarea.fi{resize:vertical;min-height:75px}
 .mhd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-bottom:11px;border-bottom:1px solid var(--brd)}
 .mhd h3{font-size:1.05rem}
 .mcls{background:none;border:none;font-size:1.2rem;color:var(--mu);cursor:pointer;padding:4px 8px}
-.sbar{position:relative;margin-bottom:14px}
-.sbar input{padding-left:38px}
-.sbar i{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--mu)}
-.sri{padding:11px 13px;background:var(--sur);border:1px solid var(--brd);border-radius:var(--rs);margin-bottom:5px;cursor:pointer;font-size:.86rem;display:flex;gap:9px;align-items:center;transition:background .17s}
-.sri:hover{background:var(--PL);border-color:var(--P)}
-.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
 .di{background:var(--bg);border-radius:var(--rs);padding:9px}.di.full{grid-column:span 2}
 .di span{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.4px;color:var(--mu);margin-bottom:2px}
 .di strong{font-size:.87rem}
 .birow{display:flex;align-items:center;gap:7px;padding:7px 0;border-bottom:1px dashed var(--brd);font-size:.86rem}
 .btotal{text-align:right;padding-top:8px;font-size:.93rem}
-/* ADMIN CARD on dashboard */
-.admin-card{background:linear-gradient(135deg,#003d82,#5e35b1);border-radius:var(--r);padding:18px;box-shadow:var(--sh);color:#fff;display:flex;align-items:center;gap:14px;cursor:pointer;transition:transform .18s;margin-bottom:14px}
-.admin-card:hover{transform:scale(1.02)}
-.admin-avatar{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
-.admin-info h3{font-size:1rem;font-weight:700;margin-bottom:2px}
-.admin-info p{font-size:.8rem;opacity:.85}
-/* MESSAGING */
+/* MSG */
 .thread-item{display:flex;align-items:center;gap:12px;padding:13px 14px;background:var(--sur);border:1px solid var(--brd);border-radius:var(--rs);margin-bottom:8px;cursor:pointer;transition:background .18s}
 .thread-item:hover{background:var(--PL);border-color:var(--P)}
 .tav{width:42px;height:42px;border-radius:50%;background:var(--P);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;flex-shrink:0}
-.tinfo{flex:1;min-width:0}.tname{font-weight:600;font-size:.9rem}
-.tlast{font-size:.78rem;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.tinfo{flex:1;min-width:0}.tname{font-weight:600;font-size:.9rem}.tlast{font-size:.78rem;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
 .chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 145px)}
 .chat-hdr{display:flex;align-items:center;background:var(--P);color:#fff;padding:11px 13px;border-radius:var(--rs) var(--rs) 0 0;flex-shrink:0}
 .chat-hdr .btn-ic{color:#fff}
@@ -134,8 +125,7 @@ textarea.fi{resize:vertical;min-height:75px}
 .chat-foot{display:flex;gap:8px;padding:10px;background:var(--sur);border-top:1px solid var(--brd);flex-shrink:0;border-radius:0 0 var(--rs) var(--rs)}
 .mwrap{display:flex}.mwrap.mine{justify-content:flex-end}.mwrap.theirs{justify-content:flex-start}
 .mbub{max-width:78%;padding:10px 13px;border-radius:16px;font-size:.88rem;line-height:1.45}
-.mme{background:var(--P);color:#fff;border-bottom-right-radius:4px}
-.mthem{background:#fff;border:1px solid var(--brd);color:var(--tx);border-bottom-left-radius:4px;box-shadow:var(--sh)}
+.mme{background:var(--P);color:#fff;border-bottom-right-radius:4px}.mthem{background:#fff;border:1px solid var(--brd);color:var(--tx);border-bottom-left-radius:4px;box-shadow:var(--sh)}
 .mname{font-size:.72rem;font-weight:700;color:var(--P);margin-bottom:3px}.mme .mname{color:rgba(255,255,255,.8)}
 .mtime{font-size:.68rem;opacity:.6;margin-top:4px;text-align:right}
 .nbadge{background:var(--D);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.65rem;font-weight:700;display:none;align-items:center;justify-content:center;margin-left:auto}
@@ -146,8 +136,7 @@ textarea.fi{resize:vertical;min-height:75px}
 #toasts{position:fixed;bottom:20px;right:14px;z-index:9999;display:flex;flex-direction:column;gap:7px}
 .toast{background:#fff;border-radius:9px;padding:11px 15px;font-size:.83rem;font-weight:500;box-shadow:0 4px 20px rgba(0,0,0,.18);transform:translateX(130%);transition:transform .3s;display:flex;align-items:center;gap:9px;max-width:280px;border-left:4px solid}
 .toast.show{transform:translateX(0)}
-.t-success{border-color:var(--A)}.t-success i{color:var(--A)}
-.t-error{border-color:var(--D)}.t-error i{color:var(--D)}
+.t-ok{border-color:var(--A)}.t-ok i{color:var(--A)}.t-err{border-color:var(--D)}.t-err i{color:var(--D)}
 @media(min-width:600px){
   #sidebar{transform:translateX(0)}
   #mainContent{margin-left:var(--sw)}
@@ -163,26 +152,24 @@ textarea.fi{resize:vertical;min-height:75px}
 <div id="loginScreen">
   <div class="lcard">
     <div class="llogo"><div class="lico"><i class="fa fa-hospital-user"></i></div><h1>MediCore HMS</h1><p>Hospital Staff Management System</p></div>
-    <div class="lwarn"><i class="fa fa-lock"></i><span><b>Staff Only.</b> Authorised personnel only.</span></div>
-    <div class="fg"><label class="fl">Staff Email</label><input id="loginEmail" type="email" class="fi" placeholder="staff@hospital.org"/></div>
-    <div class="fg"><label class="fl">Password</label><input id="loginPass" type="password" class="fi" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-    <button id="loginBtn" class="btnP" onclick="doLogin()">Sign In</button>
-    <p class="muted mt16" style="text-align:center">Contact your Administrator for access</p>
+    <div style="background:#e8f1fb;border-radius:var(--rs);padding:10px 12px;font-size:.8rem;color:var(--P);margin-bottom:18px;display:flex;gap:8px"><i class="fa fa-lock"></i><span><b>Staff Only.</b> Authorised personnel use only.</span></div>
+    <div class="fg"><label class="fl">Email</label><input id="le" type="email" class="fi" placeholder="staff@hospital.org"/></div>
+    <div class="fg"><label class="fl">Password</label><input id="lp" type="password" class="fi" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+    <button id="lb" class="btnP" onclick="doLogin()"><i class="fa fa-right-to-bracket"></i> Sign In</button>
+    <p class="muted mt16" style="text-align:center">Contact Administrator for access</p>
   </div>
 </div>
-
 <!-- APP -->
 <div id="appScreen">
   <div class="topbar">
-    <button class="hbg" onclick="toggleSB()"><i class="fa fa-bars"></i></button>
+    <button class="hbg" onclick="tSB()"><i class="fa fa-bars"></i></button>
     <span class="atitle"><i class="fa fa-circle-h" style="margin-right:5px"></i>MediCore HMS</span>
     <div class="uchip" onclick="showMod('profile')">
       <div class="av"><i class="fa fa-user-nurse"></i></div>
-      <span id="staffRole" style="color:#fff;font-weight:600;font-size:.78rem"></span>
+      <span id="topRole" style="color:#fff;font-weight:600;font-size:.78rem"></span>
     </div>
     <button class="logoutB" onclick="doLogout()"><i class="fa fa-right-from-bracket"></i></button>
   </div>
-
   <nav id="sidebar">
     <div class="nl">Main</div>
     <div class="ni active" data-mod="dashboard" onclick="showMod('dashboard')"><i class="fa fa-gauge-high"></i> Dashboard</div>
@@ -195,37 +182,33 @@ textarea.fi{resize:vertical;min-height:75px}
     <div class="nl">Staff</div>
     <div class="ni" data-mod="messages" onclick="showMod('messages')" style="position:relative"><i class="fa fa-comments"></i> Messages<span id="msgBadge" class="nbadge">0</span></div>
     <div class="ni" data-mod="profile" onclick="showMod('profile')"><i class="fa fa-circle-user"></i> My Profile</div>
-    <div class="ni" data-mod="admin" onclick="goAdmin()"><i class="fa fa-user-shield"></i> Admin Panel</div>
+    <div class="ni" id="adminNav" data-mod="admin" onclick="showMod('admin')" style="display:none"><i class="fa fa-user-shield"></i> Admin Panel</div>
   </nav>
-  <div class="sov" onclick="closeSB()"></div>
-
+  <div class="sov" onclick="cSB()"></div>
   <div id="mainContent">
 
     <!-- DASHBOARD -->
     <div id="mod-dashboard" class="mod" style="display:block">
       <div class="mhdr"><div><h2>Welcome, <span id="staffName">—</span></h2><p class="muted">Today's overview</p></div></div>
       <div class="sgrid">
-        <div class="scard"><div class="iw ib"><i class="fa fa-users"></i></div><div class="sv2" id="dPat">—</div><div class="sl">Total Patients</div></div>
+        <div class="scard"><div class="iw ib"><i class="fa fa-users"></i></div><div class="sv2" id="dPat">—</div><div class="sl">Patients</div></div>
         <div class="scard"><div class="iw ig"><i class="fa fa-naira-sign"></i></div><div class="sv2" id="dRev">—</div><div class="sl">Revenue Today</div></div>
         <div class="scard"><div class="iw io"><i class="fa fa-calendar-check"></i></div><div class="sv2" id="dApt">—</div><div class="sl">Appts Today</div></div>
         <div class="scard"><div class="iw ir"><i class="fa fa-flask"></i></div><div class="sv2" id="dLab">—</div><div class="sl">Pending Labs</div></div>
       </div>
-      <!-- ADMIN CARD - visible to ALL staff, clicking checks if they are admin -->
-      <div class="admin-card" onclick="goAdmin()">
-        <div class="admin-avatar"><i class="fa fa-user-shield"></i></div>
-        <div class="admin-info">
-          <h3>Admin Panel</h3>
-          <p>Manage staff, view reports & system settings</p>
-        </div>
+      <!-- Admin banner shown only to admin -->
+      <div id="adminBanner" class="admin-banner" style="display:none" onclick="showMod('admin')">
+        <div class="admin-av"><i class="fa fa-user-shield"></i></div>
+        <div><h3 style="font-size:1rem;font-weight:700">Admin Panel</h3><p style="font-size:.8rem;opacity:.85">Manage staff, revenue & system</p></div>
         <i class="fa fa-chevron-right" style="margin-left:auto;opacity:.7"></i>
       </div>
       <div class="sc">
         <h3 style="font-size:.92rem;margin-bottom:10px"><i class="fa fa-bolt" style="color:var(--P)"></i> Quick Actions</h3>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
-          <button class="bsm primary" onclick="showMod('patients')"><i class="fa fa-users"></i> View Patients</button>
-          <button class="bsm outline" onclick="showMod('appointments');openModal('apptModal');loadDoctors()"><i class="fa fa-calendar-plus"></i> Appointment</button>
-          <button class="bsm outline" onclick="showMod('billing');openModal('billModal')"><i class="fa fa-file-invoice"></i> New Bill</button>
+          <button class="bsm primary" onclick="showMod('patients')"><i class="fa fa-users"></i> Patients</button>
           <button class="bsm outline" onclick="showMod('messages')"><i class="fa fa-comments"></i> Messages</button>
+          <button class="bsm outline" onclick="showMod('billing');openModal('billModal')"><i class="fa fa-file-invoice"></i> New Bill</button>
+          <button class="bsm outline" onclick="showMod('appointments');openModal('apptModal');loadDoctors()"><i class="fa fa-calendar-plus"></i> Appointment</button>
         </div>
       </div>
     </div>
@@ -234,40 +217,39 @@ textarea.fi{resize:vertical;min-height:75px}
     <div id="mod-patients" class="mod">
       <div class="mhdr">
         <h2><i class="fa fa-users" style="color:var(--P)"></i> Patients</h2>
-        <button class="bsm primary" id="btnRegPat" onclick="openModal('regModal')" style="display:none"><i class="fa fa-plus"></i> Register</button>
+        <button class="bsm primary" id="regBtn" onclick="openModal('regModal')" style="display:none"><i class="fa fa-plus"></i> Register</button>
       </div>
-      <div class="sbar"><i class="fa fa-search"></i><input id="patSearch" class="fi" placeholder="Search name or Patient ID…" oninput="searchPats()"/></div>
-      <div class="twrap">
-        <table class="dtab">
-          <thead><tr><th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Phone</th><th>File</th></tr></thead>
-          <tbody id="patBody"><tr><td colspan="6" class="cr"><i class="fa fa-spinner fa-spin"></i></td></tr></tbody>
-        </table>
-      </div>
+      <div style="position:relative;margin-bottom:14px"><i class="fa fa-search" style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--mu)"></i><input id="patQ" class="fi" style="padding-left:38px" placeholder="Search name or ID…" oninput="searchPats()"/></div>
+      <div class="twrap"><table class="dtab">
+        <thead><tr><th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Phone</th><th>File</th></tr></thead>
+        <tbody id="patBody"><tr><td colspan="6" class="cr"><i class="fa fa-spinner fa-spin"></i></td></tr></tbody>
+      </table></div>
     </div>
 
     <!-- APPOINTMENTS -->
     <div id="mod-appointments" class="mod">
       <div class="mhdr"><h2><i class="fa fa-calendar-check" style="color:var(--P)"></i> Appointments</h2><button class="bsm primary" onclick="openModal('apptModal');loadDoctors()"><i class="fa fa-plus"></i> New</button></div>
-      <div class="sc-mb" style="display:flex;gap:8px;flex-wrap:wrap">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
         <input type="date" id="apptDate" class="fi" style="flex:1;min-width:130px" onchange="loadAppts()"/>
-        <select id="apptStat" class="fsel" style="flex:1;min-width:120px" onchange="loadAppts()"><option value="">All Status</option><option>Scheduled</option><option>Completed</option><option>Cancelled</option></select>
+        <select id="apptStat" class="fsel" style="flex:1;min-width:110px" onchange="loadAppts()"><option value="">All</option><option>Scheduled</option><option>Completed</option><option>Cancelled</option></select>
       </div>
       <div id="apptList"><div class="cr"><i class="fa fa-spinner fa-spin"></i></div></div>
     </div>
 
-    <!-- LABORATORY -->
+    <!-- LAB -->
     <div id="mod-lab" class="mod">
       <div class="mhdr"><h2><i class="fa fa-flask" style="color:var(--P)"></i> Laboratory</h2><button class="bsm outline" onclick="loadLabQ()"><i class="fa fa-rotate"></i> Refresh</button></div>
+      <p class="muted" style="margin-bottom:12px">Upload results for pending test requests from doctors</p>
       <div id="labQ"><div class="cr"><i class="fa fa-spinner fa-spin"></i></div></div>
     </div>
 
     <!-- PHARMACY -->
     <div id="mod-pharmacy" class="mod">
       <div class="mhdr"><h2><i class="fa fa-pills" style="color:var(--P)"></i> Pharmacy</h2><button class="bsm outline" onclick="loadRx()"><i class="fa fa-rotate"></i> Refresh</button></div>
-      <div class="sc-mb"><h4 class="ssub">Pending Prescriptions</h4><div id="pharmRx"></div></div>
+      <div class="sc-mb"><h4 class="ssub">💊 Pending Prescriptions from Doctors</h4><div id="pharmRx"></div></div>
       <div class="sc-mb">
         <h4 class="ssub">📦 Drug Stock</h4>
-        <div class="frow"><div class="fg"><label class="fl">Drug Name</label><input id="sdrug" class="fi" placeholder="Drug name"/></div><div class="fg"><label class="fl">Quantity</label><input id="sqty" class="fi" type="number" placeholder="Qty"/></div></div>
+        <div class="frow"><div class="fg"><label class="fl">Drug Name</label><input id="sdrug" class="fi" placeholder="Drug name"/></div><div class="fg"><label class="fl">Qty</label><input id="sqty" class="fi" type="number" placeholder="Qty"/></div></div>
         <button class="bsm primary" onclick="addStock()"><i class="fa fa-plus"></i> Update Stock</button>
         <h4 class="ssub">Current Stock</h4><div id="stockList"></div>
       </div>
@@ -281,43 +263,43 @@ textarea.fi{resize:vertical;min-height:75px}
 
     <!-- MESSAGES -->
     <div id="mod-messages" class="mod">
-      <div class="mhdr"><h2><i class="fa fa-comments" style="color:var(--P)"></i> Staff Messages</h2><button class="bsm primary" onclick="openModal('newMsgModal');loadMsgStaff()"><i class="fa fa-plus"></i> New</button></div>
+      <div class="mhdr"><h2><i class="fa fa-comments" style="color:var(--P)"></i> Messages</h2><button class="bsm primary" onclick="openModal('newMsgModal');loadMsgStaff()"><i class="fa fa-plus"></i> New</button></div>
       <div id="threadList"></div>
       <div id="chatView" style="display:none">
         <div class="chat-wrap">
-          <div class="chat-hdr"><button class="btn-ic" onclick="backToThreads()"><i class="fa fa-arrow-left"></i></button><span id="chatWith" style="font-weight:600;font-size:.95rem;margin-left:8px;color:#fff">Chat</span></div>
+          <div class="chat-hdr"><button class="btn-ic" onclick="backThreads()"><i class="fa fa-arrow-left"></i></button><span id="chatWith" style="font-weight:600;font-size:.95rem;margin-left:8px;color:#fff"></span></div>
           <div id="chatBox" class="chat-box"></div>
-          <div class="chat-foot"><input id="msgInput" class="fi" placeholder="Type a message…" style="flex:1" onkeydown="if(event.key==='Enter')sendMsg()"/><button class="bsm primary" onclick="sendMsg()"><i class="fa fa-paper-plane"></i></button></div>
+          <div class="chat-foot"><input id="msgIn" class="fi" placeholder="Type a message…" style="flex:1" onkeydown="if(event.key==='Enter')sendMsg()"/><button class="bsm primary" onclick="sendMsg()"><i class="fa fa-paper-plane"></i></button></div>
         </div>
       </div>
     </div>
 
-    <!-- MY PROFILE -->
+    <!-- PROFILE -->
     <div id="mod-profile" class="mod">
       <div class="mhdr"><h2><i class="fa fa-circle-user" style="color:var(--P)"></i> My Profile</h2></div>
       <div class="sc-mb" style="text-align:center;padding:24px">
         <div style="width:72px;height:72px;border-radius:50%;background:var(--P);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:1.8rem;color:#fff"><i class="fa fa-user-nurse"></i></div>
-        <div style="font-size:1.2rem;font-weight:700" id="profName">—</div>
-        <div style="margin-top:4px"><span id="profBadge" class="badge"></span></div>
+        <div style="font-size:1.2rem;font-weight:700" id="pName2">—</div>
+        <div style="margin-top:4px"><span id="pBadge" class="badge"></span></div>
       </div>
       <div class="sc-mb"><h4 class="ssub">Account Details</h4>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
-          <div class="di"><span>Email</span><strong id="profEmail">—</strong></div>
-          <div class="di"><span>Role</span><strong id="profRole">—</strong></div>
-          <div class="di"><span>Department</span><strong id="profDept">—</strong></div>
-          <div class="di"><span>Status</span><strong id="profStatus">—</strong></div>
+        <div class="dgrid">
+          <div class="di"><span>Email</span><strong id="pEmail">—</strong></div>
+          <div class="di"><span>Role</span><strong id="pRole">—</strong></div>
+          <div class="di"><span>Department</span><strong id="pDept">—</strong></div>
+          <div class="di"><span>Status</span><strong id="pStat">—</strong></div>
         </div>
       </div>
       <div class="sc-mb"><h4 class="ssub">✏️ Update Profile</h4>
-        <div class="fg"><label class="fl">Full Name</label><input id="profNameIn" class="fi"/></div>
-        <div class="fg"><label class="fl">Department</label><input id="profDeptIn" class="fi"/></div>
-        <button class="bsm primary" onclick="updateProfile()"><i class="fa fa-save"></i> Save Changes</button>
+        <div class="fg"><label class="fl">Full Name</label><input id="pnIn" class="fi"/></div>
+        <div class="fg"><label class="fl">Department</label><input id="pdIn" class="fi"/></div>
+        <button class="bsm primary" onclick="updProf()"><i class="fa fa-save"></i> Save</button>
       </div>
       <div class="sc-mb"><h4 class="ssub">🔒 Change Password</h4>
-        <div class="fg"><label class="fl">New Password</label><input id="newPass1" type="password" class="fi" placeholder="Min 6 characters"/></div>
-        <div class="fg"><label class="fl">Confirm Password</label><input id="newPass2" type="password" class="fi" placeholder="Repeat password"/></div>
-        <button class="bsm outline-d" onclick="changePass()"><i class="fa fa-lock"></i> Change Password</button>
-        <p class="muted mt8">You will be logged out after changing password.</p>
+        <div class="fg"><label class="fl">New Password</label><input id="np1" type="password" class="fi" placeholder="Min 6 chars"/></div>
+        <div class="fg"><label class="fl">Confirm</label><input id="np2" type="password" class="fi" placeholder="Repeat password"/></div>
+        <button class="bsm outline-d" onclick="chgPass()"><i class="fa fa-lock"></i> Change Password</button>
+        <p class="muted mt8">You will be logged out after changing.</p>
       </div>
     </div>
 
@@ -328,11 +310,10 @@ textarea.fi{resize:vertical;min-height:75px}
         <div class="scard"><div class="iw ib"><i class="fa fa-users"></i></div><div class="sv2" id="aTP">—</div><div class="sl">Total Patients</div></div>
         <div class="scard"><div class="iw ig"><i class="fa fa-naira-sign"></i></div><div class="sv2" id="aRev">—</div><div class="sl">Revenue Today</div></div>
         <div class="scard"><div class="iw io"><i class="fa fa-calendar-day"></i></div><div class="sv2" id="aTodP">—</div><div class="sl">New Today</div></div>
-        <div class="scard"><div class="iw ir"><i class="fa fa-id-badge"></i></div><div class="sv2" id="aStaff">—</div><div class="sl">Staff Count</div></div>
+        <div class="scard"><div class="iw ip"><i class="fa fa-id-badge"></i></div><div class="sv2" id="aStaff">—</div><div class="sl">Staff Count</div></div>
       </div>
-      <div class="sc-mb">
-        <h4 class="ssub">💰 Today's Revenue Breakdown</h4>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:10px">
+      <div class="sc-mb"><h4 class="ssub">💰 Revenue Breakdown</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:8px">
           <div style="text-align:center;background:var(--bg);border-radius:9px;padding:12px"><div style="font-size:1rem;font-weight:700;color:var(--P)" id="aCash">—</div><div style="font-size:.72rem;color:var(--mu)">Cash</div></div>
           <div style="text-align:center;background:var(--bg);border-radius:9px;padding:12px"><div style="font-size:1rem;font-weight:700;color:var(--A)" id="aPOS">—</div><div style="font-size:.72rem;color:var(--mu)">POS</div></div>
           <div style="text-align:center;background:var(--bg);border-radius:9px;padding:12px"><div style="font-size:1rem;font-weight:700;color:var(--W)" id="aTrf">—</div><div style="font-size:.72rem;color:var(--mu)">Transfer</div></div>
@@ -340,79 +321,70 @@ textarea.fi{resize:vertical;min-height:75px}
       </div>
       <div class="sc-mb">
         <div class="mhdr" style="margin-bottom:10px"><h4 style="font-size:.93rem">👥 All Staff</h4><button class="bsm outline" onclick="loadStaff()"><i class="fa fa-rotate"></i></button></div>
-        <div class="twrap"><table class="dtab"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Dept</th><th>Status</th></tr></thead><tbody id="staffBody"><tr><td colspan="5" class="cr"><i class="fa fa-spinner fa-spin"></i></td></tr></tbody></table></div>
+        <div class="twrap"><table class="dtab"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Dept</th><th>Status</th></tr></thead><tbody id="staffBody"></tbody></table></div>
       </div>
     </div>
 
   </div>
 </div>
+
 <!-- MODALS -->
 <div id="regModal" class="movl"><div class="modal">
-  <div class="mhd"><h3><i class="fa fa-user-plus" style="color:var(--P)"></i> Register New Patient</h3><button class="mcls" onclick="closeModal('regModal')">✕</button></div>
-  <form id="patForm" onsubmit="return false">
-    <div class="frow"><div class="fg"><label class="fl">Full Name *</label><input id="pName" class="fi" placeholder="Full name"/></div><div class="fg"><label class="fl">Age *</label><input id="pAge" class="fi" type="number" placeholder="Age"/></div></div>
-    <div class="frow"><div class="fg"><label class="fl">Gender *</label><select id="pGender" class="fsel"><option value="">Select…</option><option>Male</option><option>Female</option><option>Other</option></select></div><div class="fg"><label class="fl">Phone *</label><input id="pPhone" class="fi" placeholder="Phone number"/></div></div>
-    <div class="fg"><label class="fl">Address</label><input id="pAddr" class="fi" placeholder="Home address"/></div>
-    <div class="fg"><label class="fl">Emergency Contact</label><input id="pEmg" class="fi" placeholder="Name & phone number"/></div>
-    <div class="fg"><label class="fl">Medical History / Allergies</label><textarea id="pHist" class="fi" placeholder="Previous conditions, allergies…"></textarea></div>
-    <button class="btnP" onclick="regPat()"><i class="fa fa-save"></i> Save Patient Record</button>
+  <div class="mhd"><h3><i class="fa fa-user-plus" style="color:var(--P)"></i> Register Patient</h3><button class="mcls" onclick="cModal('regModal')">✕</button></div>
+  <form id="regForm" onsubmit="return false">
+    <div class="frow"><div class="fg"><label class="fl">Full Name *</label><input id="rName" class="fi" placeholder="Full name"/></div><div class="fg"><label class="fl">Age *</label><input id="rAge" class="fi" type="number" placeholder="Age"/></div></div>
+    <div class="frow"><div class="fg"><label class="fl">Gender *</label><select id="rGender" class="fsel"><option value="">Select…</option><option>Male</option><option>Female</option><option>Other</option></select></div><div class="fg"><label class="fl">Phone *</label><input id="rPhone" class="fi" placeholder="Phone"/></div></div>
+    <div class="fg"><label class="fl">Address</label><input id="rAddr" class="fi" placeholder="Home address"/></div>
+    <div class="fg"><label class="fl">Emergency Contact</label><input id="rEmg" class="fi" placeholder="Name & phone"/></div>
+    <div class="fg"><label class="fl">Medical History / Allergies</label><textarea id="rHist" class="fi" placeholder="Conditions, allergies…"></textarea></div>
+    <button class="btnP" onclick="regPat()"><i class="fa fa-save"></i> Save Patient</button>
   </form>
 </div></div>
 
-<div id="patRecordModal" class="movl"><div class="modal">
-  <div class="mhd"><h3><i class="fa fa-file-medical" style="color:var(--P)"></i> Patient Full Record</h3><button class="mcls" onclick="closeModal('patRecordModal')">✕</button></div>
-  <div id="patRecordContent"><div class="cr"><i class="fa fa-spinner fa-spin"></i></div></div>
+<!-- PATIENT FULL RECORD MODAL -->
+<div id="recModal" class="movl"><div class="modal">
+  <div class="mhd"><h3><i class="fa fa-file-medical" style="color:var(--P)"></i> Patient Full Record</h3><button class="mcls" onclick="cModal('recModal')">✕</button></div>
+  <div id="recContent"><div class="cr"><i class="fa fa-spinner fa-spin"></i></div></div>
 </div></div>
 
-<div id="updatePatModal" class="movl"><div class="modal">
-  <div class="mhd"><h3><i class="fa fa-pen-to-square" style="color:var(--P)"></i> Add to Patient Record</h3><button class="mcls" onclick="closeModal('updatePatModal')">✕</button></div>
-  <div class="fg"><label class="fl">What are you adding?</label>
-    <select id="updateType" class="fsel" onchange="showUpdateForm()">
-      <option value="">Choose…</option>
-      <option value="vitals">📊 Vital Signs</option>
-      <option value="diagnosis">📝 Diagnosis Note</option>
-      <option value="prescription">💊 Prescription</option>
-      <option value="labRequest">🔬 Lab Test Request</option>
-      <option value="labResult">🧪 Lab Result</option>
-      <option value="nurseNote">👩‍⚕️ Nurse Note</option>
-    </select>
-  </div>
-  <div id="updateFormArea"></div>
+<!-- ADD TO RECORD MODAL -->
+<div id="addRecModal" class="movl"><div class="modal">
+  <div class="mhd"><h3 id="addRecTitle"><i class="fa fa-pen-to-square" style="color:var(--P)"></i> Add to Record</h3><button class="mcls" onclick="cModal('addRecModal')">✕</button></div>
+  <div id="addRecBody"></div>
 </div></div>
 
 <div id="apptModal" class="movl"><div class="modal">
-  <div class="mhd"><h3><i class="fa fa-calendar-plus" style="color:var(--P)"></i> Book Appointment</h3><button class="mcls" onclick="closeModal('apptModal')">✕</button></div>
-  <div class="fg"><label class="fl">Patient ID *</label><input id="apPid" class="fi" placeholder="e.g. MCH-0001"/></div>
+  <div class="mhd"><h3><i class="fa fa-calendar-plus" style="color:var(--P)"></i> Book Appointment</h3><button class="mcls" onclick="cModal('apptModal')">✕</button></div>
+  <div class="fg"><label class="fl">Patient ID *</label><input id="apPid" class="fi" placeholder="MCH-0001"/></div>
   <div class="fg"><label class="fl">Patient Name *</label><input id="apPname" class="fi" placeholder="Patient full name"/></div>
   <div class="frow"><div class="fg"><label class="fl">Date *</label><input id="apDate" type="date" class="fi"/></div><div class="fg"><label class="fl">Time *</label><input id="apTime" type="time" class="fi"/></div></div>
-  <div class="fg"><label class="fl">Doctor *</label><select id="apDoctor" class="fsel"><option value="">Select doctor…</option></select></div>
+  <div class="fg"><label class="fl">Doctor *</label><select id="apDoc" class="fsel"><option value="">Select doctor…</option></select></div>
   <div class="fg"><label class="fl">Type</label><select id="apType" class="fsel"><option>General Consultation</option><option>Follow-up</option><option>Lab Review</option><option>Specialist</option><option>Emergency</option></select></div>
   <div class="fg"><label class="fl">Notes</label><textarea id="apNotes" class="fi" placeholder="Reason for visit…"></textarea></div>
-  <button class="btnP" onclick="bookAppt()"><i class="fa fa-calendar-check"></i> Book Appointment</button>
+  <button class="btnP" onclick="bookAppt()"><i class="fa fa-calendar-check"></i> Book</button>
 </div></div>
 
 <div id="billModal" class="movl"><div class="modal">
-  <div class="mhd"><h3><i class="fa fa-file-invoice-dollar" style="color:var(--P)"></i> Generate Bill</h3><button class="mcls" onclick="closeModal('billModal')">✕</button></div>
-  <div class="fg"><label class="fl">Patient ID *</label><input id="bPid" class="fi" placeholder="e.g. MCH-0001"/></div>
-  <div class="frow"><div class="fg"><label class="fl">Service / Item</label><input id="bDesc" class="fi" placeholder="e.g. Consultation"/></div><div class="fg"><label class="fl">Amount (₦)</label><input id="bAmt" class="fi" type="number" placeholder="0"/></div></div>
-  <button class="bsm outline" onclick="addBillItem()"><i class="fa fa-plus"></i> Add Item</button>
-  <div id="billItems" style="margin:12px 0;min-height:30px"></div>
-  <hr class="dv"/>
-  <div class="frow"><div class="fg"><label class="fl">Payment Method</label><select id="bMeth" class="fsel"><option>Cash</option><option>POS</option><option>Transfer</option></select></div><div class="fg"><label class="fl">Status</label><select id="bStat" class="fsel"><option>Paid</option><option>Unpaid</option><option>Partially Paid</option></select></div></div>
-  <button class="btnP" onclick="genBill()"><i class="fa fa-print"></i> Generate &amp; Print Receipt</button>
+  <div class="mhd"><h3><i class="fa fa-file-invoice-dollar" style="color:var(--P)"></i> Generate Bill</h3><button class="mcls" onclick="cModal('billModal')">✕</button></div>
+  <div class="fg"><label class="fl">Patient ID *</label><input id="bPid" class="fi" placeholder="MCH-0001"/></div>
+  <div class="frow"><div class="fg"><label class="fl">Service</label><input id="bDesc" class="fi" placeholder="e.g. Consultation"/></div><div class="fg"><label class="fl">Amount (₦)</label><input id="bAmt" class="fi" type="number" placeholder="0"/></div></div>
+  <button class="bsm outline" onclick="addBI()"><i class="fa fa-plus"></i> Add Item</button>
+  <div id="billItems" style="margin:12px 0;min-height:24px"></div><hr class="dv"/>
+  <div class="frow"><div class="fg"><label class="fl">Method</label><select id="bMeth" class="fsel"><option>Cash</option><option>POS</option><option>Transfer</option></select></div><div class="fg"><label class="fl">Status</label><select id="bStat" class="fsel"><option>Paid</option><option>Unpaid</option><option>Partially Paid</option></select></div></div>
+  <button class="btnP" onclick="genBill()"><i class="fa fa-print"></i> Generate &amp; Print</button>
 </div></div>
 
 <div id="staffModal" class="movl"><div class="modal">
-  <div class="mhd"><h3><i class="fa fa-user-plus" style="color:var(--P)"></i> Create Staff Account</h3><button class="mcls" onclick="closeModal('staffModal')">✕</button></div>
+  <div class="mhd"><h3><i class="fa fa-user-plus" style="color:var(--P)"></i> Create Staff Account</h3><button class="mcls" onclick="cModal('staffModal')">✕</button></div>
   <div class="fg"><label class="fl">Full Name *</label><input id="sName" class="fi" placeholder="Staff full name"/></div>
   <div class="fg"><label class="fl">Email *</label><input id="sEmail" class="fi" type="email" placeholder="staff@hospital.org"/></div>
   <div class="fg"><label class="fl">Password *</label><input id="sPass" class="fi" type="password" placeholder="Min 6 characters"/></div>
-  <div class="frow"><div class="fg"><label class="fl">Role *</label><select id="sRole" class="fsel"><option value="">Select role…</option><option>Admin</option><option>Doctor</option><option>Nurse</option><option>Receptionist</option><option>Lab Technician</option><option>Pharmacist</option></select></div><div class="fg"><label class="fl">Department</label><input id="sDept" class="fi" placeholder="e.g. Cardiology"/></div></div>
+  <div class="frow"><div class="fg"><label class="fl">Role *</label><select id="sRole" class="fsel"><option value="">Select…</option><option>Admin</option><option>Doctor</option><option>Nurse</option><option>Receptionist</option><option>Lab Technician</option><option>Pharmacist</option></select></div><div class="fg"><label class="fl">Department</label><input id="sDept" class="fi" placeholder="e.g. Cardiology"/></div></div>
   <button class="btnP" onclick="createStaff()"><i class="fa fa-save"></i> Create Account</button>
 </div></div>
 
 <div id="newMsgModal" class="movl"><div class="modal">
-  <div class="mhd"><h3><i class="fa fa-comment-medical" style="color:var(--P)"></i> New Message</h3><button class="mcls" onclick="closeModal('newMsgModal')">✕</button></div>
+  <div class="mhd"><h3><i class="fa fa-comment-medical" style="color:var(--P)"></i> New Message</h3><button class="mcls" onclick="cModal('newMsgModal')">✕</button></div>
   <div class="fg"><label class="fl">Send To</label><select id="msgTo" class="fsel"><option value="">Loading staff…</option></select></div>
   <button class="btnP" onclick="startChat()"><i class="fa fa-paper-plane"></i> Open Chat</button>
 </div></div>
@@ -423,56 +395,63 @@ import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-ap
 import{getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged,createUserWithEmailAndPassword,updatePassword}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import{getFirestore,collection,doc,setDoc,getDoc,getDocs,addDoc,updateDoc,query,where,orderBy,limit,serverTimestamp,onSnapshot,runTransaction}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-const firebaseConfig={apiKey:"AIzaSyAit5CvlaewyLiMLObXjmTxQV0QZnht5sA",authDomain:"medicore-hospital-1e814.firebaseapp.com",projectId:"medicore-hospital-1e814",storageBucket:"medicore-hospital-1e814.firebasestorage.app",messagingSenderId:"419989121538",appId:"1:419989121538:web:aa4a837280336680acd51b"};
-const app=initializeApp(firebaseConfig);
+const FC={apiKey:"AIzaSyAit5CvlaewyLiMLObXjmTxQV0QZnht5sA",authDomain:"medicore-hospital-1e814.firebaseapp.com",projectId:"medicore-hospital-1e814",storageBucket:"medicore-hospital-1e814.firebasestorage.app",messagingSenderId:"419989121538",appId:"1:419989121538:web:aa4a837280336680acd51b"};
+const app=initializeApp(FC);
 const auth=getAuth(app);
 const db=getFirestore(app);
 
+// ─── HELPERS ───────────────────────────────────────────────────────────────
 const ge=id=>document.getElementById(id);
 const gv=id=>(ge(id)||{value:""}).value.trim();
 const sv=(id,v)=>{const e=ge(id);if(e)e.textContent=v;};
 const today=()=>new Date().toISOString().slice(0,10);
 const fmt=ts=>{if(!ts)return"—";const d=ts.toDate?ts.toDate():new Date(ts);return d.toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});};
 
-let CU=null,SP=null,billItems=[],activeChatId=null,allStaff=[],msgUnsub=null;
-let activePID="",activePDocId="",activePName="";
+let CU=null,SP=null,BI=[],chatId=null,allStaff=[],msgUnsub=null;
+let aPID="",aPDocId="";   // active patient for record modal
 
-// ── AUTO-INCREMENT PATIENT ID ──────────────────────────────────────────────────
-// Generates MCH-0001, MCH-0002, etc. using a counter document in Firestore
-async function getNextPatientId(){
-  const counterRef=doc(db,"counters","patients");
-  let newNum=1;
-  await runTransaction(db,async t=>{
-    const snap=await t.get(counterRef);
-    if(snap.exists()){newNum=snap.data().count+1;}
-    t.set(counterRef,{count:newNum});
-  });
-  return"MCH-"+String(newNum).padStart(4,"0");
+// ─── ADMIN EMAILS — These users ALWAYS get Admin access ───────────────────
+// Add your email here so you always have admin access regardless of Firestore role
+const ADMIN_EMAILS=["oladeji@gmail.com","admin@medicore.com","oladeji.opeyemi@gmail.com"];
+// We also check Firestore role = "Admin"
+
+function isAdmin(){
+  if(!CU||!SP)return false;
+  if(SP.role==="Admin")return true;
+  if(CU.email&&ADMIN_EMAILS.includes(CU.email.toLowerCase()))return true;
+  return false;
 }
 
-// ── ROLE PERMISSIONS ──────────────────────────────────────────────────────────
-const UPDATE_PERMS={
-  "Admin":["vitals","diagnosis","prescription","labRequest","labResult","nurseNote"],
-  "Doctor":["diagnosis","prescription","labRequest","vitals"],
-  "Nurse":["vitals","nurseNote","labRequest"],
-  "Receptionist":[],
-  "Lab Technician":["labResult"],
-  "Pharmacist":[]
-};
-const CAN_REGISTER=["Admin","Nurse","Receptionist"];
-// Always re-read role fresh from Firestore to prevent stale role issues
-async function refreshRole(){ try{ const s=await getDoc(doc(db,"staff",CU.uid)); if(s.exists()){ const r=s.data().role; SP.role=r; sv("staffRole",r); } }catch(e){} }
+// ─── AUTO-INCREMENT PATIENT ID ─────────────────────────────────────────────
+async function nextPID(){
+  const ref=doc(db,"counters","patients");
+  let n=1;
+  await runTransaction(db,async t=>{
+    const s=await t.get(ref);
+    n=s.exists()?s.data().count+1:1;
+    t.set(ref,{count:n});
+  });
+  return"MCH-"+String(n).padStart(4,"0");
+}
 
-// ── AUTH ──────────────────────────────────────────────────────────────────────
+// ─── AUTH ──────────────────────────────────────────────────────────────────
 onAuthStateChanged(auth,async user=>{
   if(user){
-    const s=await getDoc(doc(db,"staff",user.uid));
-    if(s.exists()){
-      SP=s.data();CU=user;
-      ge("appScreen").style.display="flex";
-      ge("loginScreen").style.display="none";
-      initApp();
-    }else{toast("Staff profile not found. Contact Admin.","error");await signOut(auth);}
+    try{
+      const s=await getDoc(doc(db,"staff",user.uid));
+      if(s.exists()){
+        SP={...s.data()};CU=user;
+        // If email is in admin list, force role to Admin
+        if(CU.email&&ADMIN_EMAILS.includes(CU.email.toLowerCase())){
+          SP.role="Admin";
+          // Also update Firestore so it stays consistent
+          await updateDoc(doc(db,"staff",user.uid),{role:"Admin"}).catch(()=>{});
+        }
+        ge("appScreen").style.display="flex";
+        ge("loginScreen").style.display="none";
+        initApp();
+      }else{toast("Staff profile not found. Contact Admin.","err");await signOut(auth);}
+    }catch(e){toast("Error: "+e.message,"err");await signOut(auth);}
   }else{
     CU=null;SP=null;
     ge("loginScreen").style.display="flex";
@@ -481,24 +460,34 @@ onAuthStateChanged(auth,async user=>{
 });
 
 window.doLogin=async()=>{
-  const e=gv("loginEmail"),p=gv("loginPass"),b=ge("loginBtn");
-  if(!e||!p){toast("Enter email and password","error");return;}
+  const e=gv("le"),p=gv("lp"),b=ge("lb");
+  if(!e||!p){toast("Enter email and password","err");return;}
   b.disabled=true;b.innerHTML='<i class="fa fa-spinner fa-spin"></i> Signing in…';
   try{await signInWithEmailAndPassword(auth,e,p);}
-  catch(err){toast("Login failed: "+err.message,"error");b.disabled=false;b.innerHTML="Sign In";}
+  catch(er){toast("Login failed: "+er.message,"err");b.disabled=false;b.innerHTML='<i class="fa fa-right-to-bracket"></i> Sign In';}
 };
-window.doLogout=async()=>{await signOut(auth);toast("Logged out","success");};
+window.doLogout=async()=>{await signOut(auth);toast("Logged out","ok");};
 
 function initApp(){
-  sv("staffName",SP.name);sv("staffRole",SP.role);
-  refreshRole(); // always sync role from DB
-  // Show register button only for permitted roles
-  if(ge("btnRegPat"))ge("btnRegPat").style.display=CAN_REGISTER.includes(SP.role)?"inline-flex":"none";
-  showMod("dashboard");loadDashCards();startUnreadBadge();
+  sv("staffName",SP.name);
+  sv("topRole",SP.role);
+  // Show register button for nurses, receptionists, admins
+  const canReg=["Admin","Nurse","Receptionist"].includes(SP.role);
+  if(ge("regBtn"))ge("regBtn").style.display=canReg?"inline-flex":"none";
+  // Show admin panel only to admins
+  if(isAdmin()){
+    if(ge("adminNav"))ge("adminNav").style.display="flex";
+    if(ge("adminBanner"))ge("adminBanner").style.display="flex";
+  }
+  showMod("dashboard");
+  loadDashCards();
+  startMsgBadge();
 }
 
-// ── NAVIGATION ────────────────────────────────────────────────────────────────
+// ─── NAV ──────────────────────────────────────────────────────────────────
 window.showMod=mod=>{
+  // Guard admin module
+  if(mod==="admin"&&!isAdmin()){toast("Admin access only","err");return;}
   document.querySelectorAll(".mod").forEach(m=>m.style.display="none");
   const el=ge("mod-"+mod);if(el)el.style.display="block";
   document.querySelectorAll(".ni").forEach(n=>n.classList.toggle("active",n.dataset.mod===mod));
@@ -507,30 +496,18 @@ window.showMod=mod=>{
   if(mod==="appointments")loadAppts();
   if(mod==="lab")         loadLabQ();
   if(mod==="pharmacy")    {loadRx();loadStock();}
-  if(mod==="billing")     loadBillHist();
+  if(mod==="billing")     loadBills();
   if(mod==="messages")    loadThreads();
-  if(mod==="profile")     loadProfile();
+  if(mod==="profile")     loadProf();
   if(mod==="admin")       {loadAdminStats();loadStaff();}
   if(mod==="dashboard")   loadDashCards();
 };
-
-// ── ADMIN ACCESS CHECK ────────────────────────────────────────────────────────
-// Admin card visible to ALL staff but only Admins get in
-window.goAdmin=async()=>{
-  await refreshRole();
-  if(SP.role==="Admin"){
-    showMod("admin");
-  }else{
-    toast("Access denied. Only Admins can enter the Admin Panel.","error");
-  }
-};
-
-window.toggleSB=()=>ge("sidebar").classList.toggle("open");
-window.closeSB=()=>ge("sidebar").classList.remove("open");
+window.tSB=()=>ge("sidebar").classList.toggle("open");
+window.cSB=()=>ge("sidebar").classList.remove("open");
 window.openModal=id=>ge(id).style.display="flex";
-window.closeModal=id=>ge(id).style.display="none";
+window.cModal=id=>ge(id).style.display="none";
 
-// ── DASHBOARD ─────────────────────────────────────────────────────────────────
+// ─── DASHBOARD ─────────────────────────────────────────────────────────────
 async function loadDashCards(){
   const[ps,bs,as,ls]=await Promise.all([
     getDocs(collection(db,"patients")),
@@ -543,297 +520,288 @@ async function loadDashCards(){
   sv("dApt",as.size);sv("dLab",ls.size);
 }
 
-// ── PATIENT REGISTRATION WITH AUTO ID ─────────────────────────────────────────
+// ─── PATIENT REGISTER ─────────────────────────────────────────────────────
 window.regPat=async()=>{
-  if(!CAN_REGISTER.includes(SP.role)){toast("Your role cannot register patients","error");return;}
-  const btn=ge("patForm").querySelector("button");
-  btn.disabled=true;btn.innerHTML='<i class="fa fa-spinner fa-spin"></i> Saving…';
+  const b=ge("regForm").querySelector("button");b.disabled=true;b.innerHTML='<i class="fa fa-spinner fa-spin"></i> Saving…';
   try{
-    const pid=await getNextPatientId();
-    const d={
-      patientId:pid,name:gv("pName"),age:gv("pAge"),gender:gv("pGender"),
-      phone:gv("pPhone"),address:gv("pAddr"),emergency:gv("pEmg"),history:gv("pHist"),
-      registeredBy:SP.name,registeredByRole:SP.role,createdAt:serverTimestamp()
-    };
-    if(!d.name||!d.age||!d.gender||!d.phone){toast("Fill required fields (Name, Age, Gender, Phone)","error");btn.disabled=false;btn.innerHTML='<i class="fa fa-save"></i> Save Patient Record';return;}
+    const pid=await nextPID();
+    const d={patientId:pid,name:gv("rName"),age:gv("rAge"),gender:gv("rGender"),phone:gv("rPhone"),address:gv("rAddr"),emergency:gv("rEmg"),history:gv("rHist"),registeredBy:SP.name,createdAt:serverTimestamp()};
+    if(!d.name||!d.age||!d.gender||!d.phone){toast("Fill required fields","err");b.disabled=false;b.innerHTML='<i class="fa fa-save"></i> Save Patient';return;}
     const ref=await addDoc(collection(db,"patients"),d);
-    await addDoc(collection(db,"patientRecords"),{
-      patientId:pid,type:"registration",role:"registration",
-      content:`Patient registered by ${SP.name} (${SP.role})`,
-      staff:SP.name,staffRole:SP.role,createdAt:serverTimestamp()
-    });
-    toast("✅ Patient registered! ID: "+pid,"success");
-    closeModal("regModal");ge("patForm").reset();searchPats();
-  }catch(e){toast(e.message,"error");}
-  btn.disabled=false;btn.innerHTML='<i class="fa fa-save"></i> Save Patient Record';
+    // first record entry
+    await addDoc(collection(db,"records"),{pid,type:"reg",tag:"Registration",role:"reg",body:`Registered by ${SP.name} (${SP.role})`,by:SP.name,byRole:SP.role,ts:serverTimestamp()});
+    toast("Patient registered! ID: "+pid,"ok");
+    cModal("regModal");ge("regForm").reset();searchPats();
+  }catch(e){toast(e.message,"err");}
+  b.disabled=false;b.innerHTML='<i class="fa fa-save"></i> Save Patient';
 };
 
-// ── ASSIGN IDs TO EXISTING PATIENTS WITHOUT ONE (one-time fix) ───────────────
-// This runs silently on load to fix any old records
-async function fixMissingPatientIds(){
-  try{
-    const snap=await getDocs(collection(db,"patients"));
-    for(const d of snap.docs){
-      const data=d.data();
-      // Fix patients that have no ID or have old-format ID
-      if(!data.patientId||data.patientId.startsWith("PAT-")){
-        const newId=await getNextPatientId();
-        await updateDoc(doc(db,"patients",d.id),{patientId:newId});
-        // Also update records
-        const recs=await getDocs(query(collection(db,"patientRecords"),where("patientId","==",data.patientId||"")));
-        for(const r of recs.docs) await updateDoc(doc(db,"patientRecords",r.id),{patientId:newId});
-      }
-    }
-  }catch(e){console.log("ID fix:",e.message);}
-}
-
-// ── SEARCH PATIENTS ───────────────────────────────────────────────────────────
+// ─── SEARCH PATIENTS ──────────────────────────────────────────────────────
 window.searchPats=async()=>{
-  const q=gv("patSearch").toLowerCase();
+  const q=gv("patQ").toLowerCase();
   const el=ge("patBody");if(!el)return;
   el.innerHTML='<tr><td colspan="6" class="cr"><i class="fa fa-spinner fa-spin"></i></td></tr>';
   const s=await getDocs(collection(db,"patients"));
-  let rows=s.docs.map(d=>({id:d.id,...d.data()}));
+  let rows=s.docs.map(d=>({_id:d.id,...d.data()}));
   if(q)rows=rows.filter(r=>(r.name||"").toLowerCase().includes(q)||(r.patientId||"").toLowerCase().includes(q));
   rows.sort((a,b)=>(a.patientId||"").localeCompare(b.patientId||""));
   if(!rows.length){el.innerHTML='<tr><td colspan="6" class="cr">No patients found</td></tr>';return;}
-  // Store patient data in a map to avoid apostrophe issues in onclick
-  window._patMap={};
-  rows.forEach(p=>{ window._patMap[p.id]=p; });
+  window._pmap={};rows.forEach(p=>window._pmap[p._id]=p);
   el.innerHTML=rows.map(p=>`<tr>
     <td><span class="pid">${p.patientId||"—"}</span></td>
     <td><b>${p.name||"—"}</b></td><td>${p.age||"—"}</td><td>${p.gender||"—"}</td><td>${p.phone||"—"}</td>
-    <td>
-      <button class="bsm primary" style="padding:5px 10px;font-size:.75rem" onclick="openPatById('${p.id}')">
-        <i class="fa fa-folder-open"></i> Open File
-      </button>
-    </td>
+    <td><button class="bsm primary" style="padding:5px 10px;font-size:.75rem" onclick="openRec('${p._id}')"><i class="fa fa-folder-open"></i> Open</button></td>
   </tr>`).join("");
 };
 
-// ── OPEN FULL PATIENT RECORD ──────────────────────────────────────────────────
-window.openPatById=async(docId)=>{
-  const p=window._patMap&&window._patMap[docId];
-  if(p) await openPatRecord(docId,p.patientId||"",p.name||"");
-  else toast("Patient not found","error");
-};
-window.openPatRecord=async(docId,patId,patName)=>{
-  activePID=patId;activePDocId=docId;activePName=patName;
-  ge("patRecordContent").innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i> Loading record…</div>';
-  openModal("patRecordModal");
-  await renderFullRecord();
+// ─── PATIENT RECORD ────────────────────────────────────────────────────────
+window.openRec=async(docId)=>{
+  const p=window._pmap&&window._pmap[docId];
+  if(!p){toast("Patient not found","err");return;}
+  aPID=p.patientId||"";aPDocId=docId;
+  ge("recContent").innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i> Loading…</div>';
+  openModal("recModal");
+  await renderRec();
 };
 
-async function renderFullRecord(){
-  const[patSnap,records]=await Promise.all([
-    getDoc(doc(db,"patients",activePDocId)),
-    getDocs(query(collection(db,"patientRecords"),where("patientId","==",activePID)))
+async function renderRec(){
+  const[ps,rs]=await Promise.all([
+    getDoc(doc(db,"patients",aPDocId)),
+    getDocs(query(collection(db,"records"),where("pid","==",aPID)))
   ]);
-  const p=patSnap.data()||{};
-  const sortedDocs=[...records.docs].sort((a,b)=>{ const at=a.data().createdAt?.toDate?.()?.getTime()||0; const bt=b.data().createdAt?.toDate?.()?.getTime()||0; return bt-at; });
-  const canUpdate=(UPDATE_PERMS[SP.role]||[]).length>0;
-  const updateBtn=canUpdate?`<button class="bsm primary" style="margin-top:12px" onclick="openUpdateModal()"><i class="fa fa-plus"></i> Add to Record</button>`:"";
+  const p=ps.data()||{};
+  // sort client-side newest first
+  const recs=[...rs.docs].sort((a,b)=>(b.data().ts?.toDate?.()?.getTime()||0)-(a.data().ts?.toDate?.()?.getTime()||0));
 
-  const bio=`
-    <div class="dgrid">
-      <div class="di"><span>Patient ID</span><strong style="color:var(--P);font-size:1rem">${p.patientId||"—"}</strong></div>
-      <div class="di"><span>Full Name</span><strong>${p.name||"—"}</strong></div>
-      <div class="di"><span>Age</span><strong>${p.age||"—"}</strong></div>
-      <div class="di"><span>Gender</span><strong>${p.gender||"—"}</strong></div>
-      <div class="di"><span>Phone</span><strong>${p.phone||"—"}</strong></div>
-      <div class="di"><span>Address</span><strong>${p.address||"—"}</strong></div>
-      <div class="di full"><span>Emergency Contact</span><strong>${p.emergency||"—"}</strong></div>
-      <div class="di full"><span>Medical History / Allergies</span><strong>${p.history||"None stated"}</strong></div>
-    </div>
-    ${updateBtn}`;
-
-  const tagLabel={
-    registration:"📋 Registration",vitals:"❤️ Vital Signs",diagnosis:"🩺 Diagnosis",
-    prescription:"💊 Prescription",labRequest:"🔬 Lab Request",labResult:"🧪 Lab Result",
-    nurseNote:"👩‍⚕️ Nurse Note",pharmacy:"💊 Dispensed"
+  // What can this role add?
+  const roleActions={
+    "Admin":    [{v:"vitals",l:"❤️ Vital Signs"},{v:"diag",l:"🩺 Diagnosis"},{v:"rx",l:"💊 Prescription"},{v:"labReq",l:"🔬 Lab Request"},{v:"labRes",l:"🧪 Lab Result"},{v:"note",l:"👩‍⚕️ Note"},{v:"referral",l:"📨 Referral/Note to Dept"}],
+    "Doctor":   [{v:"diag",l:"🩺 Diagnosis"},{v:"rx",l:"💊 Prescription to Pharmacy"},{v:"labReq",l:"🔬 Lab Request to Lab"},{v:"vitals",l:"❤️ Vital Signs"},{v:"referral",l:"📨 Note to Dept"}],
+    "Nurse":    [{v:"vitals",l:"❤️ Vital Signs"},{v:"note",l:"👩‍⚕️ Nurse Note"},{v:"labReq",l:"🔬 Lab Request"},{v:"referral",l:"📨 Note to Dept"}],
+    "Lab Technician":[{v:"labRes",l:"🧪 Upload Lab Result"}],
+    "Pharmacist":[],
+    "Receptionist":[]
   };
-  const roleClass={
-    registration:"registration",vitals:"vitals",diagnosis:"doctor",prescription:"doctor",
-    labRequest:"lab",labResult:"lab",nurseNote:"nurse",pharmacy:"pharmacy"
-  };
+  const acts=roleActions[SP.role]||[];
+  const addBtns=acts.length>0?`<div class="flex" style="flex-wrap:wrap;gap:7px;margin-top:12px">${acts.map(a=>`<button class="bsm outline" style="font-size:.76rem;padding:6px 10px" onclick="openAddRec('${a.v}','${a.l}')">${a.l}</button>`).join("")}</div>`:"";
 
-  let timeline="";
-  if(!sortedDocs.length){
-    timeline='<div class="en" style="padding:20px">No records yet.<br><b>Use "Add to Record"</b> to start building this patient\'s file.</div>';
+  const bio=`<div class="dgrid">
+    <div class="di"><span>Patient ID</span><strong style="color:var(--P)">${p.patientId||"—"}</strong></div>
+    <div class="di"><span>Full Name</span><strong>${p.name||"—"}</strong></div>
+    <div class="di"><span>Age</span><strong>${p.age||"—"}</strong></div>
+    <div class="di"><span>Gender</span><strong>${p.gender||"—"}</strong></div>
+    <div class="di"><span>Phone</span><strong>${p.phone||"—"}</strong></div>
+    <div class="di"><span>Address</span><strong>${p.address||"—"}</strong></div>
+    <div class="di full"><span>Emergency Contact</span><strong>${p.emergency||"—"}</strong></div>
+    <div class="di full"><span>Medical History / Allergies</span><strong>${p.history||"None stated"}</strong></div>
+  </div>${addBtns}`;
+
+  const colorMap={reg:"reg",vitals:"vitals",diag:"doctor",rx:"pharmacy",labReq:"lab",labRes:"lab",note:"nurse",referral:"doctor"};
+  const tagMap={reg:"📋 Registration",vitals:"❤️ Vitals",diag:"🩺 Diagnosis",rx:"💊 Prescription",labReq:"🔬 Lab Request",labRes:"🧪 Lab Result",note:"👩‍⚕️ Nurse Note",referral:"📨 Dept Note"};
+
+  let tl="";
+  if(!recs.length){
+    tl='<div class="en">No records yet. Use the buttons above to add.</div>';
   }else{
-    timeline=sortedDocs.map(d=>{
-      const r=d.data();const cls=roleClass[r.type]||"admin";
-      let body="";
+    tl=recs.map(d=>{
+      const r=d.data();const cls=colorMap[r.type]||"reg";
+      let body=r.body||"";
       if(r.type==="vitals"&&r.vitals){
         const v=r.vitals;
-        body=`<div class="vgrid">
-          ${v.bp?`<div class="vcard"><div class="vval">${v.bp}</div><div class="vlbl">Blood Pressure</div></div>`:""}
-          ${v.temp?`<div class="vcard"><div class="vval">${v.temp}</div><div class="vlbl">Temperature</div></div>`:""}
-          ${v.pulse?`<div class="vcard"><div class="vval">${v.pulse}</div><div class="vlbl">Pulse</div></div>`:""}
-          ${v.weight?`<div class="vcard"><div class="vval">${v.weight}</div><div class="vlbl">Weight</div></div>`:""}
-          ${v.height?`<div class="vcard"><div class="vval">${v.height}</div><div class="vlbl">Height</div></div>`:""}
-          ${v.o2?`<div class="vcard"><div class="vval">${v.o2}</div><div class="vlbl">SpO₂</div></div>`:""}
-        </div>${r.content?`<p style="margin-top:6px;font-size:.83rem;color:var(--mu)">${r.content}</p>`:""}`;
-      }else{body=`<div class="rec-content">${(r.content||"").replace(/\n/g,"<br>")}</div>`;}
+        body=`<div class="vgrid">${[
+          v.bp?`<div class="vcard"><div class="vval">${v.bp}</div><div class="vlbl">Blood Pressure</div></div>`:"",
+          v.temp?`<div class="vcard"><div class="vval">${v.temp}</div><div class="vlbl">Temperature</div></div>`:"",
+          v.pulse?`<div class="vcard"><div class="vval">${v.pulse}</div><div class="vlbl">Pulse</div></div>`:"",
+          v.weight?`<div class="vcard"><div class="vval">${v.weight}</div><div class="vlbl">Weight</div></div>`:"",
+          v.height?`<div class="vcard"><div class="vval">${v.height}</div><div class="vlbl">Height</div></div>`:"",
+          v.o2?`<div class="vcard"><div class="vval">${v.o2}</div><div class="vlbl">SpO₂</div></div>`:""
+        ].join("")}</div>${r.body?`<p style="font-size:.83rem;margin-top:6px;color:var(--mu)">${r.body}</p>`:""}`;
+      }
       return`<div class="rec-block ${cls}">
         <div class="rec-dot dot-${cls}"></div>
-        <span class="rec-tag tag-${r.type||"admin"}">${tagLabel[r.type]||r.type}</span>
-        <div class="rec-meta">${r.staff||""} &nbsp;·&nbsp; ${fmt(r.createdAt)}</div>
-        ${body}
+        <span class="rec-tag tag-${r.type||"reg"}">${tagMap[r.type]||r.type}</span>
+        <div class="rec-meta">${r.by||""} &nbsp;·&nbsp; ${fmt(r.ts)}</div>
+        <div class="rec-body">${typeof body==="string"?body.replace(/\n/g,"<br>"):""}</div>
       </div>`;
     }).join("");
   }
 
-  ge("patRecordContent").innerHTML=`
-    <div style="background:var(--PL);border-radius:var(--rs);padding:12px;margin-bottom:14px">
-      <p style="font-size:.75rem;font-weight:700;color:var(--P);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Patient Information</p>
+  ge("recContent").innerHTML=`
+    <div style="background:var(--PL);border-radius:var(--rs);padding:13px;margin-bottom:14px">
+      <p style="font-size:.72rem;font-weight:700;color:var(--P);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">🏥 Patient Information</p>
       ${bio}
     </div>
-    <p style="font-size:.75rem;font-weight:700;color:var(--P);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">📁 Medical Record Timeline</p>
-    ${timeline}`;
+    <p style="font-size:.72rem;font-weight:700;color:var(--P);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">📁 Medical Timeline</p>
+    ${tl}`;
 }
 
-// ── ADD TO PATIENT RECORD ─────────────────────────────────────────────────────
-window.openUpdateModal=()=>{
-  openModal("updatePatModal");
-  const can=UPDATE_PERMS[SP.role]||[];
-  const all=[
-    {v:"vitals",l:"📊 Vital Signs"},{v:"diagnosis",l:"📝 Diagnosis Note"},
-    {v:"prescription",l:"💊 Prescription"},{v:"labRequest",l:"🔬 Lab Test Request"},
-    {v:"labResult",l:"🧪 Lab Result"},{v:"nurseNote",l:"👩‍⚕️ Nurse Note"}
-  ];
-  const sel=ge("updateType");
-  sel.innerHTML='<option value="">Choose…</option>'+all.filter(o=>can.includes(o.v)).map(o=>`<option value="${o.v}">${o.l}</option>`).join("");
-  ge("updateFormArea").innerHTML="";
-};
-
-window.showUpdateForm=()=>{
-  const type=gv("updateType");const el=ge("updateFormArea");
-  if(!type){el.innerHTML="";return;}
+// ─── ADD TO RECORD ─────────────────────────────────────────────────────────
+window.openAddRec=async(type,label)=>{
+  ge("addRecTitle").innerHTML=`<i class="fa fa-pen-to-square" style="color:var(--P)"></i> ${label}`;
   const forms={
-    vitals:`<hr class="dv"/><div class="frow"><div class="fg"><label class="fl">Blood Pressure</label><input id="vBP" class="fi" placeholder="e.g. 120/80 mmHg"/></div><div class="fg"><label class="fl">Temperature</label><input id="vTemp" class="fi" placeholder="e.g. 36.6 °C"/></div></div><div class="frow"><div class="fg"><label class="fl">Pulse Rate</label><input id="vPulse" class="fi" placeholder="e.g. 72 bpm"/></div><div class="fg"><label class="fl">Weight</label><input id="vWeight" class="fi" placeholder="e.g. 70 kg"/></div></div><div class="frow"><div class="fg"><label class="fl">Height</label><input id="vHeight" class="fi" placeholder="e.g. 170 cm"/></div><div class="fg"><label class="fl">SpO₂</label><input id="vO2" class="fi" placeholder="e.g. 98%"/></div></div><div class="fg"><label class="fl">Notes</label><textarea id="vNotes" class="fi" placeholder="Additional observations…"></textarea></div><button class="btnP" onclick="saveRecord('vitals')"><i class="fa fa-save"></i> Save Vitals</button>`,
-    diagnosis:`<hr class="dv"/><div class="fg"><label class="fl">Diagnosis / Clinical Notes</label><textarea id="diagNote" class="fi" style="min-height:100px" placeholder="Enter full diagnosis…"></textarea></div><button class="btnP" onclick="saveRecord('diagnosis')"><i class="fa fa-save"></i> Save Diagnosis</button>`,
-    prescription:`<hr class="dv"/><div class="frow"><div class="fg"><label class="fl">Drug Name *</label><input id="rxDrug" class="fi" placeholder="e.g. Amoxicillin 500mg"/></div><div class="fg"><label class="fl">Dosage *</label><input id="rxDose" class="fi" placeholder="e.g. 1 tab TDS x5 days"/></div></div><div class="fg"><label class="fl">Instructions</label><input id="rxNote" class="fi" placeholder="e.g. Take after food"/></div><button class="btnP" onclick="saveRecord('prescription')"><i class="fa fa-pills"></i> Add Prescription</button>`,
-    labRequest:`<hr class="dv"/><div class="fg"><label class="fl">Test Name *</label><input id="labTestIn" class="fi" placeholder="e.g. FBC, Malaria RDT, HbA1c"/></div><div class="fg"><label class="fl">Urgency</label><select id="labUrgency" class="fsel"><option>Routine</option><option>Urgent</option><option>STAT</option></select></div><button class="btnP" onclick="saveRecord('labRequest')"><i class="fa fa-flask"></i> Request Test</button>`,
-    labResult:`<hr class="dv"/><div class="fg"><label class="fl">Test Name *</label><input id="labResTest" class="fi" placeholder="e.g. FBC"/></div><div class="fg"><label class="fl">Result *</label><textarea id="labResResult" class="fi" placeholder="Enter full result details…"></textarea></div><button class="btnP" onclick="saveRecord('labResult')"><i class="fa fa-upload"></i> Upload Result</button>`,
-    nurseNote:`<hr class="dv"/><div class="fg"><label class="fl">Nurse Note / Observation</label><textarea id="nurseNoteIn" class="fi" style="min-height:100px" placeholder="Patient condition, observations, care given…"></textarea></div><button class="btnP" onclick="saveRecord('nurseNote')"><i class="fa fa-save"></i> Save Note</button>`
+    vitals:`<div class="frow"><div class="fg"><label class="fl">Blood Pressure</label><input id="vBP" class="fi" placeholder="e.g. 120/80 mmHg"/></div><div class="fg"><label class="fl">Temperature</label><input id="vTemp" class="fi" placeholder="e.g. 36.6 °C"/></div></div>
+      <div class="frow"><div class="fg"><label class="fl">Pulse</label><input id="vPulse" class="fi" placeholder="e.g. 72 bpm"/></div><div class="fg"><label class="fl">Weight</label><input id="vWeight" class="fi" placeholder="e.g. 70 kg"/></div></div>
+      <div class="frow"><div class="fg"><label class="fl">Height</label><input id="vHeight" class="fi" placeholder="e.g. 170 cm"/></div><div class="fg"><label class="fl">SpO₂</label><input id="vO2" class="fi" placeholder="e.g. 98%"/></div></div>
+      <div class="fg"><label class="fl">Notes</label><textarea id="vNotes" class="fi" placeholder="Additional observations…"></textarea></div>
+      <button class="btnP" onclick="saveRec('vitals')"><i class="fa fa-save"></i> Save Vitals</button>`,
+    diag:`<div class="fg"><label class="fl">Diagnosis / Clinical Notes</label><textarea id="diagNote" class="fi" style="min-height:100px" placeholder="Full diagnosis and clinical findings…"></textarea></div>
+      <button class="btnP" onclick="saveRec('diag')"><i class="fa fa-save"></i> Save Diagnosis</button>`,
+    rx:`<div style="background:#fff8e1;border-radius:var(--rs);padding:10px;font-size:.82rem;color:#7a5e00;margin-bottom:12px"><i class="fa fa-circle-info"></i> This prescription will appear in the <b>Pharmacy module</b> for dispensing.</div>
+      <div class="frow"><div class="fg"><label class="fl">Drug Name *</label><input id="rxDrug" class="fi" placeholder="e.g. Amoxicillin 500mg"/></div><div class="fg"><label class="fl">Dosage *</label><input id="rxDose" class="fi" placeholder="e.g. 1 tab TDS x5 days"/></div></div>
+      <div class="fg"><label class="fl">Instructions</label><input id="rxNote" class="fi" placeholder="e.g. Take after food"/></div>
+      <button class="btnP" onclick="saveRec('rx')"><i class="fa fa-pills"></i> Send Prescription to Pharmacy</button>`,
+    labReq:`<div style="background:#e0f7fa;border-radius:var(--rs);padding:10px;font-size:.82rem;color:#00838f;margin-bottom:12px"><i class="fa fa-circle-info"></i> This request will appear in the <b>Laboratory module</b> for the Lab Technician.</div>
+      <div class="fg"><label class="fl">Test Name *</label><input id="labTestIn" class="fi" placeholder="e.g. FBC, Malaria RDT, HbA1c"/></div>
+      <div class="fg"><label class="fl">Urgency</label><select id="labUrg" class="fsel"><option>Routine</option><option>Urgent</option><option>STAT</option></select></div>
+      <div class="fg"><label class="fl">Notes</label><textarea id="labNotes" class="fi" placeholder="Clinical reason for test…"></textarea></div>
+      <button class="btnP" onclick="saveRec('labReq')"><i class="fa fa-flask"></i> Send Request to Lab</button>`,
+    labRes:`<div class="fg"><label class="fl">Test Name *</label><input id="lrTest" class="fi" placeholder="e.g. FBC"/></div>
+      <div class="fg"><label class="fl">Result *</label><textarea id="lrResult" class="fi" placeholder="Enter full result details…"></textarea></div>
+      <div class="fg"><label class="fl">Reference Range</label><input id="lrRef" class="fi" placeholder="e.g. Normal: 4.5-11 x10⁹/L"/></div>
+      <button class="btnP" onclick="saveRec('labRes')"><i class="fa fa-upload"></i> Upload Result to Patient File</button>`,
+    note:`<div class="fg"><label class="fl">Nurse Note / Observation</label><textarea id="nurseNote" class="fi" style="min-height:100px" placeholder="Patient condition, observations, care given, instructions followed…"></textarea></div>
+      <button class="btnP" onclick="saveRec('note')"><i class="fa fa-save"></i> Save Note</button>`,
+    referral:`<div class="fg"><label class="fl">Send Note To</label><select id="refTo" class="fsel"><option>Doctor</option><option>Nurse</option><option>Lab Technician</option><option>Pharmacy</option><option>Reception</option></select></div>
+      <div class="fg"><label class="fl">Message / Note</label><textarea id="refNote" class="fi" style="min-height:100px" placeholder="Write your message to that department…"></textarea></div>
+      <button class="btnP" onclick="saveRec('referral')"><i class="fa fa-paper-plane"></i> Send Note</button>`
   };
-  el.innerHTML=forms[type]||"";
+  ge("addRecBody").innerHTML=forms[type]||"";
+  openModal("addRecModal");
 };
 
-window.saveRecord=async(type)=>{
-  if(!activePID){toast("No patient selected","error");return;}
-  let rd={patientId:activePID,staff:SP.name,staffRole:SP.role,createdAt:serverTimestamp()};
+window.saveRec=async(type)=>{
+  if(!aPID){toast("No patient selected","err");return;}
+  let rd={pid:aPID,type,by:SP.name,byRole:SP.role,ts:serverTimestamp()};
   if(type==="vitals"){
     const bp=gv("vBP"),temp=gv("vTemp"),pulse=gv("vPulse"),weight=gv("vWeight"),height=gv("vHeight"),o2=gv("vO2"),notes=gv("vNotes");
-    if(!bp&&!temp&&!pulse){toast("Enter at least one vital sign","error");return;}
-    rd={...rd,type:"vitals",role:"vitals",vitals:{bp,temp,pulse,weight,height,o2},content:notes};
-  }else if(type==="diagnosis"){
-    const note=gv("diagNote");if(!note){toast("Enter diagnosis notes","error");return;}
-    rd={...rd,type:"diagnosis",role:"doctor",content:note};
-  }else if(type==="prescription"){
+    if(!bp&&!temp&&!pulse){toast("Enter at least one vital","err");return;}
+    rd={...rd,tag:"Vital Signs",role:"vitals",vitals:{bp,temp,pulse,weight,height,o2},body:notes};
+  }else if(type==="diag"){
+    const n=gv("diagNote");if(!n){toast("Enter diagnosis","err");return;}
+    rd={...rd,tag:"Diagnosis",role:"doctor",body:n};
+  }else if(type==="rx"){
     const drug=gv("rxDrug"),dose=gv("rxDose"),note=gv("rxNote");
-    if(!drug||!dose){toast("Enter drug name and dosage","error");return;}
-    await addDoc(collection(db,"prescriptions"),{patientId:activePID,drug,dosage:dose,instructions:note,prescribedBy:SP.name,dispensed:false,createdAt:serverTimestamp()});
-    rd={...rd,type:"prescription",role:"doctor",content:`${drug} — ${dose}${note?" ("+note+")":""}`};
-  }else if(type==="labRequest"){
-    const test=gv("labTestIn"),urgency=gv("labUrgency");
-    if(!test){toast("Enter test name","error");return;}
-    await addDoc(collection(db,"labRequests"),{patientId:activePID,testName:test,urgency,requestedBy:SP.name,status:"Pending",createdAt:serverTimestamp()});
-    rd={...rd,type:"labRequest",role:"lab",content:`${test} [${urgency}]`};
-  }else if(type==="labResult"){
-    const test=gv("labResTest"),result=gv("labResResult");
-    if(!test||!result){toast("Enter test name and result","error");return;}
-    await addDoc(collection(db,"labResults"),{patientId:activePID,testName:test,results:result,uploadedBy:SP.name,createdAt:serverTimestamp()});
-    const lrSnap=await getDocs(query(collection(db,"labRequests"),where("patientId","==",activePID),where("testName","==",test),where("status","==","Pending")));
-    for(const d of lrSnap.docs)await updateDoc(doc(db,"labRequests",d.id),{status:"Completed"});
-    rd={...rd,type:"labResult",role:"lab",content:`${test}:\n${result}`};
-  }else if(type==="nurseNote"){
-    const note=gv("nurseNoteIn");if(!note){toast("Enter nurse note","error");return;}
-    rd={...rd,type:"nurseNote",role:"nurse",content:note};
+    if(!drug||!dose){toast("Enter drug & dosage","err");return;}
+    // Also push to prescriptions collection so pharmacy can see it
+    await addDoc(collection(db,"prescriptions"),{patientId:aPID,drug,dosage:dose,instructions:note,prescribedBy:SP.name,dispensed:false,createdAt:serverTimestamp()});
+    rd={...rd,tag:"Prescription",role:"pharmacy",body:`💊 ${drug} — ${dose}${note?" ("+note+")":""}\nSent to Pharmacy by Dr. ${SP.name}`};
+  }else if(type==="labReq"){
+    const test=gv("labTestIn"),urg=gv("labUrg"),notes=gv("labNotes");
+    if(!test){toast("Enter test name","err");return;}
+    // Also push to labRequests so lab module shows it
+    await addDoc(collection(db,"labRequests"),{patientId:aPID,testName:test,urgency:urg,notes,requestedBy:SP.name,status:"Pending",createdAt:serverTimestamp()});
+    rd={...rd,tag:"Lab Request",role:"lab",body:`🔬 ${test} [${urg}]\n${notes?notes+"\n":""}Sent to Lab by ${SP.name}`};
+  }else if(type==="labRes"){
+    const test=gv("lrTest"),res=gv("lrResult"),ref=gv("lrRef");
+    if(!test||!res){toast("Enter test name and result","err");return;}
+    // Mark related request as completed
+    const lrs=await getDocs(query(collection(db,"labRequests"),where("patientId","==",aPID),where("testName","==",test),where("status","==","Pending")));
+    for(const d of lrs.docs)await updateDoc(doc(db,"labRequests",d.id),{status:"Completed"});
+    await addDoc(collection(db,"labResults"),{patientId:aPID,testName:test,results:res,reference:ref,uploadedBy:SP.name,createdAt:serverTimestamp()});
+    rd={...rd,tag:"Lab Result",role:"lab",body:`🧪 ${test}\n${res}${ref?"\nRef: "+ref:""}\nUploaded by ${SP.name}`};
+  }else if(type==="note"){
+    const n=gv("nurseNote");if(!n){toast("Enter note","err");return;}
+    rd={...rd,tag:"Nurse Note",role:"nurse",body:n};
+  }else if(type==="referral"){
+    const to=gv("refTo"),note=gv("refNote");if(!note){toast("Enter message","err");return;}
+    rd={...rd,tag:"Dept Note → "+to,role:"doctor",body:`To: ${to}\n${note}\nFrom: ${SP.name} (${SP.role})`};
   }
-  await addDoc(collection(db,"patientRecords"),rd);
-  toast("✅ Record added to patient file!","success");
-  closeModal("updatePatModal");
-  await renderFullRecord();
-};
+  await addDoc(collection(db,"records"),rd);
+  toast("✅ Added to patient record!","ok");
+  cModal("addRecModal");
+  await renderRec();
+}
 
-// ── APPOINTMENTS ──────────────────────────────────────────────────────────────
+// ─── APPOINTMENTS ─────────────────────────────────────────────────────────
 window.loadDoctors=async()=>{
   const s=await getDocs(query(collection(db,"staff"),where("role","==","Doctor")));
-  const sel=ge("apDoctor");if(!sel)return;
+  const sel=ge("apDoc");if(!sel)return;
   sel.innerHTML='<option value="">Select doctor…</option>'+s.docs.map(d=>`<option>${d.data().name}</option>`).join("");
 };
 window.loadAppts=async()=>{
   const el=ge("apptList");if(!el)return;
   el.innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
   const dateF=gv("apptDate"),statF=gv("apptStat");
-  const snap=await getDocs(query(collection(db,"appointments"),orderBy("createdAt","desc")));
-  let rows=snap.docs.map(d=>({id:d.id,...d.data()}));
+  const snap=await getDocs(collection(db,"appointments"));
+  let rows=snap.docs.map(d=>({_id:d.id,...d.data()}));
   if(dateF)rows=rows.filter(r=>r.date===dateF);
   if(statF)rows=rows.filter(r=>r.status===statF);
+  rows.sort((a,b)=>a.date<b.date?1:-1);
   if(!rows.length){el.innerHTML='<div class="en">No appointments found</div>';return;}
   el.innerHTML=rows.map(a=>`<div class="icard">
-    <div class="crow"><span><b>${a.patientName}</b> <span class="pid">${a.patientId}</span></span><span class="badge ap-${a.status.toLowerCase()}">${a.status}</span></div>
-    <div style="font-size:.83rem;color:var(--mu);margin:3px 0"><i class="fa fa-calendar"></i> ${a.date} &nbsp;<i class="fa fa-clock"></i> ${a.time} &nbsp;<i class="fa fa-stethoscope"></i> Dr.${a.doctor}</div>
+    <div class="crow"><span><b>${a.patientName}</b> <span class="pid">${a.patientId}</span></span><span class="badge ${a.status==="Scheduled"?"bg-warn":a.status==="Completed"?"bg-ok":"bg-no"}">${a.status}</span></div>
+    <div style="font-size:.83rem;color:var(--mu);margin:3px 0"><i class="fa fa-calendar"></i> ${a.date} <i class="fa fa-clock"></i> ${a.time} <i class="fa fa-stethoscope"></i> Dr.${a.doctor}</div>
     <div style="font-size:.82rem">${a.type}${a.notes?" — "+a.notes:""}</div>
-    ${a.status==="Scheduled"?`<div class="flex mt8"><button class="bsm success" onclick="updAppt('${a.id}','Completed')"><i class="fa fa-check"></i> Complete</button><button class="bsm danger" onclick="updAppt('${a.id}','Cancelled')"><i class="fa fa-times"></i> Cancel</button></div>`:""}
+    ${a.status==="Scheduled"?`<div class="flex mt8"><button class="bsm success" onclick="updAppt('${a._id}','Completed')"><i class="fa fa-check"></i> Complete</button><button class="bsm danger" onclick="updAppt('${a._id}','Cancelled')"><i class="fa fa-times"></i> Cancel</button></div>`:""}
   </div>`).join("");
 };
 window.bookAppt=async()=>{
-  const pid=gv("apPid"),pname=gv("apPname"),date=gv("apDate"),time=gv("apTime"),doctor=gv("apDoctor"),type=gv("apType"),notes=gv("apNotes");
-  if(!pid||!pname||!date||!time||!doctor){toast("Fill all required fields","error");return;}
+  const pid=gv("apPid"),pname=gv("apPname"),date=gv("apDate"),time=gv("apTime"),doctor=gv("apDoc"),type=gv("apType"),notes=gv("apNotes");
+  if(!pid||!pname||!date||!time||!doctor){toast("Fill all required fields","err");return;}
   await addDoc(collection(db,"appointments"),{patientId:pid,patientName:pname,date,time,doctor,type,notes,status:"Scheduled",bookedBy:SP.name,createdAt:serverTimestamp()});
-  toast("Appointment booked!","success");closeModal("apptModal");
+  toast("Appointment booked!","ok");cModal("apptModal");
   ge("apPid").value="";ge("apPname").value="";ge("apDate").value="";ge("apTime").value="";ge("apNotes").value="";
   loadAppts();loadDashCards();
 };
-window.updAppt=async(id,status)=>{await updateDoc(doc(db,"appointments",id),{status,updatedBy:SP.name,updatedAt:serverTimestamp()});toast("Appointment "+status.toLowerCase(),"success");loadAppts();};
+window.updAppt=async(id,status)=>{await updateDoc(doc(db,"appointments",id),{status,updatedAt:serverTimestamp()});toast("Appointment "+status.toLowerCase(),"ok");loadAppts();};
 
-// ── LAB ───────────────────────────────────────────────────────────────────────
+// ─── LAB ──────────────────────────────────────────────────────────────────
 window.loadLabQ=async()=>{
   const el=ge("labQ");if(!el)return;
   el.innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
   const s=await getDocs(query(collection(db,"labRequests"),where("status","==","Pending")));
   if(s.empty){el.innerHTML='<div class="en">No pending lab requests</div>';return;}
-  el.innerHTML=s.docs.map(d=>{const r=d.data();return`<div class="icard">
-    <div class="crow"><span><i class="fa fa-vial"></i> <b>${r.testName}</b>${r.urgency==="STAT"?` <span class="badge bg-no">STAT</span>`:r.urgency==="Urgent"?` <span class="badge bg-warn">Urgent</span>`:""}</span><span class="pid">${r.patientId}</span></div>
-    <small class="muted">Requested by ${r.requestedBy}</small>
-    <div class="mt8"><input id="lr-${d.id}" class="fi sm" placeholder="Enter result details…"/>
-    <button class="bsm primary mt4" onclick="uploadLabResult('${d.id}','${r.patientId}','${r.testName}')"><i class="fa fa-upload"></i> Upload Result</button></div>
-  </div>`;}).join("");
+  const rows=s.docs.map(d=>({_id:d.id,...d.data()}));
+  rows.sort((a,b)=>{const order={STAT:0,Urgent:1,Routine:2};return(order[a.urgency]||2)-(order[b.urgency]||2);});
+  el.innerHTML=rows.map(r=>`<div class="icard">
+    <div class="crow">
+      <span><i class="fa fa-vial"></i> <b>${r.testName}</b>${r.urgency==="STAT"?` <span class="badge bg-no">STAT</span>`:r.urgency==="Urgent"?` <span class="badge bg-warn">Urgent</span>`:""}</span>
+      <span class="pid">${r.patientId}</span>
+    </div>
+    <small class="muted">Requested by ${r.requestedBy}${r.notes?" · "+r.notes:""}</small>
+    <div class="mt8">
+      <textarea id="lr-${r._id}" class="fi sm" style="min-height:60px" placeholder="Enter full result details here…"></textarea>
+      <div class="flex mt4">
+        <input id="lrref-${r._id}" class="fi sm" style="flex:1" placeholder="Reference range (optional)"/>
+        <button class="bsm primary" onclick="uploadLab('${r._id}','${r.patientId}','${r.testName}')"><i class="fa fa-upload"></i> Upload & Save to Patient File</button>
+      </div>
+    </div>
+  </div>`).join("");
 };
-window.uploadLabResult=async(id,pid,test)=>{
-  const res=ge("lr-"+id).value.trim();if(!res){toast("Enter result","error");return;}
-  await addDoc(collection(db,"labResults"),{patientId:pid,testName:test,results:res,uploadedBy:SP.name,createdAt:serverTimestamp()});
+window.uploadLab=async(id,pid,test)=>{
+  const res=ge("lr-"+id)?ge("lr-"+id).value.trim():"";
+  const ref=ge("lrref-"+id)?ge("lrref-"+id).value.trim():"";
+  if(!res){toast("Enter result details","err");return;}
+  await addDoc(collection(db,"labResults"),{patientId:pid,testName:test,results:res,reference:ref,uploadedBy:SP.name,createdAt:serverTimestamp()});
   await updateDoc(doc(db,"labRequests",id),{status:"Completed"});
-  await addDoc(collection(db,"patientRecords"),{patientId:pid,type:"labResult",role:"lab",content:`${test}:\n${res}`,staff:SP.name,staffRole:SP.role,createdAt:serverTimestamp()});
-  toast("Result uploaded & added to patient file","success");loadLabQ();
+  // Add to patient record file
+  await addDoc(collection(db,"records"),{pid,type:"labRes",tag:"Lab Result",role:"lab",body:`🧪 ${test}\n${res}${ref?"\nRef: "+ref:""}\nUploaded by ${SP.name}`,by:SP.name,byRole:SP.role,ts:serverTimestamp()});
+  toast("Result uploaded & saved to patient file","ok");loadLabQ();
 };
 
-// ── PHARMACY ──────────────────────────────────────────────────────────────────
+// ─── PHARMACY ─────────────────────────────────────────────────────────────
 window.loadRx=async()=>{
   const el=ge("pharmRx");if(!el)return;
   el.innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
   const s=await getDocs(query(collection(db,"prescriptions"),where("dispensed","==",false)));
-  if(s.empty){el.innerHTML='<div class="en">No pending prescriptions</div>';return;}
+  if(s.empty){el.innerHTML='<div class="en">No pending prescriptions from doctors</div>';return;}
   el.innerHTML=s.docs.map(d=>{const r=d.data();return`<div class="icard">
     <div class="crow"><span><i class="fa fa-pills"></i> <b>${r.drug}</b></span><span class="pid">${r.patientId}</span></div>
-    <small class="muted">${r.dosage}${r.instructions?" — "+r.instructions:""} — ${r.prescribedBy}</small>
-    <button class="bsm success mt8" onclick="dispense('${d.id}','${r.drug}','${r.patientId}')"><i class="fa fa-check"></i> Mark Dispensed</button>
+    <small class="muted">${r.dosage}${r.instructions?" — "+r.instructions:""} · Prescribed by Dr.${r.prescribedBy}</small>
+    <button class="bsm success mt8" onclick="dispense('${d.id}','${r.drug}','${r.patientId}')"><i class="fa fa-check"></i> Mark Dispensed & Update Patient File</button>
   </div>`;}).join("");
 };
 window.dispense=async(id,drug,pid)=>{
   await updateDoc(doc(db,"prescriptions",id),{dispensed:true,dispensedBy:SP.name,dispensedAt:serverTimestamp()});
-  await addDoc(collection(db,"patientRecords"),{patientId:pid,type:"pharmacy",role:"pharmacy",content:`${drug} dispensed by ${SP.name}`,staff:SP.name,staffRole:SP.role,createdAt:serverTimestamp()});
-  toast(drug+" dispensed & added to patient file","success");loadRx();
+  await addDoc(collection(db,"records"),{pid,type:"rx",tag:"Prescription Dispensed",role:"pharmacy",body:`💊 ${drug} — Dispensed by ${SP.name} (Pharmacy)`,by:SP.name,byRole:SP.role,ts:serverTimestamp()});
+  toast(drug+" dispensed & recorded in patient file","ok");loadRx();
 };
 window.addStock=async()=>{
-  const name=gv("sdrug"),qty=parseInt(gv("sqty"));if(!name||isNaN(qty)){toast("Enter drug name and qty","error");return;}
+  const name=gv("sdrug"),qty=parseInt(gv("sqty"));if(!name||isNaN(qty)){toast("Enter drug name and qty","err");return;}
   const q2=query(collection(db,"drugStock"),where("name","==",name));const s=await getDocs(q2);
   if(s.empty)await addDoc(collection(db,"drugStock"),{name,qty,updatedAt:serverTimestamp()});
   else await updateDoc(doc(db,"drugStock",s.docs[0].id),{qty:s.docs[0].data().qty+qty,updatedAt:serverTimestamp()});
-  toast("Stock updated","success");loadStock();
+  toast("Stock updated","ok");loadStock();
 };
 window.loadStock=async()=>{
   const el=ge("stockList");if(!el)return;
@@ -842,22 +810,22 @@ window.loadStock=async()=>{
   el.innerHTML=`<table class="dtab"><thead><tr><th>Drug</th><th>Qty</th></tr></thead><tbody>`+s.docs.map(d=>`<tr><td>${d.data().name}</td><td>${d.data().qty}</td></tr>`).join("")+`</tbody></table>`;
 };
 
-// ── BILLING ───────────────────────────────────────────────────────────────────
-window.addBillItem=()=>{const desc=gv("bDesc"),amt=parseFloat(gv("bAmt"));if(!desc||isNaN(amt)){toast("Enter description and amount","error");return;}billItems.push({desc,amount:amt});renderBillItems();ge("bDesc").value="";ge("bAmt").value="";};
-window.removeBillItem=i=>{billItems.splice(i,1);renderBillItems();};
-function renderBillItems(){const el=ge("billItems");const total=billItems.reduce((a,b)=>a+b.amount,0);el.innerHTML=billItems.map((b,i)=>`<div class="birow"><span style="flex:1">${b.desc}</span><span>₦${b.amount.toLocaleString()}</span><button class="btn-ic danger" onclick="removeBillItem(${i})"><i class="fa fa-times"></i></button></div>`).join("")+(billItems.length?`<div class="btotal">Total: <strong>₦${total.toLocaleString()}</strong></div>`:"");}
+// ─── BILLING ──────────────────────────────────────────────────────────────
+window.addBI=()=>{const desc=gv("bDesc"),amt=parseFloat(gv("bAmt"));if(!desc||isNaN(amt)){toast("Enter description and amount","err");return;}BI.push({desc,amount:amt});renderBI();ge("bDesc").value="";ge("bAmt").value="";};
+window.remBI=i=>{BI.splice(i,1);renderBI();};
+function renderBI(){const el=ge("billItems");const tot=BI.reduce((a,b)=>a+b.amount,0);el.innerHTML=BI.map((b,i)=>`<div class="birow"><span style="flex:1">${b.desc}</span><span>₦${b.amount.toLocaleString()}</span><button class="btn-ic danger" onclick="remBI(${i})"><i class="fa fa-times"></i></button></div>`).join("")+(BI.length?`<div class="btotal">Total: <strong>₦${tot.toLocaleString()}</strong></div>`:"");}
 window.genBill=async()=>{
-  const pid=gv("bPid"),meth=gv("bMeth"),stat=gv("bStat");if(!pid||!billItems.length){toast("Enter patient ID and add items","error");return;}
-  const total=billItems.reduce((a,b)=>a+b.amount,0);
+  const pid=gv("bPid"),meth=gv("bMeth"),stat=gv("bStat");if(!pid||!BI.length){toast("Enter patient ID and add items","err");return;}
+  const tot=BI.reduce((a,b)=>a+b.amount,0);
   const rNo="RCP-"+Date.now().toString(36).toUpperCase();
-  const bd={receiptNo:rNo,patientId:pid,items:[...billItems],total,method:meth,status:stat,createdBy:SP.name,date:today(),createdAt:serverTimestamp()};
-  await addDoc(collection(db,"bills"),bd);toast("Bill generated! "+rNo,"success");
-  billItems=[];renderBillItems();ge("bPid").value="";printReceipt(bd);closeModal("billModal");loadBillHist();
+  const bd={receiptNo:rNo,patientId:pid,items:[...BI],total:tot,method:meth,status:stat,createdBy:SP.name,date:today(),createdAt:serverTimestamp()};
+  await addDoc(collection(db,"bills"),bd);toast("Bill: "+rNo,"ok");
+  BI=[];renderBI();ge("bPid").value="";printR(bd);cModal("billModal");loadBills();
 };
-function printReceipt(b){const w=window.open("","_blank","width=420,height=640");w.document.write(`<!DOCTYPE html><html><head><title>Receipt</title><style>*{box-sizing:border-box}body{font-family:Arial;padding:24px;max-width:340px;margin:auto}h2{text-align:center;color:#0057b8}.row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed #ddd;font-size:14px}.tot{font-weight:700;display:flex;justify-content:space-between;margin-top:8px}.info{font-size:13px;margin:4px 0}hr{border:none;border-top:2px solid #0057b8;margin:12px 0}.footer{text-align:center;margin-top:20px;font-size:12px;color:#999}</style></head><body><h2>🏥 MediCore HMS</h2><hr/><p class="info"><b>Receipt #:</b> ${b.receiptNo}</p><p class="info"><b>Patient ID:</b> ${b.patientId}</p><p class="info"><b>Date:</b> ${b.date}</p><p class="info"><b>Payment:</b> ${b.method} — ${b.status}</p><hr/>${b.items.map(i=>`<div class="row"><span>${i.desc}</span><span>₦${i.amount.toLocaleString()}</span></div>`).join("")}<div class="tot"><span>TOTAL</span><span>₦${b.total.toLocaleString()}</span></div><div class="footer">Thank you — MediCore HMS</div><script>setTimeout(()=>window.print(),300);<\/script></body></html>`);w.document.close();}
-window.loadBillHist=async()=>{const el=ge("billBody");if(!el)return;const s=await getDocs(query(collection(db,"bills"),orderBy("createdAt","desc"),limit(60)));if(s.empty){el.innerHTML='<tr><td colspan="6" class="cr">No bills</td></tr>';return;}el.innerHTML=s.docs.map(d=>{const b=d.data();return`<tr><td><span class="pid">${b.receiptNo}</span></td><td>${b.patientId}</td><td>₦${b.total.toLocaleString()}</td><td>${b.method}</td><td><span class="badge st-${b.status.toLowerCase().replace(/\s/g,"-")}">${b.status}</span></td><td>${b.date}</td></tr>`;}).join("");};
+function printR(b){const w=window.open("","_blank","width=420,height=600");w.document.write(`<!DOCTYPE html><html><head><title>Receipt</title><style>*{box-sizing:border-box}body{font-family:Arial;padding:24px;max-width:340px;margin:auto}h2{text-align:center;color:#0057b8}.row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed #ddd;font-size:14px}.tot{font-weight:700;display:flex;justify-content:space-between;margin-top:8px}.info{font-size:13px;margin:4px 0}hr{border:none;border-top:2px solid #0057b8;margin:12px 0}.footer{text-align:center;margin-top:20px;font-size:12px;color:#999}</style></head><body><h2>🏥 MediCore HMS</h2><hr/><p class="info"><b>Receipt #:</b> ${b.receiptNo}</p><p class="info"><b>Patient ID:</b> ${b.patientId}</p><p class="info"><b>Date:</b> ${b.date}</p><p class="info"><b>Payment:</b> ${b.method} — ${b.status}</p><hr/>${b.items.map(i=>`<div class="row"><span>${i.desc}</span><span>₦${i.amount.toLocaleString()}</span></div>`).join("")}<div class="tot"><span>TOTAL</span><span>₦${b.total.toLocaleString()}</span></div><div class="footer">Thank you — MediCore HMS</div><script>setTimeout(()=>window.print(),300);<\/script></body></html>`);w.document.close();}
+window.loadBills=async()=>{const el=ge("billBody");if(!el)return;const s=await getDocs(query(collection(db,"bills"),orderBy("createdAt","desc"),limit(60)));if(s.empty){el.innerHTML='<tr><td colspan="6" class="cr">No bills</td></tr>';return;}el.innerHTML=s.docs.map(d=>{const b=d.data();return`<tr><td><span class="pid">${b.receiptNo}</span></td><td>${b.patientId}</td><td>₦${b.total.toLocaleString()}</td><td>${b.method}</td><td><span class="badge st-${b.status.toLowerCase().replace(/\s/g,"-")}">${b.status}</span></td><td>${b.date}</td></tr>`;}).join("");};
 
-// ── ADMIN ─────────────────────────────────────────────────────────────────────
+// ─── ADMIN ─────────────────────────────────────────────────────────────────
 window.loadAdminStats=async()=>{
   const td=today();const[ps,bs,ss]=await Promise.all([getDocs(collection(db,"patients")),getDocs(collection(db,"bills")),getDocs(collection(db,"staff"))]);
   const todP=ps.docs.filter(d=>{const c=d.data().createdAt;return c&&c.toDate&&c.toDate().toISOString().slice(0,10)===td;}).length;
@@ -870,77 +838,75 @@ window.loadAdminStats=async()=>{
 };
 window.createStaff=async()=>{
   const name=gv("sName"),email=gv("sEmail"),pass=gv("sPass"),role=gv("sRole"),dept=gv("sDept");
-  if(!name||!email||!pass||!role){toast("Fill all required fields","error");return;}
+  if(!name||!email||!pass||!role){toast("Fill all required fields","err");return;}
   try{
     const c=await createUserWithEmailAndPassword(auth,email,pass);
     await setDoc(doc(db,"staff",c.user.uid),{name,email,role,dept,active:true,createdAt:serverTimestamp()});
-    toast("✅ "+name+" added as "+role,"success");closeModal("staffModal");
+    toast("✅ "+name+" added as "+role,"ok");cModal("staffModal");
     ge("sName").value="";ge("sEmail").value="";ge("sPass").value="";ge("sRole").value="";ge("sDept").value="";
     loadStaff();
-  }catch(err){toast(err.message,"error");}
+  }catch(e){toast(e.message,"err");}
 };
 window.loadStaff=async()=>{
   const el=ge("staffBody");if(!el)return;
   el.innerHTML='<tr><td colspan="5" class="cr"><i class="fa fa-spinner fa-spin"></i></td></tr>';
   const s=await getDocs(collection(db,"staff"));
-  if(s.empty){el.innerHTML='<tr><td colspan="5" class="cr">No staff found</td></tr>';return;}
+  if(s.empty){el.innerHTML='<tr><td colspan="5" class="cr">No staff</td></tr>';return;}
   el.innerHTML=s.docs.map(d=>{const r=d.data();return`<tr><td>${r.name}</td><td style="font-size:.78rem">${r.email}</td><td><span class="badge role-${r.role.toLowerCase().replace(/\s/g,"-")}">${r.role}</span></td><td>${r.dept||"—"}</td><td><span class="badge ${r.active?"bg-ok":"bg-no"}">${r.active?"Active":"Inactive"}</span></td></tr>`;}).join("");
 };
 
-// ── PROFILE ───────────────────────────────────────────────────────────────────
-function loadProfile(){
+// ─── PROFILE ───────────────────────────────────────────────────────────────
+function loadProf(){
   if(!SP)return;
-  sv("profName",SP.name);sv("profRole",SP.role);sv("profEmail",SP.email||CU.email||"—");sv("profDept",SP.dept||"—");sv("profStatus",SP.active?"Active":"Inactive");
-  const b=ge("profBadge");if(b){b.textContent=SP.role;b.className=`badge role-${SP.role.toLowerCase().replace(/\s/g,"-")}`;}
-  ge("profNameIn").value=SP.name||"";ge("profDeptIn").value=SP.dept||"";
+  sv("pName2",SP.name);sv("pRole",SP.role);sv("pEmail",SP.email||CU.email||"—");sv("pDept",SP.dept||"—");sv("pStat",SP.active?"Active":"Inactive");
+  const b=ge("pBadge");if(b){b.textContent=SP.role;b.className=`badge role-${SP.role.toLowerCase().replace(/\s/g,"-")}`;}
+  ge("pnIn").value=SP.name||"";ge("pdIn").value=SP.dept||"";
 }
-window.updateProfile=async()=>{
-  const name=gv("profNameIn"),dept=gv("profDeptIn");if(!name){toast("Name cannot be empty","error");return;}
+window.updProf=async()=>{
+  const name=gv("pnIn"),dept=gv("pdIn");if(!name){toast("Name cannot be empty","err");return;}
   await updateDoc(doc(db,"staff",CU.uid),{name,dept});SP.name=name;SP.dept=dept;
-  toast("Profile updated!","success");sv("staffName",name);loadProfile();
+  toast("Profile updated!","ok");sv("staffName",name);loadProf();
 };
-window.changePass=async()=>{
-  const p1=gv("newPass1"),p2=gv("newPass2");
-  if(!p1||!p2){toast("Enter and confirm new password","error");return;}
-  if(p1!==p2){toast("Passwords do not match","error");return;}
-  if(p1.length<6){toast("Password must be at least 6 characters","error");return;}
-  try{await updatePassword(CU,p1);toast("Password changed! Logging out…","success");ge("newPass1").value="";ge("newPass2").value="";setTimeout(()=>signOut(auth),2000);}
-  catch(err){if(err.code==="auth/requires-recent-login")toast("Please log out and log back in first","error");else toast(err.message,"error");}
+window.chgPass=async()=>{
+  const p1=gv("np1"),p2=gv("np2");
+  if(!p1||!p2){toast("Enter and confirm new password","err");return;}
+  if(p1!==p2){toast("Passwords do not match","err");return;}
+  if(p1.length<6){toast("Min 6 characters","err");return;}
+  try{await updatePassword(CU,p1);toast("Password changed! Logging out…","ok");setTimeout(()=>signOut(auth),2000);}
+  catch(e){if(e.code==="auth/requires-recent-login")toast("Log out and log back in first","err");else toast(e.message,"err");}
 };
 
-// ── MESSAGING ─────────────────────────────────────────────────────────────────
+// ─── MESSAGING ────────────────────────────────────────────────────────────
 window.loadMsgStaff=async()=>{const s=await getDocs(collection(db,"staff"));allStaff=s.docs.map(d=>({uid:d.id,...d.data()})).filter(d=>d.uid!==CU.uid);const sel=ge("msgTo");if(!sel)return;sel.innerHTML='<option value="">Select staff member…</option>'+allStaff.map(s=>`<option value="${s.uid}">${s.name} — ${s.role}</option>`).join("");};
-window.startChat=async()=>{const uid2=gv("msgTo"),s2=allStaff.find(s=>s.uid===uid2);if(!uid2||!s2){toast("Select a staff member","error");return;}closeModal("newMsgModal");showMod("messages");openChat(uid2,s2.name);};
+window.startChat=async()=>{const uid2=gv("msgTo"),s2=allStaff.find(s=>s.uid===uid2);if(!uid2||!s2){toast("Select a staff member","err");return;}cModal("newMsgModal");showMod("messages");openChat(uid2,s2.name);};
 window.loadThreads=async()=>{
   ge("chatView").style.display="none";ge("threadList").style.display="block";const el=ge("threadList");
   el.innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
   const s=await getDocs(query(collection(db,"chats"),where("members","array-contains",CU.uid)));
-  if(s.empty){el.innerHTML=`<div class="sc" style="text-align:center;padding:30px"><i class="fa fa-comments" style="font-size:2.5rem;color:var(--PL);display:block;margin-bottom:12px"></i><p style="font-weight:600">No conversations yet</p><p class="muted mt4">Tap <b>+ New</b> to start chatting</p></div>`;return;}
-  const threads=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.lastAt?.toDate?.()?.getTime()||0)-(a.lastAt?.toDate?.()?.getTime()||0));
-  el.innerHTML=threads.map(c=>{const oid=c.members.find(m=>m!==CU.uid);const oname=c.memberNames?.[oid]||"Staff";const ini=oname.split(" ").map(n=>n[0]).join("").slice(0,2).toUpperCase();return`<div class="thread-item" onclick="openChat('${oid}','${oname}')"><div class="tav">${ini}</div><div class="tinfo"><div class="tname">${oname}</div><div class="tlast">${c.lastMsg||"Tap to chat…"}</div></div><i class="fa fa-chevron-right" style="color:var(--mu);font-size:.8rem"></i></div>`;}).join("");
+  if(s.empty){el.innerHTML=`<div class="sc" style="text-align:center;padding:30px"><i class="fa fa-comments" style="font-size:2.5rem;color:var(--PL);display:block;margin-bottom:12px"></i><p style="font-weight:600">No conversations yet</p><p class="muted mt4">Tap <b>+ New</b> to start chatting with any staff member</p></div>`;return;}
+  const th=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.lastAt?.toDate?.()?.getTime()||0)-(a.lastAt?.toDate?.()?.getTime()||0));
+  el.innerHTML=th.map(c=>{const oid=c.members.find(m=>m!==CU.uid);const on=c.memberNames?.[oid]||"Staff";const ini=on.split(" ").map(n=>n[0]).join("").slice(0,2).toUpperCase();return`<div class="thread-item" onclick="openChat('${oid}','${on}')"><div class="tav">${ini}</div><div class="tinfo"><div class="tname">${on}</div><div class="tlast">${c.lastMsg||"Tap to chat…"}</div></div><i class="fa fa-chevron-right" style="color:var(--mu);font-size:.8rem"></i></div>`;}).join("");
 };
 window.openChat=async(otherId,otherName)=>{
-  const ids=[CU.uid,otherId].sort();activeChatId=ids[0]+"_"+ids[1];
-  const chatRef=doc(db,"chats",activeChatId);const snap=await getDoc(chatRef);
-  if(!snap.exists())await setDoc(chatRef,{members:ids,memberNames:{[CU.uid]:SP.name,[otherId]:otherName},lastMsg:"",lastAt:serverTimestamp(),createdAt:serverTimestamp()});
+  const ids=[CU.uid,otherId].sort();chatId=ids[0]+"_"+ids[1];
+  const ref=doc(db,"chats",chatId);const snap=await getDoc(ref);
+  if(!snap.exists())await setDoc(ref,{members:ids,memberNames:{[CU.uid]:SP.name,[otherId]:otherName},lastMsg:"",lastAt:serverTimestamp(),createdAt:serverTimestamp()});
   ge("chatWith").textContent="💬 "+otherName;ge("chatBox").innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
   ge("threadList").style.display="none";ge("chatView").style.display="block";
   if(msgUnsub)msgUnsub();
-  msgUnsub=onSnapshot(query(collection(db,"chats",activeChatId,"messages"),orderBy("createdAt","asc")),snap=>{
+  msgUnsub=onSnapshot(query(collection(db,"chats",chatId,"messages"),orderBy("createdAt","asc")),snap=>{
     const el=ge("chatBox");if(!el)return;
     if(snap.empty){el.innerHTML='<div class="en">No messages yet. Say hello! 👋</div>';return;}
     el.innerHTML=snap.docs.map(d=>{const m=d.data(),mine=m.senderId===CU.uid;return`<div class="mwrap ${mine?"mine":"theirs"}"><div class="mbub ${mine?"mme":"mthem"}">${!mine?`<div class="mname">${m.senderName}</div>`:""}<div>${m.text}</div><div class="mtime">${fmt(m.createdAt)}</div></div></div>`;}).join("");
     el.scrollTop=el.scrollHeight;
   });
 };
-window.sendMsg=async()=>{const text=gv("msgInput");if(!text||!activeChatId){toast("Type a message","error");return;}ge("msgInput").value="";await addDoc(collection(db,"chats",activeChatId,"messages"),{text,senderId:CU.uid,senderName:SP.name,createdAt:serverTimestamp()});await updateDoc(doc(db,"chats",activeChatId),{lastMsg:text,lastAt:serverTimestamp()});};
-window.backToThreads=()=>{if(msgUnsub){msgUnsub();msgUnsub=null;}activeChatId=null;ge("chatView").style.display="none";ge("threadList").style.display="block";loadThreads();};
-function startUnreadBadge(){onSnapshot(query(collection(db,"chats"),where("members","array-contains",CU.uid)),snap=>{const b=ge("msgBadge");if(b&&snap.size>0){b.style.display="flex";b.textContent=snap.size;}});}
+window.sendMsg=async()=>{const text=gv("msgIn");if(!text||!chatId)return;ge("msgIn").value="";await addDoc(collection(db,"chats",chatId,"messages"),{text,senderId:CU.uid,senderName:SP.name,createdAt:serverTimestamp()});await updateDoc(doc(db,"chats",chatId),{lastMsg:text,lastAt:serverTimestamp()});};
+window.backThreads=()=>{if(msgUnsub){msgUnsub();msgUnsub=null;}chatId=null;ge("chatView").style.display="none";ge("threadList").style.display="block";loadThreads();};
+function startMsgBadge(){onSnapshot(query(collection(db,"chats"),where("members","array-contains",CU.uid)),snap=>{const b=ge("msgBadge");if(b&&snap.size>0){b.style.display="flex";b.textContent=snap.size;}});}
 
-window.toast=(msg,type="success")=>{const t=document.createElement("div");t.className=`toast t-${type}`;t.innerHTML=`<i class="fa fa-${type==="success"?"check-circle":"exclamation-circle"}"></i> ${msg}`;ge("toasts").appendChild(t);setTimeout(()=>t.classList.add("show"),10);setTimeout(()=>{t.classList.remove("show");setTimeout(()=>t.remove(),300);},3500);};
-
-// Fix old patient IDs on load
-fixMissingPatientIds();
+// ─── TOAST ─────────────────────────────────────────────────────────────────
+window.toast=(msg,type="ok")=>{const t=document.createElement("div");t.className=`toast t-${type}`;t.innerHTML=`<i class="fa fa-${type==="ok"?"check-circle":"exclamation-circle"}"></i> ${msg}`;ge("toasts").appendChild(t);setTimeout(()=>t.classList.add("show"),10);setTimeout(()=>{t.classList.remove("show");setTimeout(()=>t.remove(),300);},3500);};
 </script>
 </body>
 </html>
