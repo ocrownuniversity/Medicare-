@@ -1,0 +1,27 @@
+{
+  "name": "Goodness Hospital Management System",
+  "short_name": "Goodness HMS",
+  "description": "Hospital Staff Management System for Goodness Hospital",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f0f4f8",
+  "theme_color": "#0057b8",
+  "orientation": "portrait",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["medical","health","productivity"],
+  "lang": "en"
+}
