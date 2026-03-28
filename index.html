@@ -141,6 +141,33 @@ textarea.fi{resize:vertical;min-height:80px}
 .en{color:var(--mu);font-size:.83rem;text-align:center;padding:16px}
 .flex{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 
+
+/* NOTIFICATIONS */
+.notif-bell{position:relative;background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer;padding:8px}
+.notif-count{position:absolute;top:2px;right:2px;background:var(--D);color:#fff;border-radius:50%;width:16px;height:16px;font-size:.6rem;font-weight:700;display:none;align-items:center;justify-content:center}
+.notif-panel{position:fixed;top:56px;right:0;width:min(340px,100vw);background:var(--sur);border-left:1px solid var(--brd);border-bottom:1px solid var(--brd);border-radius:0 0 0 var(--r);box-shadow:var(--sh);z-index:150;max-height:70vh;overflow-y:auto;display:none}
+.notif-panel.open{display:block;animation:slideDown .2s ease}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.notif-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--brd);background:var(--P);color:#fff}
+.notif-header h4{font-size:.9rem;font-weight:600}
+.notif-item{padding:13px 16px;border-bottom:1px solid var(--brd);cursor:pointer;transition:background .17s;display:flex;gap:10px;align-items:flex-start}
+.notif-item:hover{background:var(--PL)}
+.notif-item.unread{background:#f0f7ff;border-left:3px solid var(--P)}
+.notif-item.read{opacity:.7}
+.notif-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.ni-pharmacy{background:#fce4ec;color:#c2185b}
+.ni-lab{background:#e0f7fa;color:#00838f}
+.ni-doctor{background:var(--PL);color:var(--P)}
+.ni-nurse{background:#e8f5e9;color:#388e3c}
+.ni-admin{background:#ede7f6;color:#5e35b1}
+.ni-appt{background:#fff3e0;color:#f57c00}
+.notif-body{flex:1}
+.notif-title{font-size:.85rem;font-weight:600;margin-bottom:2px}
+.notif-msg{font-size:.78rem;color:var(--mu);line-height:1.4}
+.notif-time{font-size:.7rem;color:var(--mu);margin-top:3px}
+.notif-empty{text-align:center;padding:30px;color:var(--mu);font-size:.85rem}
+.notif-markall{width:100%;padding:10px;background:none;border:none;border-top:1px solid var(--brd);color:var(--P);font-size:.82rem;font-weight:600;cursor:pointer;font-family:"DM Sans",sans-serif}
+.notif-markall:hover{background:var(--PL)}
 /* PWA Install Button */
 #installBtn{
   display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
@@ -185,6 +212,10 @@ textarea.fi{resize:vertical;min-height:80px}
       <div class="av"><i class="fa fa-user-nurse"></i></div>
       <span id="topRole" style="color:#fff;font-weight:600;font-size:.78rem"></span>
     </div>
+    <button class="notif-bell" onclick="toggleNotifPanel()" id="notifBell">
+      <i class="fa fa-bell"></i>
+      <span class="notif-count" id="notifCount">0</span>
+    </button>
     <button class="logoutB" onclick="doLogout()"><i class="fa fa-right-from-bracket"></i></button>
   </div>
   <nav id="sidebar">
@@ -202,6 +233,15 @@ textarea.fi{resize:vertical;min-height:80px}
     <div class="ni" id="adminNav" data-mod="admin" onclick="showMod('admin')" style="display:none"><i class="fa fa-user-shield"></i> Admin Panel</div>
   </nav>
   <div class="sov" onclick="cSB()"></div>
+
+  <!-- NOTIFICATION PANEL -->
+  <div id="notifPanel" class="notif-panel">
+    <div class="notif-header">
+      <h4><i class="fa fa-bell"></i> Notifications</h4>
+      <button style="background:none;border:none;color:#fff;cursor:pointer;font-size:.8rem" onclick="markAllRead()">Mark all read</button>
+    </div>
+    <div id="notifList"><div class="notif-empty"><i class="fa fa-bell-slash" style="font-size:2rem;display:block;margin-bottom:8px;opacity:.3"></i>No notifications yet</div></div>
+  </div>
   <div id="mainContent">
 
     <!-- DASHBOARD -->
@@ -218,6 +258,14 @@ textarea.fi{resize:vertical;min-height:80px}
         <div class="admin-av"><i class="fa fa-user-shield"></i></div>
         <div><h3 style="font-size:1rem;font-weight:700">Admin Panel</h3><p style="font-size:.8rem;opacity:.85">Manage staff, revenue & system</p></div>
         <i class="fa fa-chevron-right" style="margin-left:auto;opacity:.7"></i>
+      </div>
+      <!-- NOTIFICATIONS ON DASHBOARD -->
+      <div class="sc-mb" id="dashNotifBox">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <h3 style="font-size:.92rem"><i class="fa fa-bell" style="color:var(--D)"></i> My Notifications</h3>
+          <button class="bsm outline" style="font-size:.75rem;padding:5px 10px" onclick="markAllRead();loadDashNotifs()"><i class="fa fa-check-double"></i> Mark all read</button>
+        </div>
+        <div id="dashNotifList"><div class="cr"><i class="fa fa-spinner fa-spin"></i></div></div>
       </div>
       <div class="sc">
         <h3 style="font-size:.92rem;margin-bottom:10px"><i class="fa fa-bolt" style="color:var(--P)"></i> Quick Actions</h3>
@@ -499,7 +547,9 @@ function initApp(){
   }
   showMod("dashboard");
   loadDashCards();
+  loadDashNotifs();
   startMsgBadge();
+  startNotifListener();
 }
 
 // ─── NAV ──────────────────────────────────────────────────────────────────
@@ -518,7 +568,7 @@ window.showMod=mod=>{
   if(mod==="messages")    loadThreads();
   if(mod==="profile")     loadProf();
   if(mod==="admin")       {loadAdminStats();loadStaff();}
-  if(mod==="dashboard")   loadDashCards();
+  if(mod==="dashboard")   { loadDashCards(); loadDashNotifs(); }
 };
 window.tSB=()=>ge("sidebar").classList.toggle("open");
 window.cSB=()=>ge("sidebar").classList.remove("open");
@@ -526,6 +576,39 @@ window.openModal=id=>ge(id).style.display="flex";
 window.cModal=id=>ge(id).style.display="none";
 
 // ─── DASHBOARD ─────────────────────────────────────────────────────────────
+async function loadDashNotifs(){
+  const el = ge("dashNotifList"); if(!el) return;
+  try{
+    const snap = await getDocs(query(collection(db,"notifications"),
+      where("targetRole","==",SP.role),
+      orderBy("createdAt","desc"),
+      limit(10)
+    ));
+    if(snap.empty){
+      el.innerHTML='<div class="en" style="padding:12px">No notifications yet — actions from other departments will appear here</div>';
+      return;
+    }
+    const iconMap={rx:"fa-pills",labReq:"fa-flask",labRes:"fa-vial",appointment:"fa-calendar-check",referral:"fa-paper-plane",reg:"fa-user-plus",diag:"fa-stethoscope",note:"fa-note-medical"};
+    const colorMap={rx:"#c2185b",labReq:"#00838f",labRes:"#388e3c",appointment:"#f57c00",referral:"#5e35b1",reg:"#388e3c",diag:"var(--P)"};
+    el.innerHTML = snap.docs.map(d=>{
+      const n=d.data();
+      const ic=iconMap[n.type]||"fa-bell";
+      const cl=colorMap[n.type]||"var(--P)";
+      return`<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--brd);cursor:pointer;${!n.read?'background:#f0f7ff;margin:0 -15px;padding:10px 15px;':''}" onclick="handleNotifClick('${d.id}','${n.type}','${n.patientId||""}')">
+        <div style="width:34px;height:34px;border-radius:50%;background:${cl}20;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:${cl}"><i class="fa ${ic}"></i></div>
+        <div style="flex:1">
+          <div style="font-size:.84rem;font-weight:${n.read?'500':'700'};margin-bottom:2px">${n.title||""}</div>
+          <div style="font-size:.78rem;color:var(--mu)">${n.message||""}</div>
+          <div style="font-size:.7rem;color:var(--mu);margin-top:2px">${fmt(n.createdAt)}</div>
+        </div>
+        ${!n.read?'<span style="width:8px;height:8px;border-radius:50%;background:var(--P);flex-shrink:0;margin-top:5px"></span>':''}
+      </div>`;
+    }).join("");
+  }catch(e){
+    el.innerHTML='<div class="en">Could not load notifications</div>';
+  }
+}
+
 async function loadDashCards(){
   const[ps,bs,as,ls]=await Promise.all([
     getDocs(collection(db,"patients")),
@@ -548,6 +631,7 @@ window.regPat=async()=>{
     const ref=await addDoc(collection(db,"patients"),d);
     // first record entry
     await addDoc(collection(db,"records"),{pid,type:"reg",tag:"Registration",role:"reg",body:`Registered by ${SP.name} (${SP.role})`,by:SP.name,byRole:SP.role,ts:serverTimestamp()});
+    await sendNotif(["Doctor","Admin"],"reg","🏥 New Patient Registered",`${d.name} (${pid}) registered by ${SP.name}`,pid);
     toast("Patient registered! ID: "+pid,"ok");
     cModal("regModal");ge("regForm").reset();searchPats();
   }catch(e){toast(e.message,"err");}
@@ -696,18 +780,21 @@ window.saveRec=async(type)=>{
     rd={...rd,tag:"Vital Signs",role:"vitals",vitals:{bp,temp,pulse,weight,height,o2},body:notes};
   }else if(type==="diag"){
     const n=gv("diagNote");if(!n){toast("Enter diagnosis","err");return;}
+    await sendNotif(["Nurse","Admin"],"diag","🩺 Diagnosis Added",`Dr.${SP.name} added diagnosis for patient ${aPID}`,aPID);
     rd={...rd,tag:"Diagnosis",role:"doctor",body:n};
   }else if(type==="rx"){
     const drug=gv("rxDrug"),dose=gv("rxDose"),note=gv("rxNote");
     if(!drug||!dose){toast("Enter drug & dosage","err");return;}
     // Also push to prescriptions collection so pharmacy can see it
     await addDoc(collection(db,"prescriptions"),{patientId:aPID,drug,dosage:dose,instructions:note,prescribedBy:SP.name,dispensed:false,createdAt:serverTimestamp()});
+    await sendNotif(["Pharmacist","Admin"],"rx","💊 New Prescription",`Dr.${SP.name} prescribed ${drug} (${dose}) for patient ${aPID}`,aPID);
     rd={...rd,tag:"Prescription",role:"pharmacy",body:`💊 ${drug} — ${dose}${note?" ("+note+")":""}\nSent to Pharmacy by Dr. ${SP.name}`};
   }else if(type==="labReq"){
     const test=gv("labTestIn"),urg=gv("labUrg"),notes=gv("labNotes");
     if(!test){toast("Enter test name","err");return;}
     // Also push to labRequests so lab module shows it
     await addDoc(collection(db,"labRequests"),{patientId:aPID,testName:test,urgency:urg,notes,requestedBy:SP.name,status:"Pending",createdAt:serverTimestamp()});
+    await sendNotif(["Lab Technician","Admin"],"labReq","🔬 New Lab Request",`${SP.name} requested ${test} [${urg}] for patient ${aPID}`,aPID);
     rd={...rd,tag:"Lab Request",role:"lab",body:`🔬 ${test} [${urg}]\n${notes?notes+"\n":""}Sent to Lab by ${SP.name}`};
   }else if(type==="labRes"){
     const test=gv("lrTest"),res=gv("lrResult"),ref=gv("lrRef");
@@ -722,6 +809,7 @@ window.saveRec=async(type)=>{
     rd={...rd,tag:"Nurse Note",role:"nurse",body:n};
   }else if(type==="referral"){
     const to=gv("refTo"),note=gv("refNote");if(!note){toast("Enter message","err");return;}
+    await sendNotif([to,"Admin"],"referral",`📨 Message from ${SP.role}`,`${SP.name}: ${note.slice(0,80)}`,aPID);
     rd={...rd,tag:"Dept Note → "+to,role:"doctor",body:`To: ${to}\n${note}\nFrom: ${SP.name} (${SP.role})`};
   }
   await addDoc(collection(db,"records"),rd);
@@ -757,6 +845,7 @@ window.bookAppt=async()=>{
   const pid=gv("apPid"),pname=gv("apPname"),date=gv("apDate"),time=gv("apTime"),doctor=gv("apDoc"),type=gv("apType"),notes=gv("apNotes");
   if(!pid||!pname||!date||!time||!doctor){toast("Fill all required fields","err");return;}
   await addDoc(collection(db,"appointments"),{patientId:pid,patientName:pname,date,time,doctor,type,notes,status:"Scheduled",bookedBy:SP.name,createdAt:serverTimestamp()});
+  await sendNotif(["Doctor","Nurse","Admin"],"appointment","📅 New Appointment",`${pname} (${pid}) booked with Dr.${doctor} on ${date} at ${time} — ${type}`,pid);
   toast("Appointment booked!","ok");cModal("apptModal");
   ge("apPid").value="";ge("apPname").value="";ge("apDate").value="";ge("apTime").value="";ge("apNotes").value="";
   loadAppts();loadDashCards();
@@ -793,6 +882,7 @@ window.uploadLab=async(id,pid,test)=>{
   await addDoc(collection(db,"labResults"),{patientId:pid,testName:test,results:res,reference:ref,uploadedBy:SP.name,createdAt:serverTimestamp()});
   await updateDoc(doc(db,"labRequests",id),{status:"Completed"});
   // Add to patient record file
+  await sendNotif(["Doctor","Nurse","Admin"],"labRes","🧪 Lab Result Ready",`${test} result for patient ${pid} uploaded by ${SP.name}`,pid);
   await addDoc(collection(db,"records"),{pid,type:"labRes",tag:"Lab Result",role:"lab",body:`🧪 ${test}\n${res}${ref?"\nRef: "+ref:""}\nUploaded by ${SP.name}`,by:SP.name,byRole:SP.role,ts:serverTimestamp()});
   toast("Result uploaded & saved to patient file","ok");loadLabQ();
 };
@@ -811,6 +901,7 @@ window.loadRx=async()=>{
 };
 window.dispense=async(id,drug,pid)=>{
   await updateDoc(doc(db,"prescriptions",id),{dispensed:true,dispensedBy:SP.name,dispensedAt:serverTimestamp()});
+  await sendNotif(["Doctor","Nurse","Admin"],"rx","✅ Prescription Dispensed",`${drug} dispensed for patient ${pid} by ${SP.name} (Pharmacy)`,pid);
   await addDoc(collection(db,"records"),{pid,type:"rx",tag:"Prescription Dispensed",role:"pharmacy",body:`💊 ${drug} — Dispensed by ${SP.name} (Pharmacy)`,by:SP.name,byRole:SP.role,ts:serverTimestamp()});
   toast(drug+" dispensed & recorded in patient file","ok");loadRx();
 };
@@ -922,6 +1013,130 @@ window.openChat=async(otherId,otherName)=>{
 window.sendMsg=async()=>{const text=gv("msgIn");if(!text||!chatId)return;ge("msgIn").value="";await addDoc(collection(db,"chats",chatId,"messages"),{text,senderId:CU.uid,senderName:SP.name,createdAt:serverTimestamp()});await updateDoc(doc(db,"chats",chatId),{lastMsg:text,lastAt:serverTimestamp()});};
 window.backThreads=()=>{if(msgUnsub){msgUnsub();msgUnsub=null;}chatId=null;ge("chatView").style.display="none";ge("threadList").style.display="block";loadThreads();};
 function startMsgBadge(){onSnapshot(query(collection(db,"chats"),where("members","array-contains",CU.uid)),snap=>{const b=ge("msgBadge");if(b&&snap.size>0){b.style.display="flex";b.textContent=snap.size;}});}
+
+
+// ─── NOTIFICATIONS ────────────────────────────────────────────────────────
+// Role → which notification types they receive
+const NOTIF_ROLES = {
+  "Pharmacist":     ["rx","referral_pharmacy","appointment"],
+  "Lab Technician": ["labReq","referral_lab","appointment"],
+  "Doctor":         ["labRes","referral_doctor","appointment","note_doctor"],
+  "Nurse":          ["referral_nurse","appointment","note_nurse","labRes"],
+  "Receptionist":   ["appointment","referral_reception"],
+  "Admin":          ["rx","labReq","labRes","referral","appointment","reg","note"]
+};
+
+let notifUnsub = null;
+let notifOpen = false;
+
+// Send a notification to target role(s)
+async function sendNotif(targetRoles, type, title, message, patientId=""){
+  if(!Array.isArray(targetRoles)) targetRoles=[targetRoles];
+  for(const role of targetRoles){
+    await addDoc(collection(db,"notifications"),{
+      targetRole: role,
+      type, title, message, patientId,
+      from: SP.name,
+      fromRole: SP.role,
+      read: false,
+      createdAt: serverTimestamp()
+    });
+  }
+}
+
+// Start listening for notifications for this staff member's role
+function startNotifListener(){
+  if(!SP||!CU) return;
+  const myRoles = isAdmin() ? ["Admin","rx","labReq","labRes","referral","appointment","reg","note"] : null;
+  
+  notifUnsub = onSnapshot(
+    query(collection(db,"notifications"),
+      where("targetRole","==", SP.role),
+      orderBy("createdAt","desc"),
+      limit(30)
+    ),
+    snap => {
+      const unread = snap.docs.filter(d => !d.data().read).length;
+      const bell = ge("notifCount");
+      if(bell){
+        bell.textContent = unread > 9 ? "9+" : unread;
+        bell.style.display = unread > 0 ? "flex" : "none";
+      }
+      renderNotifList(snap.docs);
+    },
+    err => console.log("Notif listener error:", err.message)
+  );
+}
+
+function renderNotifList(docs){
+  const el = ge("notifList");
+  if(!el) return;
+  if(!docs.length){
+    el.innerHTML = '<div class="notif-empty"><i class="fa fa-bell-slash" style="font-size:2rem;display:block;margin-bottom:8px;opacity:.3"></i>No notifications yet</div>';
+    return;
+  }
+  const iconMap = {
+    rx:       {cls:"ni-pharmacy", icon:"fa-pills"},
+    labReq:   {cls:"ni-lab",     icon:"fa-flask"},
+    labRes:   {cls:"ni-doctor",  icon:"fa-vial"},
+    appointment:{cls:"ni-appt",  icon:"fa-calendar-check"},
+    referral: {cls:"ni-admin",   icon:"fa-paper-plane"},
+    reg:      {cls:"ni-nurse",   icon:"fa-user-plus"},
+    note:     {cls:"ni-doctor",  icon:"fa-note-medical"},
+    default:  {cls:"ni-admin",   icon:"fa-bell"}
+  };
+  el.innerHTML = docs.map(d => {
+    const n = d.data();
+    const ic = iconMap[n.type] || iconMap.default;
+    const timeStr = fmt(n.createdAt);
+    return `<div class="notif-item ${n.read?'read':'unread'}" onclick="handleNotifClick('${d.id}','${n.type}','${n.patientId||""}')">
+      <div class="notif-icon ${ic.cls}"><i class="fa ${ic.icon}"></i></div>
+      <div class="notif-body">
+        <div class="notif-title">${n.title||"Notification"}</div>
+        <div class="notif-msg">${n.message||""}</div>
+        <div class="notif-time">${timeStr} · From: ${n.from||""}</div>
+      </div>
+      ${!n.read?'<span style="width:8px;height:8px;border-radius:50%;background:var(--P);flex-shrink:0;margin-top:4px"></span>':''}
+    </div>`;
+  }).join("") + '<button class="notif-markall" onclick="markAllRead()"><i class="fa fa-check-double"></i> Mark All as Read</button>';
+}
+
+window.toggleNotifPanel = () => {
+  const panel = ge("notifPanel");
+  if(!panel) return;
+  notifOpen = !notifOpen;
+  panel.classList.toggle("open", notifOpen);
+  // Close sidebar if open
+  if(notifOpen) ge("sidebar").classList.remove("open");
+};
+
+// Close notif panel when clicking outside
+document.addEventListener("click", e => {
+  if(notifOpen && !ge("notifPanel").contains(e.target) && !ge("notifBell").contains(e.target)){
+    notifOpen = false;
+    ge("notifPanel").classList.remove("open");
+  }
+});
+
+window.handleNotifClick = async(docId, type, patientId) => {
+  // Mark as read
+  await updateDoc(doc(db,"notifications",docId),{read:true}).catch(()=>{});
+  // Navigate to relevant module
+  notifOpen = false;
+  ge("notifPanel").classList.remove("open");
+  if(type==="rx")         showMod("pharmacy");
+  else if(type==="labReq") showMod("lab");
+  else if(type==="labRes"||type==="diag") showMod("patients");
+  else if(type==="appointment") showMod("appointments");
+  else showMod("dashboard");
+};
+
+window.markAllRead = async() => {
+  const snap = await getDocs(query(collection(db,"notifications"),where("targetRole","==",SP.role),where("read","==",false)));
+  const batch = [];
+  snap.docs.forEach(d => batch.push(updateDoc(doc(db,"notifications",d.id),{read:true})));
+  await Promise.all(batch);
+};
 
 // ─── TOAST ─────────────────────────────────────────────────────────────────
 window.toast=(msg,type="ok")=>{const t=document.createElement("div");t.className=`toast t-${type}`;t.innerHTML=`<i class="fa fa-${type==="ok"?"check-circle":"exclamation-circle"}"></i> ${msg}`;ge("toasts").appendChild(t);setTimeout(()=>t.classList.add("show"),10);setTimeout(()=>{t.classList.remove("show");setTimeout(()=>t.remove(),300);},3500);};
