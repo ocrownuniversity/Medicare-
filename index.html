@@ -534,13 +534,36 @@ window.doLogin=async()=>{
 };
 window.doLogout=async()=>{await signOut(auth);toast("Logged out","ok");};
 
+// ── STRICT ROLE PERMISSIONS ────────────────────────────────────────────────
+const ROLE_MODULES={
+  "Admin":          ["dashboard","patients","appointments","lab","pharmacy","billing","messages","profile","admin"],
+  "Doctor":         ["dashboard","patients","appointments","messages","profile"],
+  "Nurse":          ["dashboard","patients","appointments","messages","profile"],
+  "Receptionist":   ["dashboard","patients","appointments","billing","messages","profile"],
+  "Lab Technician": ["dashboard","lab","patients","messages","profile"],
+  "Pharmacist":     ["dashboard","pharmacy","patients","messages","profile"]
+};
+const ROLE_ACTIONS={
+  "Admin":          ["register","dispense","uploadLab","manageStock","viewPatient","book","bill","addRecord","viewRecord"],
+  "Doctor":         ["viewPatient","addRecord","viewRecord","book"],
+  "Nurse":          ["register","viewPatient","addRecord","viewRecord","book"],
+  "Receptionist":   ["register","viewPatient","book","bill","viewRecord"],
+  "Lab Technician": ["uploadLab","viewPatient","viewRecord"],
+  "Pharmacist":     ["dispense","manageStock","viewPatient","viewRecord"]
+};
+function canDo(action){return(ROLE_ACTIONS[SP.role]||[]).includes(action);}
+
 function initApp(){
   sv("staffName",SP.name);
   sv("topRole",SP.role);
-  // Show register button for nurses, receptionists, admins
-  const canReg=["Admin","Nurse","Receptionist"].includes(SP.role);
-  if(ge("regBtn"))ge("regBtn").style.display=canReg?"inline-flex":"none";
-  // Show admin panel only to admins
+  // Hide/show sidebar nav based on role
+  const allowed=ROLE_MODULES[SP.role]||["dashboard","messages","profile"];
+  document.querySelectorAll(".ni[data-mod]").forEach(n=>{
+    n.style.display=allowed.includes(n.dataset.mod)?"flex":"none";
+  });
+  // Register button
+  if(ge("regBtn"))ge("regBtn").style.display=canDo("register")?"inline-flex":"none";
+  // Admin panel
   if(isAdmin()){
     if(ge("adminNav"))ge("adminNav").style.display="flex";
     if(ge("adminBanner"))ge("adminBanner").style.display="flex";
@@ -554,8 +577,12 @@ function initApp(){
 
 // ─── NAV ──────────────────────────────────────────────────────────────────
 window.showMod=mod=>{
-  // Guard admin module
-  if(mod==="admin"&&!isAdmin()){toast("Admin access only","err");return;}
+  // Guard all modules by role
+  if(mod==="admin"&&!isAdmin()){toast("⛔ Admin access only","err");return;}
+  const allowed=ROLE_MODULES[SP&&SP.role]||["dashboard","messages","profile"];
+  if(!allowed.includes(mod)&&mod!=="dashboard"){
+    toast("⛔ You do not have access to this module","err");return;
+  }
   document.querySelectorAll(".mod").forEach(m=>m.style.display="none");
   const el=ge("mod-"+mod);if(el)el.style.display="block";
   document.querySelectorAll(".ni").forEach(n=>n.classList.toggle("active",n.dataset.mod===mod));
@@ -623,6 +650,7 @@ async function loadDashCards(){
 
 // ─── PATIENT REGISTER ─────────────────────────────────────────────────────
 window.regPat=async()=>{
+  if(!canDo("register")){toast("⛔ Your role cannot register patients","err");return;}
   const b=ge("regForm").querySelector("button");b.disabled=true;b.innerHTML='<i class="fa fa-spinner fa-spin"></i> Saving…';
   try{
     const pid=await nextPID();
@@ -677,12 +705,12 @@ async function renderRec(){
 
   // What can this role add?
   const roleActions={
-    "Admin":    [{v:"vitals",l:"❤️ Vital Signs"},{v:"diag",l:"🩺 Diagnosis"},{v:"rx",l:"💊 Prescription"},{v:"labReq",l:"🔬 Lab Request"},{v:"labRes",l:"🧪 Lab Result"},{v:"note",l:"👩‍⚕️ Note"},{v:"referral",l:"📨 Referral/Note to Dept"}],
-    "Doctor":   [{v:"diag",l:"🩺 Diagnosis"},{v:"rx",l:"💊 Prescription to Pharmacy"},{v:"labReq",l:"🔬 Lab Request to Lab"},{v:"vitals",l:"❤️ Vital Signs"},{v:"referral",l:"📨 Note to Dept"}],
-    "Nurse":    [{v:"vitals",l:"❤️ Vital Signs"},{v:"note",l:"👩‍⚕️ Nurse Note"},{v:"labReq",l:"🔬 Lab Request"},{v:"referral",l:"📨 Note to Dept"}],
+    "Admin":         [{v:"vitals",l:"❤️ Vital Signs"},{v:"diag",l:"🩺 Diagnosis"},{v:"rx",l:"💊 Prescription"},{v:"labReq",l:"🔬 Lab Request"},{v:"labRes",l:"🧪 Lab Result"},{v:"note",l:"👩‍⚕️ Note"},{v:"referral",l:"📨 Note to Dept"}],
+    "Doctor":        [{v:"diag",l:"🩺 Diagnosis"},{v:"rx",l:"💊 Prescription → Pharmacy"},{v:"labReq",l:"🔬 Lab Request → Lab"},{v:"vitals",l:"❤️ Vital Signs"},{v:"referral",l:"📨 Note to Dept"}],
+    "Nurse":         [{v:"vitals",l:"❤️ Vital Signs"},{v:"note",l:"👩‍⚕️ Nurse Note"},{v:"labReq",l:"🔬 Lab Request → Lab"},{v:"referral",l:"📨 Note to Dept"}],
     "Lab Technician":[{v:"labRes",l:"🧪 Upload Lab Result"}],
-    "Pharmacist":[],
-    "Receptionist":[]
+    "Pharmacist":    [],
+    "Receptionist":  []
   };
   const acts=roleActions[SP.role]||[];
   const addBtns=acts.length>0?`<div class="flex" style="flex-wrap:wrap;gap:7px;margin-top:12px">${acts.map(a=>`<button class="bsm outline" style="font-size:.76rem;padding:6px 10px" onclick="openAddRec('${a.v}','${a.l}')">${a.l}</button>`).join("")}</div>`:"";
@@ -773,6 +801,12 @@ window.openAddRec=async(type,label)=>{
 
 window.saveRec=async(type)=>{
   if(!aPID){toast("No patient selected","err");return;}
+  if(!canDo("addRecord")){toast("⛔ Your role cannot add records","err");return;}
+  // Extra strict checks per type
+  if(type==="rx"&&!["Doctor","Admin"].includes(SP.role)){toast("⛔ Only Doctors can prescribe medications","err");return;}
+  if(type==="labRes"&&!canDo("uploadLab")){toast("⛔ Only Lab Technicians can upload lab results","err");return;}
+  if(type==="labReq"&&!["Doctor","Nurse","Admin"].includes(SP.role)){toast("⛔ Only Doctors and Nurses can request lab tests","err");return;}
+  if(type==="diag"&&!["Doctor","Admin"].includes(SP.role)){toast("⛔ Only Doctors can add diagnoses","err");return;}
   let rd={pid:aPID,type,by:SP.name,byRole:SP.role,ts:serverTimestamp()};
   if(type==="vitals"){
     const bp=gv("vBP"),temp=gv("vTemp"),pulse=gv("vPulse"),weight=gv("vWeight"),height=gv("vHeight"),o2=gv("vO2"),notes=gv("vNotes");
@@ -842,6 +876,7 @@ window.loadAppts=async()=>{
   </div>`).join("");
 };
 window.bookAppt=async()=>{
+  if(!canDo("book")){toast("⛔ Your role cannot book appointments","err");return;}
   const pid=gv("apPid"),pname=gv("apPname"),date=gv("apDate"),time=gv("apTime"),doctor=gv("apDoc"),type=gv("apType"),notes=gv("apNotes");
   if(!pid||!pname||!date||!time||!doctor){toast("Fill all required fields","err");return;}
   await addDoc(collection(db,"appointments"),{patientId:pid,patientName:pname,date,time,doctor,type,notes,status:"Scheduled",bookedBy:SP.name,createdAt:serverTimestamp()});
@@ -876,6 +911,7 @@ window.loadLabQ=async()=>{
   </div>`).join("");
 };
 window.uploadLab=async(id,pid,test)=>{
+  if(!canDo("uploadLab")){toast("⛔ Only Lab Technicians can upload results","err");return;}
   const res=ge("lr-"+id)?ge("lr-"+id).value.trim():"";
   const ref=ge("lrref-"+id)?ge("lrref-"+id).value.trim():"";
   if(!res){toast("Enter result details","err");return;}
@@ -900,6 +936,7 @@ window.loadRx=async()=>{
   </div>`;}).join("");
 };
 window.dispense=async(id,drug,pid,dosage)=>{
+  if(!canDo("dispense")){toast("⛔ Only Pharmacists can dispense drugs","err");return;}
   // 1. Mark prescription as dispensed
   await updateDoc(doc(db,"prescriptions",id),{dispensed:true,dispensedBy:SP.name,dispensedAt:serverTimestamp()});
 
@@ -963,6 +1000,7 @@ window.dispense=async(id,drug,pid,dosage)=>{
   loadStock(); // refresh stock display
 };
 window.addStock=async()=>{
+  if(!canDo("manageStock")){toast("⛔ Only Pharmacists can manage drug stock","err");return;}
   const name=gv("sdrug"),qty=parseInt(gv("sqty"));
   if(!name||isNaN(qty)||qty<=0){toast("Enter drug name and a valid quantity","err");return;}
   const q2=query(collection(db,"drugStock"),where("name","==",name));
@@ -1006,6 +1044,7 @@ window.addBI=()=>{const desc=gv("bDesc"),amt=parseFloat(gv("bAmt"));if(!desc||is
 window.remBI=i=>{BI.splice(i,1);renderBI();};
 function renderBI(){const el=ge("billItems");const tot=BI.reduce((a,b)=>a+b.amount,0);el.innerHTML=BI.map((b,i)=>`<div class="birow"><span style="flex:1">${b.desc}</span><span>₦${b.amount.toLocaleString()}</span><button class="btn-ic danger" onclick="remBI(${i})"><i class="fa fa-times"></i></button></div>`).join("")+(BI.length?`<div class="btotal">Total: <strong>₦${tot.toLocaleString()}</strong></div>`:"");}
 window.genBill=async()=>{
+  if(!canDo("bill")){toast("⛔ Only Receptionists can generate bills","err");return;}
   const pid=gv("bPid"),meth=gv("bMeth"),stat=gv("bStat");if(!pid||!BI.length){toast("Enter patient ID and add items","err");return;}
   const tot=BI.reduce((a,b)=>a+b.amount,0);
   const rNo="RCP-"+Date.now().toString(36).toUpperCase();
