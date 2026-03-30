@@ -606,18 +606,24 @@ window.cModal=id=>ge(id).style.display="none";
 async function loadDashNotifs(){
   const el = ge("dashNotifList"); if(!el) return;
   try{
+    // No orderBy needed — sort client-side to avoid requiring Firestore index
     const snap = await getDocs(query(collection(db,"notifications"),
-      where("targetRole","==",SP.role),
-      orderBy("createdAt","desc"),
-      limit(10)
+      where("targetRole","==",SP.role)
     ));
-    if(snap.empty){
+    // Sort newest first client-side
+    const allDocs = [...snap.docs].sort((a,b)=>{
+      const at=a.data().createdAt?.toDate?.()?.getTime()||0;
+      const bt=b.data().createdAt?.toDate?.()?.getTime()||0;
+      return bt-at;
+    }).slice(0,10);
+
+    if(!allDocs.length){
       el.innerHTML='<div class="en" style="padding:12px">No notifications yet — actions from other departments will appear here</div>';
       return;
     }
     const iconMap={rx:"fa-pills",labReq:"fa-flask",labRes:"fa-vial",appointment:"fa-calendar-check",referral:"fa-paper-plane",reg:"fa-user-plus",diag:"fa-stethoscope",note:"fa-note-medical"};
     const colorMap={rx:"#c2185b",labReq:"#00838f",labRes:"#388e3c",appointment:"#f57c00",referral:"#5e35b1",reg:"#388e3c",diag:"var(--P)"};
-    el.innerHTML = snap.docs.map(d=>{
+    el.innerHTML = allDocs.map(d=>{
       const n=d.data();
       const ic=iconMap[n.type]||"fa-bell";
       const cl=colorMap[n.type]||"var(--P)";
@@ -1170,11 +1176,10 @@ function startNotifListener(){
   if(!SP||!CU) return;
   const myRoles = isAdmin() ? ["Admin","rx","labReq","labRes","referral","appointment","reg","note"] : null;
   
+  // Simple query with no orderBy — avoids needing Firestore composite index
   notifUnsub = onSnapshot(
     query(collection(db,"notifications"),
-      where("targetRole","==", SP.role),
-      orderBy("createdAt","desc"),
-      limit(30)
+      where("targetRole","==", SP.role)
     ),
     snap => {
       const unread = snap.docs.filter(d => !d.data().read).length;
@@ -1183,7 +1188,13 @@ function startNotifListener(){
         bell.textContent = unread > 9 ? "9+" : unread;
         bell.style.display = unread > 0 ? "flex" : "none";
       }
-      renderNotifList(snap.docs);
+      // Sort newest first client-side
+      const sorted = [...snap.docs].sort((a,b)=>{
+        const at=a.data().createdAt?.toDate?.()?.getTime()||0;
+        const bt=b.data().createdAt?.toDate?.()?.getTime()||0;
+        return bt-at;
+      }).slice(0,30);
+      renderNotifList(sorted);
     },
     err => console.log("Notif listener error:", err.message)
   );
@@ -1253,7 +1264,7 @@ window.handleNotifClick = async(docId, type, patientId) => {
 };
 
 window.markAllRead = async() => {
-  const snap = await getDocs(query(collection(db,"notifications"),where("targetRole","==",SP.role),where("read","==",false)));
+  const snap = await getDocs(query(collection(db,"notifications"),where("targetRole","==",SP.role)));
   const batch = [];
   snap.docs.forEach(d => batch.push(updateDoc(doc(db,"notifications",d.id),{read:true})));
   await Promise.all(batch);
