@@ -896,27 +896,109 @@ window.loadRx=async()=>{
   el.innerHTML=s.docs.map(d=>{const r=d.data();return`<div class="icard">
     <div class="crow"><span><i class="fa fa-pills"></i> <b>${r.drug}</b></span><span class="pid">${r.patientId}</span></div>
     <small class="muted">${r.dosage}${r.instructions?" — "+r.instructions:""} · Prescribed by Dr.${r.prescribedBy}</small>
-    <button class="bsm success mt8" onclick="dispense('${d.id}','${r.drug}','${r.patientId}')"><i class="fa fa-check"></i> Mark Dispensed & Update Patient File</button>
+    <button class="bsm success mt8" onclick="dispense('${d.id}','${r.drug}','${r.patientId}','${r.dosage}')"><i class="fa fa-check"></i> Mark Dispensed & Update Patient File</button>
   </div>`;}).join("");
 };
-window.dispense=async(id,drug,pid)=>{
+window.dispense=async(id,drug,pid,dosage)=>{
+  // 1. Mark prescription as dispensed
   await updateDoc(doc(db,"prescriptions",id),{dispensed:true,dispensedBy:SP.name,dispensedAt:serverTimestamp()});
-  await sendNotif(["Doctor","Nurse","Admin"],"rx","✅ Prescription Dispensed",`${drug} dispensed for patient ${pid} by ${SP.name} (Pharmacy)`,pid);
-  await addDoc(collection(db,"records"),{pid,type:"rx",tag:"Prescription Dispensed",role:"pharmacy",body:`💊 ${drug} — Dispensed by ${SP.name} (Pharmacy)`,by:SP.name,byRole:SP.role,ts:serverTimestamp()});
-  toast(drug+" dispensed & recorded in patient file","ok");loadRx();
+
+  // 2. Deduct from drug stock automatically
+  // Try to match drug name (strip dosage like "500mg" from end for matching)
+  const drugBaseName = drug.trim();
+  const stockSnap = await getDocs(collection(db,"drugStock"));
+  let stockDeducted = false;
+  let stockMsg = "";
+  let lowStockWarn = false;
+
+  // Find best matching stock item (case-insensitive partial match)
+  const match = stockSnap.docs.find(d => {
+    const sName = (d.data().name||"").toLowerCase();
+    const dName = drugBaseName.toLowerCase();
+    return sName===dName || sName.includes(dName) || dName.includes(sName);
+  });
+
+  if(match){
+    const currentQty = match.data().qty || 0;
+    const newQty = Math.max(0, currentQty - 1); // deduct 1 unit dispensed
+    await updateDoc(doc(db,"drugStock",match.id),{
+      qty: newQty,
+      lastDispensed: drug,
+      lastDispensedAt: serverTimestamp(),
+      lastDispensedBy: SP.name
+    });
+    stockDeducted = true;
+    stockMsg = ` | Stock: ${currentQty} → ${newQty}`;
+    // Warn if stock is low (5 or less)
+    if(newQty <= 5){
+      lowStockWarn = true;
+      await sendNotif(["Admin","Pharmacist"],"rx",
+        `⚠️ Low Stock Alert: ${drug}`,
+        `Only ${newQty} unit(s) of ${drug} remaining in stock. Please restock soon.`,"");
+    }
+    // Warn if out of stock
+    if(newQty === 0){
+      await sendNotif(["Admin","Pharmacist"],"rx",
+        `🚨 OUT OF STOCK: ${drug}`,
+        `${drug} is now completely out of stock! Immediate restocking required.`,"");
+    }
+  } else {
+    stockMsg = " | ⚠️ Not found in stock records";
+  }
+
+  // 3. Send notification to doctor and nurse
+  await sendNotif(["Doctor","Nurse","Admin"],"rx","✅ Prescription Dispensed",
+    `${drug} dispensed for patient ${pid} by ${SP.name} (Pharmacy)${stockMsg}`,pid);
+
+  // 4. Add to patient record
+  await addDoc(collection(db,"records"),{
+    pid,type:"rx",tag:"Prescription Dispensed",role:"pharmacy",
+    body:`💊 ${drug} — Dispensed by ${SP.name} (Pharmacy)\n${dosage||""}${stockDeducted?("\nStock deducted automatically"+stockMsg):"\n⚠️ Drug not found in stock inventory"}`,
+    by:SP.name,byRole:SP.role,ts:serverTimestamp()
+  });
+
+  if(lowStockWarn) toast(`⚠️ Low stock alert sent for ${drug}!`,"err");
+  else toast(drug+" dispensed & stock updated!","ok");
+  loadRx();
+  loadStock(); // refresh stock display
 };
 window.addStock=async()=>{
-  const name=gv("sdrug"),qty=parseInt(gv("sqty"));if(!name||isNaN(qty)){toast("Enter drug name and qty","err");return;}
-  const q2=query(collection(db,"drugStock"),where("name","==",name));const s=await getDocs(q2);
-  if(s.empty)await addDoc(collection(db,"drugStock"),{name,qty,updatedAt:serverTimestamp()});
-  else await updateDoc(doc(db,"drugStock",s.docs[0].id),{qty:s.docs[0].data().qty+qty,updatedAt:serverTimestamp()});
-  toast("Stock updated","ok");loadStock();
+  const name=gv("sdrug"),qty=parseInt(gv("sqty"));
+  if(!name||isNaN(qty)||qty<=0){toast("Enter drug name and a valid quantity","err");return;}
+  const q2=query(collection(db,"drugStock"),where("name","==",name));
+  const s=await getDocs(q2);
+  if(s.empty){
+    await addDoc(collection(db,"drugStock"),{name,qty,updatedAt:serverTimestamp(),addedBy:SP.name});
+    toast(`✅ ${name} added to stock — Qty: ${qty}`,"ok");
+  } else {
+    const oldQty=s.docs[0].data().qty||0;
+    const newQty=oldQty+qty;
+    await updateDoc(doc(db,"drugStock",s.docs[0].id),{qty:newQty,updatedAt:serverTimestamp(),lastRestockedBy:SP.name});
+    toast(`✅ ${name} restocked — ${oldQty} + ${qty} = ${newQty} units`,"ok");
+  }
+  ge("sdrug").value="";ge("sqty").value="";
+  loadStock();
 };
 window.loadStock=async()=>{
   const el=ge("stockList");if(!el)return;
   const s=await getDocs(collection(db,"drugStock"));
-  if(s.empty){el.innerHTML='<div class="en">No stock records</div>';return;}
-  el.innerHTML=`<table class="dtab"><thead><tr><th>Drug</th><th>Qty</th></tr></thead><tbody>`+s.docs.map(d=>`<tr><td>${d.data().name}</td><td>${d.data().qty}</td></tr>`).join("")+`</tbody></table>`;
+  if(s.empty){el.innerHTML='<div class="en">No stock records<br><small>Add drugs using the form above</small></div>';return;}
+  const rows=s.docs.map(d=>d.data()).sort((a,b)=>a.qty-b.qty); // show lowest stock first
+  el.innerHTML=`<table class="dtab"><thead><tr><th>Drug / Item</th><th>In Stock</th><th>Status</th></tr></thead><tbody>`+
+    rows.map(r=>{
+      const qty=r.qty||0;
+      let status="",color="";
+      if(qty===0){status="OUT OF STOCK";color="var(--D)";}
+      else if(qty<=5){status="⚠️ Low Stock";color="var(--W)";}
+      else if(qty<=10){status="Running Low";color="#f57c00";}
+      else{status="✓ Available";color="var(--A)";}
+      return`<tr>
+        <td><b>${r.name}</b></td>
+        <td style="font-size:1.1rem;font-weight:700;color:${qty===0?"var(--D)":qty<=5?"var(--W)":"var(--tx)"}">${qty}</td>
+        <td><span style="font-size:.75rem;font-weight:700;color:${color}">${status}</span></td>
+      </tr>`;
+    }).join("")+`</tbody></table>
+    <p style="font-size:.75rem;color:var(--mu);margin-top:8px"><i class="fa fa-circle-info"></i> Stock is automatically deducted when pharmacy dispenses drugs</p>`;
 };
 
 // ─── BILLING ──────────────────────────────────────────────────────────────
