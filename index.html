@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-<title>Goodness Hospital Management System</title>
+<title>God's Way Hospital Management Software</title>
 <link rel="manifest" href="manifest.json"/>
 <meta name="theme-color" content="#0057b8"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="Goodness HMS"/>
+<meta name="apple-mobile-web-app-title" content="Gods Way HMS"/>
 <link rel="apple-touch-icon" href="icon-192.png"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
@@ -168,6 +168,26 @@ textarea.fi{resize:vertical;min-height:80px}
 .notif-empty{text-align:center;padding:30px;color:var(--mu);font-size:.85rem}
 .notif-markall{width:100%;padding:10px;background:none;border:none;border-top:1px solid var(--brd);color:var(--P);font-size:.82rem;font-weight:600;cursor:pointer;font-family:"DM Sans",sans-serif}
 .notif-markall:hover{background:var(--PL)}
+
+/* ATTENDANCE */
+.clock-card{background:linear-gradient(135deg,var(--P),#00a878);border-radius:var(--r);padding:24px;color:#fff;text-align:center;margin-bottom:14px;box-shadow:var(--sh)}
+.clock-time{font-size:2.8rem;font-weight:700;font-family:'Sora',sans-serif;letter-spacing:2px}
+.clock-date{font-size:.9rem;opacity:.85;margin:4px 0 18px}
+.clock-status{font-size:.82rem;background:rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;display:inline-block;margin-bottom:16px}
+.btn-clockin{background:#fff;color:var(--A);border:none;border-radius:30px;padding:13px 36px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:.2s}
+.btn-clockin:hover{transform:scale(1.04)}
+.btn-clockout{background:#fff;color:var(--D);border:none;border-radius:30px;padding:13px 36px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:.2s}
+.att-row{display:flex;align-items:center;gap:10px;padding:10px 13px;background:var(--sur);border:1px solid var(--brd);border-radius:var(--rs);margin-bottom:7px}
+.att-status{font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:12px}
+.att-present{background:#e6f7ef;color:#1a7a4a}
+.att-late{background:#fff8e1;color:#7a5e00}
+.att-absent{background:#fce8e8;color:var(--D)}
+/* PAYSLIP */
+.payslip{background:var(--sur);border:2px solid var(--brd);border-radius:var(--r);padding:20px;margin-bottom:14px}
+.payslip-header{background:var(--P);color:#fff;border-radius:var(--rs) var(--rs) 0 0;padding:14px 16px;margin:-20px -20px 16px;display:flex;justify-content:space-between;align-items:center}
+.payslip-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed var(--brd);font-size:.87rem}
+.payslip-total{display:flex;justify-content:space-between;padding:10px 0;font-weight:700;font-size:1rem;color:var(--P)}
+.role-accountant{background:#e8f5e9;color:#2e7d32}
 /* PWA Install Button */
 #installBtn{
   display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
@@ -195,7 +215,7 @@ textarea.fi{resize:vertical;min-height:80px}
 <!-- LOGIN -->
 <div id="loginScreen">
   <div class="lcard">
-    <div class="llogo"><div class="lico"><i class="fa fa-hospital-user"></i></div><h1>Goodness Hospital</h1><p>Goodness Hospital Management System</p></div>
+    <div class="llogo"><div class="lico"><i class="fa fa-hospital-user"></i></div><h1>God's Way Hospital</h1><p>God's Way Hospital Management Software</p></div>
     <div style="background:#e8f1fb;border-radius:var(--rs);padding:10px 12px;font-size:.8rem;color:var(--P);margin-bottom:18px;display:flex;gap:8px"><i class="fa fa-lock"></i><span><b>Staff Only.</b> Authorised personnel use only.</span></div>
     <div class="fg"><label class="fl">Email</label><input id="le" type="email" class="fi" placeholder="staff@hospital.org"/></div>
     <div class="fg"><label class="fl">Password</label><input id="lp" type="password" class="fi" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
@@ -207,7 +227,7 @@ textarea.fi{resize:vertical;min-height:80px}
 <div id="appScreen">
   <div class="topbar">
     <button class="hbg" onclick="tSB()"><i class="fa fa-bars"></i></button>
-    <span class="atitle"><i class="fa fa-hospital" style="margin-right:5px"></i>Goodness Hospital</span>
+    <span class="atitle"><i class="fa fa-hospital" style="margin-right:5px"></i>God's Way Hospital</span>
     <div class="uchip" onclick="showMod('profile')">
       <div class="av"><i class="fa fa-user-nurse"></i></div>
       <span id="topRole" style="color:#fff;font-weight:600;font-size:.78rem"></span>
@@ -231,6 +251,8 @@ textarea.fi{resize:vertical;min-height:80px}
     <div class="ni" data-mod="messages" onclick="showMod('messages')" style="position:relative"><i class="fa fa-comments"></i> Messages<span id="msgBadge" class="nbadge">0</span></div>
     <div class="ni" data-mod="profile" onclick="showMod('profile')"><i class="fa fa-circle-user"></i> My Profile</div>
     <div class="ni" id="adminNav" data-mod="admin" onclick="showMod('admin')" style="display:none"><i class="fa fa-user-shield"></i> Admin Panel</div>
+    <div class="ni" data-mod="attendance" onclick="showMod('attendance')"><i class="fa fa-clock"></i> Attendance</div>
+    <div class="ni" data-mod="accountant" onclick="showMod('accountant')" style="display:none" id="acctNav"><i class="fa fa-calculator"></i> Accountant</div>
   </nav>
   <div class="sov" onclick="cSB()"></div>
 
@@ -444,7 +466,7 @@ textarea.fi{resize:vertical;min-height:80px}
   <div class="fg"><label class="fl">Full Name *</label><input id="sName" class="fi" placeholder="Staff full name"/></div>
   <div class="fg"><label class="fl">Email *</label><input id="sEmail" class="fi" type="email" placeholder="staff@hospital.org"/></div>
   <div class="fg"><label class="fl">Password *</label><input id="sPass" class="fi" type="password" placeholder="Min 6 characters"/></div>
-  <div class="frow"><div class="fg"><label class="fl">Role *</label><select id="sRole" class="fsel"><option value="">Select…</option><option>Admin</option><option>Doctor</option><option>Nurse</option><option>Receptionist</option><option>Lab Technician</option><option>Pharmacist</option></select></div><div class="fg"><label class="fl">Department</label><input id="sDept" class="fi" placeholder="e.g. Cardiology"/></div></div>
+  <div class="frow"><div class="fg"><label class="fl">Role *</label><select id="sRole" class="fsel"><option value="">Select…</option><option>Admin</option><option>Doctor</option><option>Nurse</option><option>Receptionist</option><option>Lab Technician</option><option>Pharmacist</option><option>Accountant</option></select></div><div class="fg"><label class="fl">Department</label><input id="sDept" class="fi" placeholder="e.g. Cardiology"/></div></div>
   <button class="btnP" onclick="createStaff()"><i class="fa fa-save"></i> Create Account</button>
 </div></div>
 
@@ -454,7 +476,105 @@ textarea.fi{resize:vertical;min-height:80px}
   <button class="btnP" onclick="startChat()"><i class="fa fa-paper-plane"></i> Open Chat</button>
 </div></div>
 
+
+    <!-- ATTENDANCE MODULE -->
+    <div id="mod-attendance" class="mod">
+      <div class="mhdr"><h2><i class="fa fa-clock" style="color:var(--P)"></i> Attendance</h2></div>
+      <!-- Clock In/Out Card -->
+      <div class="clock-card">
+        <div class="clock-time" id="liveTime">--:--:--</div>
+        <div class="clock-date" id="liveDate">--</div>
+        <div class="clock-status" id="clockStatus">Not clocked in today</div>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <button class="btn-clockin" id="btnClockIn" onclick="clockIn()"><i class="fa fa-play"></i> Clock In</button>
+          <button class="btn-clockout" id="btnClockOut" onclick="clockOut()" style="display:none"><i class="fa fa-stop"></i> Clock Out</button>
+        </div>
+      </div>
+      <!-- My Attendance History -->
+      <div class="sc-mb">
+        <div class="mhdr" style="margin-bottom:10px">
+          <h4 style="font-size:.93rem">📅 My Attendance History</h4>
+          <select id="attMonthFilter" class="fsel" style="width:auto;padding:6px 10px;font-size:.8rem" onchange="loadMyAttendance()">
+            <option value="">This Month</option>
+          </select>
+        </div>
+        <div id="myAttList"><div class="cr"><i class="fa fa-spinner fa-spin"></i></div></div>
+      </div>
+    </div>
+
+    <!-- ACCOUNTANT MODULE -->
+    <div id="mod-accountant" class="mod">
+      <div class="mhdr"><h2><i class="fa fa-calculator" style="color:var(--P)"></i> Accountant Dashboard</h2></div>
+      <!-- Stats -->
+      <div class="sgrid" style="grid-template-columns:1fr 1fr">
+        <div class="scard"><div class="iw ig"><i class="fa fa-naira-sign"></i></div><div class="sv2" id="acTotalPayroll">—</div><div class="sl">Monthly Payroll</div></div>
+        <div class="scard"><div class="iw ib"><i class="fa fa-users"></i></div><div class="sv2" id="acTotalStaff">—</div><div class="sl">Total Staff</div></div>
+        <div class="scard"><div class="iw io"><i class="fa fa-clock"></i></div><div class="sv2" id="acAttRate">—</div><div class="sl">Attendance Rate</div></div>
+        <div class="scard"><div class="iw ir"><i class="fa fa-file-invoice"></i></div><div class="sv2" id="acPayslips">—</div><div class="sl">Payslips This Month</div></div>
+      </div>
+      <!-- Tabs -->
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+        <button class="bsm primary" onclick="showAcctTab('payroll')"><i class="fa fa-money-bill"></i> Payroll</button>
+        <button class="bsm outline" onclick="showAcctTab('salary')"><i class="fa fa-gear"></i> Salary Settings</button>
+        <button class="bsm outline" onclick="showAcctTab('attendance')"><i class="fa fa-clock"></i> All Attendance</button>
+      </div>
+      <!-- Payroll Tab -->
+      <div id="acctPayroll" class="sc-mb">
+        <div class="mhdr" style="margin-bottom:10px">
+          <h4 style="font-size:.93rem">💰 Monthly Payroll</h4>
+          <div style="display:flex;gap:6px">
+            <select id="payrollMonth" class="fsel" style="width:auto;padding:6px 10px;font-size:.8rem"></select>
+            <button class="bsm primary" style="padding:6px 10px" onclick="genPayroll()"><i class="fa fa-play"></i> Generate</button>
+          </div>
+        </div>
+        <div id="payrollList"><div class="en">Select month and click Generate</div></div>
+      </div>
+      <!-- Salary Settings Tab -->
+      <div id="acctSalary" class="sc-mb" style="display:none">
+        <h4 style="font-size:.93rem;margin-bottom:12px">⚙️ Staff Salary Settings</h4>
+        <div id="salarySettingsList"><div class="cr"><i class="fa fa-spinner fa-spin"></i></div></div>
+      </div>
+      <!-- All Attendance Tab -->
+      <div id="acctAttendance" class="sc-mb" style="display:none">
+        <div class="mhdr" style="margin-bottom:10px">
+          <h4 style="font-size:.93rem">📋 All Staff Attendance</h4>
+          <select id="allAttMonth" class="fsel" style="width:auto;padding:6px 10px;font-size:.8rem" onchange="loadAllAttendance()"></select>
+        </div>
+        <div id="allAttList"><div class="cr"><i class="fa fa-spinner fa-spin"></i></div></div>
+      </div>
+    </div>
+
 <button id="installBtn" onclick="installApp()"><i class="fa fa-download"></i> Install App on Phone</button>
+
+<!-- SALARY EDIT MODAL -->
+<div id="salaryModal" class="movl"><div class="modal">
+  <div class="mhd"><h3><i class="fa fa-gear" style="color:var(--P)"></i> Set Salary</h3><button class="mcls" onclick="cModal('salaryModal')">✕</button></div>
+  <div style="background:var(--PL);border-radius:var(--rs);padding:10px;font-size:.82rem;color:var(--P);margin-bottom:14px">
+    <b id="salStaffName">Staff Name</b> — <span id="salStaffRole"></span>
+  </div>
+  <input type="hidden" id="salStaffUid"/>
+  <div class="fg"><label class="fl">Basic Salary (₦)</label><input id="salBasic" class="fi" type="number" placeholder="e.g. 80000"/></div>
+  <div class="fg"><label class="fl">Housing Allowance (₦)</label><input id="salHousing" class="fi" type="number" placeholder="e.g. 10000"/></div>
+  <div class="fg"><label class="fl">Transport Allowance (₦)</label><input id="salTransport" class="fi" type="number" placeholder="e.g. 5000"/></div>
+  <div class="fg"><label class="fl">Other Allowances (₦)</label><input id="salOther" class="fi" type="number" placeholder="e.g. 0"/></div>
+  <div class="fg"><label class="fl">Tax Deduction (%)</label><input id="salTax" class="fi" type="number" placeholder="e.g. 5"/></div>
+  <div class="fg"><label class="fl">Other Deductions (₦)</label><input id="salDeduct" class="fi" type="number" placeholder="e.g. 0"/></div>
+  <button class="btnP" onclick="saveSalary()"><i class="fa fa-save"></i> Save Salary Settings</button>
+</div></div>
+
+<!-- PAYSLIP MODAL -->
+<div id="payslipModal" class="movl"><div class="modal">
+  <div class="mhd"><h3><i class="fa fa-file-invoice" style="color:var(--P)"></i> Payslip</h3><button class="mcls" onclick="cModal('payslipModal')">✕</button></div>
+  <div id="payslipContent"></div>
+  <button class="btnP mt8" onclick="printPayslip()"><i class="fa fa-print"></i> Print Payslip</button>
+</div></div>
+
+<!-- STAFF DETAIL MODAL (Super Admin) -->
+<div id="staffDetailModal" class="movl"><div class="modal">
+  <div class="mhd"><h3><i class="fa fa-user-gear" style="color:var(--P)"></i> Manage Staff</h3><button class="mcls" onclick="cModal('staffDetailModal')">✕</button></div>
+  <div id="staffDetailContent"></div>
+</div></div>
+
 <div id="toasts"></div>
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -536,20 +656,22 @@ window.doLogout=async()=>{await signOut(auth);toast("Logged out","ok");};
 
 // ── STRICT ROLE PERMISSIONS ────────────────────────────────────────────────
 const ROLE_MODULES={
-  "Admin":          ["dashboard","patients","appointments","lab","pharmacy","billing","messages","profile","admin"],
-  "Doctor":         ["dashboard","patients","appointments","messages","profile"],
-  "Nurse":          ["dashboard","patients","appointments","messages","profile"],
-  "Receptionist":   ["dashboard","patients","appointments","billing","messages","profile"],
-  "Lab Technician": ["dashboard","lab","patients","messages","profile"],
-  "Pharmacist":     ["dashboard","pharmacy","patients","messages","profile"]
+  "Admin":          ["dashboard","patients","appointments","lab","pharmacy","billing","messages","profile","admin","attendance"],
+  "Doctor":         ["dashboard","patients","appointments","messages","profile","attendance"],
+  "Nurse":          ["dashboard","patients","appointments","messages","profile","attendance"],
+  "Receptionist":   ["dashboard","patients","appointments","billing","messages","profile","attendance"],
+  "Lab Technician": ["dashboard","lab","patients","messages","profile","attendance"],
+  "Pharmacist":     ["dashboard","pharmacy","patients","messages","profile","attendance"],
+  "Accountant":     ["dashboard","accountant","messages","profile","attendance"]
 };
 const ROLE_ACTIONS={
-  "Admin":          ["register","dispense","uploadLab","manageStock","viewPatient","book","bill","addRecord","viewRecord"],
+  "Admin":          ["register","dispense","uploadLab","manageStock","viewPatient","book","bill","addRecord","viewRecord","managePayroll","viewAllAttendance","superAdmin"],
   "Doctor":         ["viewPatient","addRecord","viewRecord","book"],
   "Nurse":          ["register","viewPatient","addRecord","viewRecord","book"],
   "Receptionist":   ["register","viewPatient","book","bill","viewRecord"],
   "Lab Technician": ["uploadLab","viewPatient","viewRecord"],
-  "Pharmacist":     ["dispense","manageStock","viewPatient","viewRecord"]
+  "Pharmacist":     ["dispense","manageStock","viewPatient","viewRecord"],
+  "Accountant":     ["managePayroll","viewAllAttendance","viewRecord"]
 };
 function canDo(action){return(ROLE_ACTIONS[SP.role]||[]).includes(action);}
 
@@ -1058,7 +1180,7 @@ window.genBill=async()=>{
   await addDoc(collection(db,"bills"),bd);toast("Bill: "+rNo,"ok");
   BI=[];renderBI();ge("bPid").value="";printR(bd);cModal("billModal");loadBills();
 };
-function printR(b){const w=window.open("","_blank","width=420,height=600");w.document.write(`<!DOCTYPE html><html><head><title>Receipt</title><style>*{box-sizing:border-box}body{font-family:Arial;padding:24px;max-width:340px;margin:auto}h2{text-align:center;color:#0057b8}.row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed #ddd;font-size:14px}.tot{font-weight:700;display:flex;justify-content:space-between;margin-top:8px}.info{font-size:13px;margin:4px 0}hr{border:none;border-top:2px solid #0057b8;margin:12px 0}.footer{text-align:center;margin-top:20px;font-size:12px;color:#999}</style></head><body><h2>Goodness Hospital</h2><hr/><p class="info"><b>Receipt:</b> ${b.receiptNo}</p><p class="info"><b>Patient:</b> ${b.patientId}</p><p class="info"><b>Date:</b> ${b.date}</p><p class="info"><b>Payment:</b> ${b.method} - ${b.status}</p><hr/>${b.items.map(i=>`<div class="row"><span>${i.desc}</span><span>N${i.amount.toLocaleString()}</span></div>`).join("")}<div class="tot"><span>TOTAL</span><span>N${b.total.toLocaleString()}</span></div><div class="footer">Thank you - Goodness Hospital</div></body></html>`);w.document.close();}
+function printR(b){const w=window.open("","_blank","width=420,height=600");w.document.write(`<!DOCTYPE html><html><head><title>Receipt</title><style>*{box-sizing:border-box}body{font-family:Arial;padding:24px;max-width:340px;margin:auto}h2{text-align:center;color:#0057b8}.row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed #ddd;font-size:14px}.tot{font-weight:700;display:flex;justify-content:space-between;margin-top:8px}.info{font-size:13px;margin:4px 0}hr{border:none;border-top:2px solid #0057b8;margin:12px 0}.footer{text-align:center;margin-top:20px;font-size:12px;color:#999}</style></head><body><h2>Goodness Hospital</h2><hr/><p class="info"><b>Receipt:</b> ${b.receiptNo}</p><p class="info"><b>Patient:</b> ${b.patientId}</p><p class="info"><b>Date:</b> ${b.date}</p><p class="info"><b>Payment:</b> ${b.method} - ${b.status}</p><hr/>${b.items.map(i=>`<div class="row"><span>${i.desc}</span><span>N${i.amount.toLocaleString()}</span></div>`).join("")}<div class="tot"><span>TOTAL</span><span>N${b.total.toLocaleString()}</span></div><div class="footer">Thank you - God's Way Hospital</div></body></html>`);w.document.close();}
 window.loadBills=async()=>{const el=ge("billBody");if(!el)return;const s=await getDocs(query(collection(db,"bills"),orderBy("createdAt","desc"),limit(60)));if(s.empty){el.innerHTML='<tr><td colspan="6" class="cr">No bills</td></tr>';return;}el.innerHTML=s.docs.map(d=>{const b=d.data();return`<tr><td><span class="pid">${b.receiptNo}</span></td><td>${b.patientId}</td><td>₦${b.total.toLocaleString()}</td><td>${b.method}</td><td><span class="badge st-${b.status.toLowerCase().replace(/\s/g,"-")}">${b.status}</span></td><td>${b.date}</td></tr>`;}).join("");};
 
 // ─── ADMIN ─────────────────────────────────────────────────────────────────
@@ -1269,6 +1391,519 @@ window.markAllRead = async() => {
   snap.docs.forEach(d => batch.push(updateDoc(doc(db,"notifications",d.id),{read:true})));
   await Promise.all(batch);
 };
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SUPER ADMIN & STAFF MANAGEMENT
+// ═══════════════════════════════════════════════════════════════════════════
+function isSuperAdmin(){
+  return CU&&(ADMIN_EMAILS.includes((CU.email||"").toLowerCase())||SP.role==="Admin");
+}
+
+// Enhanced initApp — show accountant nav + attendance
+const _origInitApp = window._origInitApp;
+// Patch after initApp runs: show acctNav if Accountant
+function postInitSetup(){
+  if(SP.role==="Accountant"){
+    const n=ge("acctNav"); if(n) n.style.display="flex";
+  }
+  // Populate month dropdowns
+  populateMonthDropdowns();
+  // Start live clock
+  startLiveClock();
+  // Check today's attendance
+  checkTodayAttendance();
+}
+
+// Override showMod to call postInitSetup once
+const _origShowMod = window.showMod;
+window.showMod = function(mod){
+  _origShowMod(mod);
+  if(mod==="attendance") { checkTodayAttendance(); loadMyAttendance(); }
+  if(mod==="accountant") { loadAccountantStats(); showAcctTab("payroll"); loadSalarySettings(); populatePayrollMonths(); }
+  if(mod==="profile")    { loadProf(); loadMyPayslip(); }
+};
+
+// ── Enhanced loadStaff for Super Admin ──────────────────────────────────────
+window.loadStaff = async()=>{
+  const el=ge("staffBody"); if(!el) return;
+  el.innerHTML='<tr><td colspan="5" class="cr"><i class="fa fa-spinner fa-spin"></i></td></tr>';
+  const s=await getDocs(collection(db,"staff"));
+  if(s.empty){el.innerHTML='<tr><td colspan="5" class="cr">No staff</td></tr>';return;}
+  el.innerHTML=s.docs.map(d=>{
+    const r=d.data();
+    const isSA = isSuperAdmin();
+    return`<tr>
+      <td>${r.name}</td>
+      <td style="font-size:.78rem">${r.email}</td>
+      <td><span class="badge role-${r.role.toLowerCase().replace(/\s/g,"-")}">${r.role}</span></td>
+      <td>${r.dept||"—"}</td>
+      <td>
+        <span class="badge ${r.active?"bg-ok":"bg-no"}">${r.active?"Active":"Inactive"}</span>
+        ${isSA?`<button class="btn-ic" onclick="openStaffDetail('${d.id}')" title="Manage"><i class="fa fa-pen-to-square"></i></button>
+        <button class="btn-ic danger" onclick="deleteStaff('${d.id}','${r.name}')" title="Remove"><i class="fa fa-trash"></i></button>`:""}
+      </td>
+    </tr>`;
+  }).join("");
+};
+
+window.openStaffDetail = async(uid)=>{
+  const s=await getDoc(doc(db,"staff",uid));
+  const r=s.data();
+  ge("staffDetailContent").innerHTML=`
+    <div class="dgrid">
+      <div class="di"><span>Name</span><strong>${r.name}</strong></div>
+      <div class="di"><span>Email</span><strong>${r.email}</strong></div>
+      <div class="di"><span>Role</span><strong>${r.role}</strong></div>
+      <div class="di"><span>Dept</span><strong>${r.dept||"—"}</strong></div>
+    </div>
+    <div class="fg"><label class="fl">Change Role</label>
+      <select id="editRole" class="fsel">
+        <option ${r.role==="Admin"?"selected":""}>Admin</option>
+        <option ${r.role==="Doctor"?"selected":""}>Doctor</option>
+        <option ${r.role==="Nurse"?"selected":""}>Nurse</option>
+        <option ${r.role==="Receptionist"?"selected":""}>Receptionist</option>
+        <option ${r.role==="Lab Technician"?"selected":""}>Lab Technician</option>
+        <option ${r.role==="Pharmacist"?"selected":""}>Pharmacist</option>
+        <option ${r.role==="Accountant"?"selected":""}>Accountant</option>
+      </select>
+    </div>
+    <div class="fg"><label class="fl">Department</label>
+      <input id="editDept" class="fi" value="${r.dept||""}"/>
+    </div>
+    <div class="fg"><label class="fl">Status</label>
+      <select id="editActive" class="fsel">
+        <option value="true" ${r.active?"selected":""}>Active</option>
+        <option value="false" ${!r.active?"selected":""}>Inactive</option>
+      </select>
+    </div>
+    <button class="btnP" onclick="saveStaffEdit('${uid}')"><i class="fa fa-save"></i> Save Changes</button>
+    <button class="btnA mt8" onclick="deleteStaff('${uid}','${r.name}');cModal('staffDetailModal')"><i class="fa fa-trash"></i> Remove Staff</button>`;
+  openModal("staffDetailModal");
+};
+
+window.saveStaffEdit=async(uid)=>{
+  if(!isSuperAdmin()){toast("⛔ Super Admin only","err");return;}
+  const role=gv("editRole"),dept=gv("editDept"),active=ge("editActive").value==="true";
+  await updateDoc(doc(db,"staff",uid),{role,dept,active});
+  toast("Staff updated!","ok"); cModal("staffDetailModal"); loadStaff();
+};
+
+window.deleteStaff=async(uid,name)=>{
+  if(!isSuperAdmin()){toast("⛔ Super Admin only","err");return;}
+  if(!confirm(`Remove ${name} from the system? This cannot be undone.`))return;
+  await updateDoc(doc(db,"staff",uid),{active:false,deletedAt:serverTimestamp(),deletedBy:SP.name});
+  toast(`${name} removed from system`,"ok"); loadStaff();
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// ATTENDANCE SYSTEM
+// ═══════════════════════════════════════════════════════════════════════════
+let clockInterval=null;
+function startLiveClock(){
+  if(clockInterval)clearInterval(clockInterval);
+  clockInterval=setInterval(()=>{
+    const now=new Date();
+    const t=now.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+    const d=now.toLocaleDateString("en-GB",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
+    sv("liveTime",t); sv("liveDate",d);
+  },1000);
+}
+
+async function checkTodayAttendance(){
+  const todayStr=today();
+  const snap=await getDocs(query(collection(db,"attendance"),
+    where("staffUid","==",CU.uid),where("date","==",todayStr)));
+  const ci=ge("btnClockIn"),co=ge("btnClockOut"),cs=ge("clockStatus");
+  if(snap.empty){
+    if(ci)ci.style.display="inline-block";
+    if(co)co.style.display="none";
+    if(cs)cs.textContent="Not clocked in today";
+  } else {
+    const att=snap.docs[0].data();
+    if(att.clockOut){
+      if(ci)ci.style.display="none";
+      if(co)co.style.display="none";
+      if(cs)cs.textContent=`✅ Completed — In: ${att.clockIn} | Out: ${att.clockOut} | ${att.hoursWorked}h worked`;
+    } else {
+      if(ci)ci.style.display="none";
+      if(co)co.style.display="inline-block";
+      if(cs)cs.textContent=`🟢 Clocked in at ${att.clockIn} — tap Clock Out when done`;
+    }
+  }
+}
+
+function getAttStatus(clockInTime){
+  // Workday starts at 08:00 — Late if after 08:15
+  const [h,m]=clockInTime.split(":").map(Number);
+  const mins=h*60+m;
+  if(mins<=8*60+15) return "Present";
+  if(mins<=9*60)    return "Late";
+  return "Late";
+}
+
+async function getGPS(){
+  return new Promise((resolve)=>{
+    if(!navigator.geolocation){resolve({lat:"N/A",lng:"N/A"});return;}
+    navigator.geolocation.getCurrentPosition(
+      p=>resolve({lat:p.coords.latitude.toFixed(6),lng:p.coords.longitude.toFixed(6)}),
+      ()=>resolve({lat:"Unavailable",lng:"Unavailable"}),
+      {timeout:8000}
+    );
+  });
+}
+
+window.clockIn=async()=>{
+  const todayStr=today();
+  const snap=await getDocs(query(collection(db,"attendance"),
+    where("staffUid","==",CU.uid),where("date","==",todayStr)));
+  if(!snap.empty){toast("You already clocked in today","err");return;}
+  const now=new Date();
+  const clockInTime=now.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});
+  const status=getAttStatus(clockInTime);
+  const gps=await getGPS();
+  await addDoc(collection(db,"attendance"),{
+    staffUid:CU.uid, staffName:SP.name, staffRole:SP.role,
+    date:todayStr, clockIn:clockInTime, clockOut:null,
+    hoursWorked:null, status,
+    gpsIn:{lat:gps.lat,lng:gps.lng},
+    createdAt:serverTimestamp()
+  });
+  toast(`✅ Clocked in at ${clockInTime} — Status: ${status}`,"ok");
+  checkTodayAttendance();
+  loadMyAttendance();
+};
+
+window.clockOut=async()=>{
+  const todayStr=today();
+  const snap=await getDocs(query(collection(db,"attendance"),
+    where("staffUid","==",CU.uid),where("date","==",todayStr)));
+  if(snap.empty){toast("No clock-in record found for today","err");return;}
+  const attDoc=snap.docs[0];
+  const att=attDoc.data();
+  if(att.clockOut){toast("Already clocked out today","err");return;}
+  const now=new Date();
+  const clockOutTime=now.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});
+  // Calculate hours worked
+  const [inH,inM]=att.clockIn.split(":").map(Number);
+  const [outH,outM]=clockOutTime.split(":").map(Number);
+  const hoursWorked=((outH*60+outM)-(inH*60+inM))/60;
+  const gps=await getGPS();
+  await updateDoc(doc(db,"attendance",attDoc.id),{
+    clockOut:clockOutTime,
+    hoursWorked:hoursWorked.toFixed(1),
+    gpsOut:{lat:gps.lat,lng:gps.lng},
+    updatedAt:serverTimestamp()
+  });
+  toast(`✅ Clocked out at ${clockOutTime} — ${hoursWorked.toFixed(1)}h worked`,"ok");
+  checkTodayAttendance();
+  loadMyAttendance();
+};
+
+window.loadMyAttendance=async()=>{
+  const el=ge("myAttList");if(!el)return;
+  el.innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
+  const snap=await getDocs(query(collection(db,"attendance"),where("staffUid","==",CU.uid)));
+  const docs=[...snap.docs].sort((a,b)=>b.data().date.localeCompare(a.data().date)).slice(0,30);
+  if(!docs.length){el.innerHTML='<div class="en">No attendance records yet</div>';return;}
+  el.innerHTML=docs.map(d=>{
+    const r=d.data();
+    return`<div class="att-row">
+      <div style="flex:1">
+        <div style="font-weight:600;font-size:.87rem">${r.date}</div>
+        <div style="font-size:.78rem;color:var(--mu)">In: ${r.clockIn||"—"} | Out: ${r.clockOut||"Not yet"} | ${r.hoursWorked?r.hoursWorked+"h":""}</div>
+        ${r.gpsIn&&r.gpsIn.lat!=="N/A"?`<div style="font-size:.7rem;color:var(--mu)"><i class="fa fa-location-dot"></i> ${r.gpsIn.lat}, ${r.gpsIn.lng}</div>`:""}
+      </div>
+      <span class="att-status att-${(r.status||"present").toLowerCase()}">${r.status||"Present"}</span>
+    </div>`;
+  }).join("");
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PAYROLL & SALARY SYSTEM
+// ═══════════════════════════════════════════════════════════════════════════
+function populateMonthDropdowns(){
+  const now=new Date();
+  const months=[];
+  for(let i=0;i<12;i++){
+    const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    const val=d.toISOString().slice(0,7);
+    const lbl=d.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
+    months.push({val,lbl});
+  }
+  ["payrollMonth","allAttMonth","myPayslipMonth"].forEach(id=>{
+    const el=ge(id);if(!el)return;
+    el.innerHTML=months.map((m,i)=>`<option value="${m.val}"${i===0?" selected":""}>${m.lbl}</option>`).join("");
+  });
+}
+
+async function loadAccountantStats(){
+  const[ss,ps]=await Promise.all([getDocs(collection(db,"staff")),getDocs(collection(db,"payroll"))]);
+  sv("acTotalStaff",ss.size);
+  const month=ge("payrollMonth")?(ge("payrollMonth").value||new Date().toISOString().slice(0,7)):new Date().toISOString().slice(0,7);
+  const monthPayslips=ps.docs.filter(d=>d.data().month===month);
+  const total=monthPayslips.reduce((a,d)=>a+d.data().netPay,0);
+  sv("acTotalPayroll","₦"+total.toLocaleString());
+  sv("acPayslips",monthPayslips.length);
+  // Attendance rate this month
+  const attSnap=await getDocs(collection(db,"attendance"));
+  const thisMonth=new Date().toISOString().slice(0,7);
+  const monthAtt=attSnap.docs.filter(d=>d.data().date&&d.data().date.startsWith(thisMonth));
+  const present=monthAtt.filter(d=>d.data().status==="Present"||d.data().status==="Late").length;
+  sv("acAttRate",monthAtt.length?Math.round(present/monthAtt.length*100)+"%":"—");
+}
+
+window.showAcctTab=tab=>{
+  ["acctPayroll","acctSalary","acctAttendance"].forEach(id=>{
+    const el=ge(id);if(el)el.style.display="none";
+  });
+  const t={payroll:"acctPayroll",salary:"acctSalary",attendance:"acctAttendance"}[tab];
+  const el=ge(t);if(el)el.style.display="block";
+  if(tab==="salary") loadSalarySettings();
+  if(tab==="attendance") loadAllAttendance();
+};
+
+window.populatePayrollMonths=()=>{
+  const el=ge("payrollMonth");if(!el)return;
+  const now=new Date();
+  const months=[];
+  for(let i=0;i<12;i++){
+    const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    const val=d.toISOString().slice(0,7);
+    const lbl=d.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
+    months.push({val,lbl});
+  }
+  el.innerHTML=months.map((m,i)=>`<option value="${m.val}"${i===0?" selected":""}>${m.lbl}</option>`).join("");
+};
+
+window.loadSalarySettings=async()=>{
+  const el=ge("salarySettingsList");if(!el)return;
+  el.innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
+  const snap=await getDocs(collection(db,"staff"));
+  if(snap.empty){el.innerHTML='<div class="en">No staff found</div>';return;}
+  el.innerHTML=snap.docs.map(d=>{
+    const r=d.data();
+    return`<div class="icard">
+      <div class="crow">
+        <span><b>${r.name}</b> <span class="badge role-${r.role.toLowerCase().replace(/\s/g,"-")}">${r.role}</span></span>
+        <button class="bsm outline" style="padding:5px 10px;font-size:.78rem" onclick="openSalaryModal('${d.id}','${r.name}','${r.role}')"><i class="fa fa-gear"></i> Set Salary</button>
+      </div>
+    </div>`;
+  }).join("");
+};
+
+window.openSalaryModal=async(uid,name,role)=>{
+  ge("salStaffName").textContent=name;
+  ge("salStaffRole").textContent=role;
+  ge("salStaffUid").value=uid;
+  // Load existing salary
+  const snap=await getDocs(query(collection(db,"salarySettings"),where("staffUid","==",uid)));
+  if(!snap.empty){
+    const s=snap.docs[0].data();
+    ge("salBasic").value=s.basic||0;
+    ge("salHousing").value=s.housing||0;
+    ge("salTransport").value=s.transport||0;
+    ge("salOther").value=s.otherAllowance||0;
+    ge("salTax").value=s.taxPct||0;
+    ge("salDeduct").value=s.otherDeduction||0;
+  } else {
+    ["salBasic","salHousing","salTransport","salOther","salTax","salDeduct"].forEach(id=>ge(id).value="");
+  }
+  openModal("salaryModal");
+};
+
+window.saveSalary=async()=>{
+  const uid=gv("salStaffUid");
+  if(!uid){toast("No staff selected","err");return;}
+  const data={
+    staffUid:uid,
+    basic:parseFloat(gv("salBasic"))||0,
+    housing:parseFloat(gv("salHousing"))||0,
+    transport:parseFloat(gv("salTransport"))||0,
+    otherAllowance:parseFloat(gv("salOther"))||0,
+    taxPct:parseFloat(gv("salTax"))||0,
+    otherDeduction:parseFloat(gv("salDeduct"))||0,
+    updatedBy:SP.name, updatedAt:serverTimestamp()
+  };
+  const snap=await getDocs(query(collection(db,"salarySettings"),where("staffUid","==",uid)));
+  if(snap.empty) await addDoc(collection(db,"salarySettings"),data);
+  else await updateDoc(doc(db,"salarySettings",snap.docs[0].id),data);
+  toast("Salary settings saved!","ok");
+  cModal("salaryModal");
+};
+
+window.genPayroll=async()=>{
+  const month=gv("payrollMonth");
+  if(!month){toast("Select a month","err");return;}
+  const el=ge("payrollList");
+  el.innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i> Generating payroll…</div>';
+  // Get all staff
+  const staffSnap=await getDocs(collection(db,"staff"));
+  // Get attendance for this month
+  const attSnap=await getDocs(query(collection(db,"attendance"),where("date",">=",month+"-01"),where("date","<=",month+"-31")));
+  const attByStaff={};
+  attSnap.docs.forEach(d=>{
+    const r=d.data();
+    if(!attByStaff[r.staffUid]) attByStaff[r.staffUid]={present:0,late:0,absent:0,hours:0};
+    if(r.status==="Present") attByStaff[r.staffUid].present++;
+    else if(r.status==="Late") attByStaff[r.staffUid].late++;
+    attByStaff[r.staffUid].hours+=parseFloat(r.hoursWorked||0);
+  });
+  // Working days in month (approx 22)
+  const workDays=22;
+  const rows=[];
+  for(const sd of staffSnap.docs){
+    const st=sd.data();
+    const salSnap=await getDocs(query(collection(db,"salarySettings"),where("staffUid","==",sd.id)));
+    const sal=salSnap.empty?{basic:0,housing:0,transport:0,otherAllowance:0,taxPct:0,otherDeduction:0}:salSnap.docs[0].data();
+    const att=attByStaff[sd.id]||{present:0,late:0,hours:0};
+    // Calculate
+    const grossBasic=sal.basic||0;
+    const daysPresent=att.present+(att.late*0.9); // late = 90% day
+    const attendancePct=workDays>0?Math.min(daysPresent/workDays,1):1;
+    const earnedBasic=Math.round(grossBasic*attendancePct);
+    const allowances=(sal.housing||0)+(sal.transport||0)+(sal.otherAllowance||0);
+    const gross=earnedBasic+allowances;
+    const taxAmt=Math.round(gross*(sal.taxPct||0)/100);
+    const deductions=taxAmt+(sal.otherDeduction||0);
+    const netPay=Math.max(0,gross-deductions);
+    // Save payslip
+    const payslipData={
+      staffUid:sd.id, staffName:st.name, staffRole:st.role,
+      month, basic:grossBasic, earnedBasic, housing:sal.housing||0,
+      transport:sal.transport||0, otherAllowance:sal.otherAllowance||0,
+      gross, taxPct:sal.taxPct||0, taxAmt, otherDeduction:sal.otherDeduction||0,
+      deductions, netPay, daysWorked:Math.round(daysPresent),
+      hoursWorked:att.hours.toFixed(1), attendancePct:Math.round(attendancePct*100),
+      generatedBy:SP.name, generatedAt:serverTimestamp()
+    };
+    // Upsert payslip
+    const existing=await getDocs(query(collection(db,"payroll"),where("staffUid","==",sd.id),where("month","==",month)));
+    if(existing.empty) await addDoc(collection(db,"payroll"),payslipData);
+    else await updateDoc(doc(db,"payroll",existing.docs[0].id),payslipData);
+    rows.push({...payslipData, docId:existing.empty?null:existing.docs[0].id});
+  }
+  // Display
+  el.innerHTML=`<div style="overflow-x:auto"><table class="dtab">
+    <thead><tr><th>Staff</th><th>Role</th><th>Days</th><th>Gross</th><th>Deductions</th><th>Net Pay</th><th></th></tr></thead>
+    <tbody>${rows.map(r=>`<tr>
+      <td><b>${r.staffName}</b></td>
+      <td><span class="badge role-${r.staffRole.toLowerCase().replace(/\s/g,"-")}">${r.staffRole}</span></td>
+      <td>${r.daysWorked}/${workDays}</td>
+      <td>₦${r.gross.toLocaleString()}</td>
+      <td style="color:var(--D)">₦${r.deductions.toLocaleString()}</td>
+      <td style="color:var(--A);font-weight:700">₦${r.netPay.toLocaleString()}</td>
+      <td><button class="bsm outline" style="padding:4px 8px;font-size:.75rem" onclick="viewPayslip(${JSON.stringify(r).replace(/"/g,'&quot;')})"><i class="fa fa-eye"></i></button></td>
+    </tr>`).join("")}</tbody>
+  </table></div>
+  <div style="background:var(--PL);border-radius:var(--rs);padding:12px;margin-top:12px;display:flex;justify-content:space-between">
+    <span style="font-weight:600">Total Payroll</span>
+    <span style="font-weight:700;color:var(--P)">₦${rows.reduce((a,r)=>a+r.netPay,0).toLocaleString()}</span>
+  </div>`;
+  toast(`✅ Payroll generated for ${rows.length} staff`,"ok");
+  loadAccountantStats();
+};
+
+window.viewPayslip=async(data)=>{
+  // data can be object or we fetch from DB
+  let r = typeof data==="string"?JSON.parse(data):data;
+  renderPayslip(r);
+  openModal("payslipModal");
+};
+
+function renderPayslip(r){
+  const el=ge("payslipContent");
+  el.innerHTML=`<div class="payslip">
+    <div class="payslip-header">
+      <div><div style="font-size:.75rem;opacity:.8">God's Way Hospital</div><div style="font-weight:700">${r.staffName}</div></div>
+      <div style="text-align:right"><div style="font-size:.75rem;opacity:.8">${r.month}</div><div><span class="badge role-${(r.staffRole||"").toLowerCase().replace(/\s/g,"-")}">${r.staffRole}</span></div></div>
+    </div>
+    <div class="payslip-row"><span>Basic Salary</span><span>₦${(r.basic||0).toLocaleString()}</span></div>
+    <div class="payslip-row" style="color:var(--mu);font-size:.82rem"><span>  Attendance (${r.attendancePct||100}% — ${r.daysWorked} days)</span><span>₦${(r.earnedBasic||r.basic||0).toLocaleString()}</span></div>
+    <div class="payslip-row"><span>Housing Allowance</span><span>₦${(r.housing||0).toLocaleString()}</span></div>
+    <div class="payslip-row"><span>Transport Allowance</span><span>₦${(r.transport||0).toLocaleString()}</span></div>
+    <div class="payslip-row"><span>Other Allowances</span><span>₦${(r.otherAllowance||0).toLocaleString()}</span></div>
+    <div class="payslip-row" style="font-weight:600"><span>Gross Pay</span><span>₦${(r.gross||0).toLocaleString()}</span></div>
+    <hr style="border:none;border-top:1px dashed var(--brd);margin:8px 0"/>
+    <div class="payslip-row" style="color:var(--D)"><span>Tax (${r.taxPct||0}%)</span><span>-₦${(r.taxAmt||0).toLocaleString()}</span></div>
+    <div class="payslip-row" style="color:var(--D)"><span>Other Deductions</span><span>-₦${(r.otherDeduction||0).toLocaleString()}</span></div>
+    <div class="payslip-total"><span>NET PAY</span><span>₦${(r.netPay||0).toLocaleString()}</span></div>
+    <div style="margin-top:12px;font-size:.75rem;color:var(--mu);text-align:center">Hours Worked: ${r.hoursWorked||0}h · Generated by ${r.generatedBy||"System"}</div>
+  </div>`;
+  // Store for printing
+  window._currentPayslip = r;
+}
+
+window.printPayslip=()=>{
+  const r=window._currentPayslip;if(!r)return;
+  const w=window.open("","_blank","width=400,height=600");
+  w.document.write(`<!DOCTYPE html><html><head><title>Payslip</title><style>body{font-family:Arial;padding:20px;max-width:360px;margin:auto}.hdr{background:#0057b8;color:#fff;padding:14px;border-radius:6px 6px 0 0;display:flex;justify-content:space-between;margin-bottom:14px}.row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed #ddd;font-size:13px}.tot{display:flex;justify-content:space-between;font-weight:700;font-size:1.1rem;padding:10px 0;color:#0057b8}h2{text-align:center;color:#0057b8}.footer{text-align:center;font-size:11px;color:#999;margin-top:14px}</style></head><body>
+  <h2>🏥 God's Way Hospital</h2>
+  <div class="hdr"><div><div style="font-size:11px;opacity:.8">PAYSLIP</div><b>${r.staffName}</b></div><div style="text-align:right"><div style="font-size:11px;opacity:.8">${r.month}</div><div>${r.staffRole}</div></div></div>
+  <div class="row"><span>Basic Salary</span><span>₦${(r.basic||0).toLocaleString()}</span></div>
+  <div class="row"><span>Attendance (${r.attendancePct||100}%)</span><span>₦${(r.earnedBasic||r.basic||0).toLocaleString()}</span></div>
+  <div class="row"><span>Housing Allowance</span><span>₦${(r.housing||0).toLocaleString()}</span></div>
+  <div class="row"><span>Transport Allowance</span><span>₦${(r.transport||0).toLocaleString()}</span></div>
+  <div class="row"><span>Other Allowances</span><span>₦${(r.otherAllowance||0).toLocaleString()}</span></div>
+  <div class="row"><b>Gross Pay</b><b>₦${(r.gross||0).toLocaleString()}</b></div>
+  <div class="row" style="color:red"><span>Tax (${r.taxPct||0}%)</span><span>-₦${(r.taxAmt||0).toLocaleString()}</span></div>
+  <div class="row" style="color:red"><span>Deductions</span><span>-₦${(r.otherDeduction||0).toLocaleString()}</span></div>
+  <div class="tot"><span>NET PAY</span><span>₦${(r.netPay||0).toLocaleString()}</span></div>
+  <div class="footer">God's Way Hospital Management Software<br>Hours: ${r.hoursWorked||0}h worked</div>
+  <script>setTimeout(()=>window.print(),300);<\/script></body></html>`);
+  w.document.close();
+};
+
+window.loadMyPayslip=async()=>{
+  const el=ge("myPayslipContent");if(!el)return;
+  const monthEl=ge("myPayslipMonth");
+  const month=monthEl?monthEl.value:new Date().toISOString().slice(0,7);
+  el.innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
+  const snap=await getDocs(query(collection(db,"payroll"),
+    where("staffUid","==",CU.uid),where("month","==",month)));
+  if(snap.empty){
+    el.innerHTML='<div class="en">No payslip for this month yet.<br><small>Contact your Accountant to generate payroll.</small></div>';
+    return;
+  }
+  renderPayslip(snap.docs[0].data());
+  el.innerHTML=ge("payslipContent").innerHTML+
+    `<button class="bsm outline mt8" onclick="window._currentPayslip=${JSON.stringify(snap.docs[0].data()).replace(/"/g,"'")};printPayslip()"><i class="fa fa-print"></i> Print</button>`;
+};
+
+window.loadAllAttendance=async()=>{
+  const el=ge("allAttList");if(!el)return;
+  const monthEl=ge("allAttMonth");
+  const month=monthEl?monthEl.value:new Date().toISOString().slice(0,7);
+  el.innerHTML='<div class="cr"><i class="fa fa-spinner fa-spin"></i></div>';
+  const snap=await getDocs(collection(db,"attendance"));
+  const docs=[...snap.docs].filter(d=>d.data().date&&d.data().date.startsWith(month))
+    .sort((a,b)=>b.data().date.localeCompare(a.data().date));
+  if(!docs.length){el.innerHTML='<div class="en">No attendance for this month</div>';return;}
+  // Group by staff
+  const byStaff={};
+  docs.forEach(d=>{
+    const r=d.data();
+    if(!byStaff[r.staffName]) byStaff[r.staffName]={name:r.staffName,role:r.staffRole,present:0,late:0,records:[]};
+    if(r.status==="Present")byStaff[r.staffName].present++;
+    if(r.status==="Late")byStaff[r.staffName].late++;
+    byStaff[r.staffName].records.push(r);
+  });
+  el.innerHTML=Object.values(byStaff).map(s=>`
+    <div class="icard">
+      <div class="crow"><span><b>${s.name}</b> <span class="badge role-${(s.role||"").toLowerCase().replace(/\s/g,"-")}">${s.role}</span></span>
+        <span><span class="att-status att-present">${s.present}P</span> <span class="att-status att-late">${s.late}L</span></span>
+      </div>
+      ${s.records.slice(0,3).map(r=>`<div style="font-size:.78rem;color:var(--mu)">${r.date}: In ${r.clockIn||"—"} | Out ${r.clockOut||"—"} | ${r.hoursWorked||0}h</div>`).join("")}
+      ${s.records.length>3?`<div style="font-size:.75rem;color:var(--P)">+${s.records.length-3} more days</div>`:""}
+    </div>`).join("");
+};
+
+// Hook postInitSetup into initApp — run after existing initApp
+const _origInitAppFn = window.initApp;
+window.addEventListener("DOMContentLoaded",()=>{
+  // Slight delay to ensure SP is loaded
+  setTimeout(postInitSetup, 500);
+});
 
 // ─── TOAST ─────────────────────────────────────────────────────────────────
 window.toast=(msg,type="ok")=>{const t=document.createElement("div");t.className=`toast t-${type}`;t.innerHTML=`<i class="fa fa-${type==="ok"?"check-circle":"exclamation-circle"}"></i> ${msg}`;ge("toasts").appendChild(t);setTimeout(()=>t.classList.add("show"),10);setTimeout(()=>{t.classList.remove("show");setTimeout(()=>t.remove(),300);},3500);};
